@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.sephora.shopping.dao.ShoppingDao">
+	<sql id="select_column">
+		`USER_ID`,`PRODUCT_ID`,`PAY_COUNT`,`SUM_PRICE`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE` 
+	</sql>
+	<sql id="select_base">
+		SELECT ROW_ID,<include refid="select_column"></include>,UPDATE_BY,UPDATE_DATE
+		FROM TB_SHOPPING WHERE ACTIVE_FLAG=1 
+	</sql>
+	<insert id="save" parameterType="shopping" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT TB_SHOPPING <include refid="select_column"></include> 
+		VALUES (#{userId},#{productId},#{payCount},#{sumPrice},#{activeFlag},#{createBy},#{createDate});
+	</insert>
+	<select id="get" parameterType="shopping" resultType="shopping">
+		<include refid="select_base"></include>
+		<if test="rowId!=null">
+			AND ROW_ID=#{rowId}
+		</if>
+	</select>
+	
+	<select id="find" parameterType="shopping" resultType="shopping">
+		<include refid="select_base"></include>
+	</select>
+	
+	<update id="update" parameterType="shopping">
+		UPDATE TB_SHOPPING 
+		<set>
+			<if test="productId!=null">
+				PRODUCT_ID=#{productId},
+			</if>
+			<if test="payCount!=null">
+				PAY_COUNT=#{payCount},
+			</if>
+			<if test="sumPrice!=null">
+				SUM_PRICE=#{sumPrice},
+			</if>
+			<if test="active_flag!=null">
+				ACTIVE_FLAG=#{active_flag},
+			</if>
+			<if test="updateBy!=null">
+				UPDATE_BY=#{updateBy},
+			</if>
+			<if test="updateDate!=null">
+				UPDATE_DATE=#{updateDate},
+			</if>
+		</set>
+	</update>
+	
+	<delete id="del">
+		DELETE FROM TB_SHOPPING WHERE ROW_ID=#{rowId}
+	</delete>
+</mapper>

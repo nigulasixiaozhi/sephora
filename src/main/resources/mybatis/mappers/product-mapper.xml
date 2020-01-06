@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.sephora.product.dao.ProductDao">
+	<sql id="SELECT_BASE">
+		SELECT
+		`ROW_ID`,`CATEGORY_ID`,`LIST_NAME`,`PRODUCT_NAME`,`BRAND_NAME`,`IMG_PATH`,`PRODUCT_PRICE`,`INVENTORY`,`GO_OUT_FLAG`,`PRODUCT_INFO`,`ACTIVE_FLAG`
+		FROM view_product_category WHERE ACTIVE_FLAG=1
+	</sql>
+
+	<insert id="save" parameterType="product"
+		useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO
+		TB_PRODUCT
+		(`CATEGORY_ID`,`PRODUCT_NAME`,`BRAND_NAME`,`IMG_PATH`,`PRODUCT_PRICE`,`INVENTORY`,`GO_OUT_FLAG`,`PRODUCT_INFO`,`ACTIVE_FLAG`,
+		`CREATE_BY`,`CREATE_DATE`)
+		VALUES
+		(#{categoryId},#{productName},#{brandName},#{imgPath},#{productPrice},#{inventory},#{goOutFlag},#{productInfo},#{activeFlag},#{createBy},#{createDate});
+	</insert>
+
+	<select id="find" parameterType="product" resultType="product">
+		<include refid="SELECT_BASE"></include>
+		<if test="rowId!=null">
+			AND ROW_ID=#{rowId}
+		</if>
+		<if test="categoryId!=null">
+			AND CATEGORY_ID=#{categoryId}
+		</if>
+		<if test="productName!=null">
+			AND PRODUCT_NAME=#{productName}
+		</if>
+		<if test="brandName!=null">
+			AND BRAND_NAME=#{brandName}
+		</if>
+		<if test="goOutFlag!=null">
+			AND GO_OUT_FLAG=#{goOutFlag}
+		</if>
+	</select>
+
+	<select id="getByProduct" parameterType="product"
+		resultType="product">
+		<include refid="SELECT_BASE"></include>
+		<if test="rowId!=null">
+			AND ROW_ID=#{rowId}
+		</if>
+		<if test="categoryId!=null">
+			AND CATEGORY_ID=#{categoryId}
+		</if>
+	</select>
+
+	<select id="getByRowId" resultType="product">
+		<include refid="SELECT_BASE"></include>
+		AND ROW_ID=#{rowId}
+	</select>
+
+	<update id="update" parameterType="product">
+		UPDATE TB_PRODUCT
+		<set>
+			<if test="categoryId!=null">
+				CATEGORY_ID=#{categoryId},
+			</if>
+			<if test="productName!=null">
+				PRODUCT_NAME=#{productName},
+			</if>
+			<if test="brandName!=null">
+				BRAND_NAME=#{brandName},
+			</if>
+			<if test="productPrice!=null">
+				PRODUCT_PRICE=#{productPrice},
+			</if>
+			<if test="inventory!=null">
+				INVENTORY=#{inventory},
+			</if>
+			<if test="goOutFlag!=null">
+				GO_OUT_FLAG=#{goOutFlag},
+			</if>
+			<if test="productInfo!=null">
+				PRODUCT_INFO=#{productInfo},
+			</if>
+			<if test="imgPath!=null">
+				IMG_PATH=#{imgPath},
+			</if>
+			<if test="updateBy!=null">
+				UPDATE_BY=#{updateBy},
+			</if>
+			<if test="updateDate!=null">
+				UPDATE_DATE=#{updateDate},
+			</if>
+		</set>
+		WHERE ROW_ID=#{rowId}
+	</update>
+
+	<delete id="del">
+		DELETE FROM TB_PRODUCT WHERE ROW_ID=#{rowId}
+	</delete>
+</mapper>

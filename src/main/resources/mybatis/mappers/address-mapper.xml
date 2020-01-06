@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.sephora.address.dao.AddressDao">
+	<sql id="SELECT_BASE">
+		SELECT A.AREA_NAME, AU.`USER_NAME`, AU.`ROW_ID`,AU.`USER_ID`,AU.`PROVINCE`,AU.`CITY`,AU.`DISTRICT`,AU.`DETAILED_ADDRESS`,AU.`ADDRESS_PHONE`,AU.`POSTCODE` 
+	FROM view_address_user AU JOIN V_AREA_3 A ON AU.DISTRICT=A.ROW_ID WHERE AU.ACTIVE_FLAG=1
+	</sql>
+	
+	<select id="findByAddress" parameterType="address" resultType="address">
+		<include refid="SELECT_BASE"></include>
+		<if test="userId!=null">
+			AND USER_ID=#{userId}
+		</if>
+		<if test="province!=null">
+			AND PROVINCE=#{province}
+		</if>
+	</select>
+	
+	<select id="getByAddress" parameterType="address" resultType="address">
+		<include refid="SELECT_BASE"></include>
+		<if test="userId!=null">
+			AND USER_ID=#{userId}
+		</if>
+	</select>
+	
+	<insert id="save" parameterType="address" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO TB_ADDRESS
+		 (`USER_ID`,`PROVINCE`,`CITY`,`DISTRICT`,`ADDRESS_PCD`,`DETAILED_ADDRESS`,`ADDRESS_PHONE`,`POSTCODE`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`)
+		  VALUES(#{userId},#{province},#{city},#{district},#{addressPcd},#{detailedAddress},#{addressPhone},#{postcode},#{activeFlag},#{createBy},#{createDate} )
+	</insert>
+	
+	<update id="update" parameterType="address">
+		UPDATE TB_ADDRESS 
+		<set>
+			<if test="province!=null">
+				PROVINCE=#{province},
+			</if>
+			<if test="city!=null">
+				CITY=#{city},
+			</if>
+			<if test="district!=null">
+				DISTRICT=#{district},
+			</if>
+			<if test="addressPcd!=null">
+				ADDRESS_PCD=#{addressPcd},
+			</if>
+			<if test="detailedAddress!=null">
+				DETAILED_ADDRESS=#{detailedAddress},
+			</if>
+			<if test="addressPhone!=null">
+				ADDRESS_PHONE=#{addressPhone}
+			</if>
+			<if test="postcode!=null">
+				POSTCODE=#{postcode}
+			</if>
+			<if test="updateBy!=null">
+				UPDATE_BY=#{updateBy}
+			</if>
+			<if test="updateDate!=null">
+				UPDATE_DATE=#{updateDate}
+			</if>
+		</set>
+	</update>
+	
+	<delete id="del">
+		DELETE FROM TB_ADDRESS WHERE ROW_ID=#{rowId};
+	</delete>
+</mapper>

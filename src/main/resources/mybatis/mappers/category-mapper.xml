@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.sephora.category.dao.CategoryDao">
+	<sql id="SELECT_BASE">
+		SELECT
+		`ROW_ID`, `PAR_ID`,`LIST_NAME`,`LIST_INFO`,ORDER_NUM,
+		`ACTIVE_FLAG`, `CREATE_BY`
+		,`CREATE_DATE` ,`UPDATE_BY` ,`UPDATE_DATE`
+		FROM TB_CATEGORY WHERE ACTIVE_FLAG=1
+	</sql>
+
+	<insert id="saveCategory" parameterType="category"
+		useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO
+		TB_CATEGORY (`PAR_ID`,`LIST_NAME`,`LIST_INFO`,`ORDER_NUM`,
+		`ACTIVE_FLAG`,
+		`CREATE_BY`, `CREATE_DATE`) VALUES
+		(#{parId},#{listName},#{listInfo},#{orderNum},#{activeFlag},#{createBy},#{createDate})
+	</insert>
+
+	<select id="getByCategory" parameterType="category"
+		resultType="category">
+		<include refid="SELECT_BASE"></include>
+		<if test="rowId!=null">
+			AND ROW_ID=#{rowId}
+		</if>
+		<if test="parId!=null">
+			AND PAR_ID=#{parId}
+		</if>
+		<if test="listName!=null">
+			AND LIST_NAME=#{listName}
+		</if>
+		<if test="listInfo!=null">
+			AND LIST_INFO=#{listInfo}
+		</if>
+	</select>
+
+	<select id="find" parameterType="category" resultType="category">
+		<include refid="SELECT_BASE"></include>
+		<if test="parId!=null">
+			AND PAR_ID=#{parId}
+		</if>
+		<if test="listName!=null">
+			AND LIST_NAME=#{listName}
+		</if>
+		<if test="listInfo!=null">
+			AND LIST_INFO LIKE=listInfo}
+		</if>
+		ORDER BY ORDER_NUM;
+	</select>
+	
+	<select id="findByParId" resultType="category">
+		<include refid="SELECT_BASE"></include>
+		AND PAR_ID=#{parId}
+		ORDER BY ORDER_NUM;
+	</select>
+
+	<select id="getByParId" resultType="category">
+		<include refid="SELECT_BASE"></include>
+		AND ROW_ID=#{parId}
+	</select>
+	
+	<select id="selectMaxOrderNum" resultType="java.lang.Long">
+		SELECT MAX(ORDER_NUM) FROM TB_CATEGORY;
+	</select>
+
+	<update id="updateOrderNum">
+		UPDATE TB_CATEGORY SET ORDER_NUM=ORDER_NUM+1 WHERE ORDER_NUM>#{orderNum}
+	</update>
+
+	<update id="update" parameterType="category">
+		UPDATE TB_CATEGORY
+		<set>
+			<if test="parId!=null">
+				PAR_ID=#{parId},
+			</if>
+			<if test="orderNum!=null">
+				ORDER_NUM=#{orderNum},
+			</if>
+			<if test="listName!=null">
+				LIST_NAME=#{listName},
+			</if>
+			<if test="listInfo!=null">
+				LIST_INFO=#{listInfo},
+			</if>
+			<if test="updateBy!=null">
+				UPDATE_BY=#{updateBy},
+			</if>
+			<if test="updateDate!=null">
+				UPDATE_DATE=#{updateDate}
+			</if>
+		</set>
+		WHERE ROW_ID=#{rowId}
+	</update>
+
+	<delete id="del">
+		DELETE FROM TB_CATEGORY WHERE ROW_ID=#{rowId}
+	</delete>
+</mapper>

@@ -1,0 +1,22 @@
+
+.bg{
+	width: 100vw;
+    height: 100vh;
+    background: url(../img/login-bg.0899ffa6.jpg) center center;
+    background-size: cover;
+}
+.login-title{
+	padding-top:10%;
+	font-size:20px;
+	text-align:center;
+}
+.form{
+	margin-top:20vh;
+	background-color:#fff;
+	height:250px;
+}
+
+.icon{
+	padding:6px 0 0 18px;
+	font-size:20px;
+}

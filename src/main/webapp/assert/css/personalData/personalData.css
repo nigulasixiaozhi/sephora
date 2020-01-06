@@ -1,0 +1,330 @@
+.body {
+	padding: 30px 0;
+	background-color: #FFFFFF;
+}
+
+/* 左侧树状导航 */
+.left-tree {
+	width: 180px;
+}
+
+.left-tree .title {
+	width: 100%;
+	font-size: 16px;
+	color: #000;
+	height: 35px;
+	letter-spacing: 2px;
+	border-bottom: 1px solid #000;
+	cursor: pointer;
+}
+
+.left-tree .title a {
+	color: #000;
+}
+
+.left-tree .title a:hover {
+	color: #000;
+}
+
+.left-tree .content {
+	margin-left: 40px;
+	margin-top: 20px;
+}
+
+.left-tree .content dt {
+	cursor: pointer;
+}
+
+.left-tree .content .text {
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	font-weight: 700;
+	font-size: 14px;
+	letter-spacing: 1px;
+	color: #333;
+}
+
+.left-tree .content .arrow {
+	display: inline-block;
+	float: left;
+	width: 0;
+	height: 0;
+	float: left;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	margin: 12px 0 0 8px;
+}
+
+.left-tree .content .arrow.bottom {
+	border-bottom: 4px solid #000;
+}
+
+.left-tree .content .arrow.top {
+	border-top: 4px solid #000;
+}
+
+.left-tree .content dd a {
+	margin-left: 26px;
+	display: inline-block;
+	height: 28px;
+	line-height: 28px;
+	color: #333;
+	font-size: 14px;
+}
+
+.left-tree .content dd a:hover {
+	text-decoration: underline;
+	color: #EE0000;
+}
+
+/* 右侧 */
+.right-bg {
+	width: 950px;
+}
+
+.right-bg .title {
+	margin-left: 60px;
+	font-size: 16px;
+	color: #333;
+	height: 35px;
+	letter-spacing: 2px;
+	border-bottom: 1px solid #000;
+}
+
+.right-bg .right-content {
+	border-left: 1px solid #ccc;
+	padding-left: 60px;
+	padding-top: 20px;
+	width: 890px;
+}
+
+input,
+select {
+	width: 200px;
+	border: 1px solid #ccc;
+	padding-left: 20px;
+	height: 28px;
+	line-height: 30px;
+	outline: none;
+	float: left;
+	margin-bottom: 37px;
+}
+
+select {
+	background-color: #FFFFFF;
+}
+
+input:hover,
+select:hover {
+	border-bottom: 1px solid #000;
+}
+
+p {
+	width: 73px;
+	text-align: right;
+	float: left;
+	margin-right: 19.5px;
+	font-size: 14px;
+	color: #151515;
+	margin-top: 7px;
+}
+
+.star {
+	color: #d1152a;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.sex {
+	margin-bottom: 37px;
+}
+
+.sex>input {
+	width: 14px;
+	height: 14px;
+	line-height: normal;
+	margin-bottom: 0;
+}
+
+.sex span {
+	display: block;
+	float: left;
+	padding: 0 21px 0 7px;
+	color: #151515;
+}
+
+.sex p {
+	margin-top: 0;
+}
+
+.headImg {
+	margin-bottom: 84px;
+}
+
+.imgTitle {
+	border-bottom: 1px solid #ccc;
+	width: 797px;
+}
+
+.imgTitle li {
+	float: left;
+	width: 90px;
+	height: 29px;
+	background: #fff;
+	margin-right: 10px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+	text-align: center;
+	font-size: 14px;
+	line-height: 29px;
+	color: #000;
+	cursor: pointer;
+}
+
+.imgTitle li.black {
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
+.imgTitle li.white {
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+.imgContent {
+	padding-left: 93px;
+	display: none;
+	width: 540px;
+}
+
+.imgContent li {
+	float: left;
+	margin: 9px 9px 0 0;
+	cursor: pointer;
+	width: 81px;
+	height: 81px;
+}
+
+.imgContent li:hover img {
+	border: 1px solid #000000;
+}
+
+.imgContent li img {
+	width: 80px;
+	height: 80px;
+	border: 1px solid #FFFFFF;
+	display: inline-block;
+}
+
+.uploading {
+	margin-top: 23px;
+	width: 80px;
+	padding-left: 93px;
+}
+
+.uploading div {
+	position: relative;
+}
+
+.uploading img {
+	width: 80px;
+	height: 80px;
+}
+
+.uploading span {
+	text-align: center;
+	height: 15px;
+	width: 80px;
+	display: inline-block;
+	color: #FFFFFF;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.adress input {
+	width: 578px;
+}
+
+.save {
+	display: inline-block;
+	position: relative;
+	height: 30px;
+	line-height: 30px;
+	background: #000;
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+	width: 140px;
+	margin-left: 95px;
+}
+
+.gif {
+	width: 140px;
+	height: 30px;
+	width: 390px;
+	height: 370px;
+	/* position: absolute; */
+	top: 0;
+	left: 0;
+	background: url(../../img/personalData/timg.gif) no-repeat;
+	background-size: auto;
+}
+
+.save:hover {
+	background-color: #EE0000;
+	transition: all 0.5s;
+}
+
+.bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.2); 
+	z-index: 100;
+	display: none;
+}
+
+.shade {
+	width: 300px;
+	height: 130px;
+	position: fixed;
+	top: 45%;
+	left: 50%;
+	color: #FFFFFF;
+	margin-top: -65px;
+	margin-left: -150px;
+	text-align: center;
+	font-size: 14px;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 101;
+	display: none;
+}
+
+.shade .txt {
+	margin-top: 45px;
+}
+
+.shade .true {
+	width: 50px;
+	height: 23px;
+	line-height: 23px;
+	color: #FFFFFF;
+	background-color: #000000;
+	position: absolute;
+	bottom: 8px;
+	left: 50%;
+	margin-left: -25px;
+	cursor: pointer;
+	z-index: 102;
+}
+
+.shade .true:hover {
+	background-color: #EE0000;
+	transition: all 0.3s;
+}

@@ -1,0 +1,727 @@
+.sprite-title {
+	background: url(../../img/HomePage/sprite/sprite_title.png) no-repeat center center;
+	display: inline-block;
+	width: 387px;
+	height: 36px;
+	background-size: 100%;
+}
+
+.sprite-toolbar {
+	background: url(../../img/HomePage/sprite/sprite_toolbar_new.png) no-repeat center center;
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+}
+
+/* 产品导航标题通用 */
+.title-position {
+	position: relative;
+}
+
+.title-list {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.title-list li {
+	float: left;
+	line-height: 36px;
+}
+
+.title-list li em {
+	font-style: normal;
+	margin: 0 12px;
+	color: #dadada;
+}
+
+.title-list li a {
+	color: #474747;
+	font-size: 14px;
+	cursor: pointer;
+
+}
+
+.title-list li:hover a {
+	color: #000000;
+	font-weight: bolder;
+}
+
+/* 产品内容通用 */
+.categoryProduct {
+	width: 800px;
+}
+
+.categoryProduct li {
+	position: relative;
+	float: left;
+	width: 189px;
+	height: 234px;
+	padding-top: 15px;
+	padding-left: 10px;
+	border-right: 1px solid #F5F5F5;
+	border-bottom: 1px solid #F5F5F5;
+	background-color: #FFFFFF;
+}
+
+.categoryProduct li span {
+	display: block;
+	color: #000000;
+	font-size: 14px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.categoryProduct li .productBrands {
+	font-weight: bolder;
+}
+
+.categoryProduct li .productTitle {
+	padding-bottom: 4px;
+}
+
+.categoryProduct li img {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+/* 产品品牌通用 */
+.category-brands {
+	margin-top: 7px;
+}
+
+.category-brands li {
+	float: left;
+	width: 148.7px;
+	position: relative;
+	background-color: #FFFFFF;
+}
+
+.category-brands li em {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -8px;
+	font-style: normal;
+	width: 2px;
+	height: 16px;
+	color: #b1b1b1;
+}
+
+.category-brands li:hover img {
+	opacity: 0.6;
+}
+
+/* 第一页 */
+.floor-1 {
+	background-color: #FFFFFF;
+}
+
+/* 轮播图 */
+.slideBox-position {
+	position: relative;
+}
+
+.slideBox .hd {
+	position: absolute;
+	bottom: 25px;
+	left: 60%;
+	margin-left: -156px;
+	z-index: 5;
+}
+
+.slideBox .hd>ul li {
+	float: left;
+	height: 3px;
+	width: 100px;
+	margin-right: 4px;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.slideBox .hd ul li.on {
+	background-color: white
+}
+
+.slideBox .prev-content,
+.slideBox .next-content {
+	display: inline-block;
+	cursor: pointer;
+	width: 16px;
+	height: 28px;
+	background: url(../../img/HomePage/slider/hero_splite_arrow.png) no-repeat;
+}
+
+.slideBox .prev-content {
+	background-position: 0 -1px;
+}
+
+.slideBox .next-content {
+	background-position: -14px -1px;
+}
+
+.slideBox .prev,
+.slideBox .next {
+	line-height: 118px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	width: 40px;
+	height: 100px;
+	margin-top: -50px;
+	background-color: rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+.slideBox .prev {
+	left: 20%;
+}
+
+.slideBox .next {
+	right: 0;
+}
+
+.slideBox .prev:hover,
+.slideBox .next:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.slideBox:hover .prev,
+.slideBox:hover .next {
+	display: inline-block;
+}
+
+.slideBox .bd ul li a {
+	display: block;
+	height: 400px;
+}
+
+.slideBox1 .hd {
+	position: absolute;
+	bottom: 12px;
+	left: 50%;
+	margin-left: -54px;
+	z-index: 5;
+}
+
+.slideBox1 .hd>ul li {
+	float: left;
+	height: 3px;
+	width: 50px;
+	margin-right: 4px;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.slideBox1 .hd ul li.on {
+	background-color: white
+}
+
+.slideBox1 .prev-content,
+.slideBox1 .next-content {
+	display: inline-block;
+	cursor: pointer;
+	width: 16px;
+	height: 28px;
+	background: url(../../img/HomePage/slider/hero_splite_arrow.png) no-repeat;
+}
+
+.slideBox1 .prev-content {
+	background-position: 0 -1px;
+}
+
+.slideBox1 .next-content {
+	background-position: -14px -1px;
+}
+
+.slideBox1 .prev,
+.slideBox1 .next {
+	line-height: 105px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	width: 28px;
+	height: 84px;
+	margin-top: -42px;
+	background-color: rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+.slideBox1 .prev {
+	left: 0%;
+}
+
+.slideBox1 .next {
+	right: 0;
+}
+
+.slideBox1 .prev:hover,
+.slideBox1 .next:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.slideBox1:hover .prev,
+.slideBox1:hover .next {
+	display: inline-block;
+}
+
+.slideBox1 .bd ul li a {
+	display: block;
+	height: 320px;
+}
+
+.slideBox1 {
+	width: 590px;
+}
+
+/* 第二页 */
+.floor-2 {
+	background-color: #F5F5F5;
+	padding-top: 10px;
+}
+
+.floor-2 .slideshow-downImg {
+	padding-bottom: 68px;
+}
+
+.floor-2 .slideshow-downImg a {
+	display: inline-block;
+	float: right;
+	margin-left: 12px;
+}
+
+.brands {
+	margin-bottom: 84px;
+}
+
+.brand-title .all-brands {
+	background-position: -17px -14px;
+
+}
+
+.brand-title .brand-title-list {
+	line-height: 44px;
+}
+
+.brand-title .brand-title-list li {
+	float: left;
+	cursor: pointer;
+	font-size: 14px;
+	color: #474747;
+	margin-left: 27px;
+}
+
+.brand-title .brand-title-list li:hover {
+	color: #000000;
+	font-weight: bolder;
+}
+
+.brand-title .brand-title-list li:hover a {
+	color: #000000;
+}
+
+.brand-title .brand-title-list .bolder {
+	color: #000000;
+	font-weight: bolder;
+}
+
+.floor-2 .position-re {
+	position: relative;
+}
+
+.hot-brands li {
+	position: relative;
+	width: 149px;
+	height: 74px;
+	border-right: 1px solid #f5f5f5;
+	border-bottom: 1px solid #f5f5f5;
+	padding-top: 5px;
+	background-color: #FFFFFF;
+	float: left;
+}
+
+.hot-brands li .shade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 149px;
+	height: 62px;
+	padding-top: 18px;
+	color: #FFFFFF;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.8);
+	display: none;
+}
+
+.hot-brands li .shade .check-brands {
+	margin-top: 13px;
+	display: inline-block;
+	width: 84px;
+	text-align: center;
+	padding: 2px 0;
+	background-color: #e00;
+	color: #FFFFFF;
+	font-weight: 400;
+	border-radius: 12px;
+
+}
+
+.hot-brands {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 600px;
+	opacity: 1;
+}
+
+.hot-brands:last-child {
+	opacity: 0;
+}
+
+.hot-brands.hide {
+	opacity: 0;
+	transition: all 1s;
+	z-index: 1;
+}
+
+.hot-brands.show {
+	opacity: 1;
+	transition: all 1s;
+	z-index: 2;
+}
+
+/* 精品推荐 */
+.sephora-picks {
+	background-position: -19px -46px;
+	display: block;
+}
+
+.floor-2 .picks {
+	width: 1200px;
+	margin-bottom: 98px;
+}
+
+.floor-2 .picks a {
+	display: block;
+}
+
+.floor-2 .picks-content {
+	position: relative;
+	margin: 0 10px 10px 0;
+}
+
+.picks-content .picks-list {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.picks-content .picks-list li {
+	position: relative;
+	padding: 10px 0 0 10px;
+	width: 190px;
+	height: 130px;
+}
+
+.picks-content .picks-list span {
+	display: block;
+	width: 160px;
+	text-align: left;
+	font-size: 14px;
+	color: #000000;
+}
+
+.picks-content .picks-list .picks-brands {
+	font-weight: bolder;
+}
+
+.picks-content .picks-list .picks-title {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.picks-content .picks-list .picks-price {
+	padding-top: 6px;
+}
+
+.picks-content .picks-list img {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 90px;
+	height: 90px;
+	display: block;
+}
+
+/* 护肤品类 */
+.skincare {
+	margin-bottom: 83px;
+}
+
+.skincare-img {
+	background-position: -21px -83px;
+}
+
+/* 彩妆类 */
+.makeup {
+	margin-bottom: 83px;
+}
+
+.makeup-img {
+	background-position: -21px -116px;
+}
+
+/* 香氛品类 */
+.fragrance {
+	margin-bottom: 83px;
+}
+
+.fragrance-img {
+	background-position: -21px -151px;
+}
+
+/* 工具品类 */
+.tools {
+	margin-bottom: 83px;
+}
+
+.tools-img {
+	background-position: -21px -249px;
+}
+
+/* 男士护肤品类 */
+.man {
+	margin-bottom: 83px;
+}
+
+.man-img {
+	background-position: -21px -283px;
+}
+
+/* 洗浴护体类 */
+.body {
+	margin-bottom: 83px;
+}
+
+.body-img {
+	background-position: -21px -183px;
+}
+
+/* 美发护发品类 */
+.hair {
+	margin-bottom: 83px;
+}
+
+.hair-img {
+	background-position: -21px -217px;
+}
+
+/* 猜你喜欢 */
+.like{
+	margin-bottom: 83px;
+}
+.like-img{
+		background-position: -17px -317px;
+}
+.like-list li{
+	float: left;
+	width: 237px;
+	height: 259px;
+	border-right:1px solid #f7f7f7 ;
+	border-bottom:1px solid #f7f7f7 ;
+	text-align: center;
+	background-color: #FFFFFF;
+}
+.like-list li img{
+	width: 180px;
+	height: 180px;
+	display: inline-block;
+}
+.like-list li span{
+	text-align: left;
+	display: block;
+	color: #000000;
+	width: 196px;
+	font-size: 14px;
+	margin:0 20px;
+}
+.like-list li .like-brands{
+	font-size: 12px;
+	font-weight: bolder;
+}
+.like-list li .like-title{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	font-weight: 400;
+	margin-top: 4px;
+	margin-bottom:8px ;
+}
+.like-list li .like-title:hover{
+	color: #EE0000;
+}
+
+/* 右侧工具栏 */
+.toolbar .person {
+	background-position: 0px 0px;
+}
+.toolbar .shoping {
+	background-position: 0px -40px;
+}
+
+.toolbar .service {
+	background-position: 0px -160px;
+}
+
+.toolbar .mobile {
+	background-position: 0px -240px;
+}
+
+.toolbar .return {
+	background-position: 0px -280px;
+}
+
+.toolbar {
+	position: fixed;
+	bottom: 103px;
+	right: 3%;
+	display: none;
+}
+
+.toolbar li {
+	width: 40px;
+	height: 40px;
+	position: relative;
+	background-color: #AAAAAA;
+}
+
+.toolbar li span {
+	position: absolute;
+	top: 0;
+	right: 40px;
+	width: 80px;
+	height: 40px;
+	color: #FFFFFF;
+	background-color: #AAAAAA;
+	text-align: center;
+	line-height: 40px;
+	display: none;
+}
+
+.toolbar li:hover {
+	background-color: #494949;
+}
+
+.toolbar li:hover span {
+	background-color: #494949;
+	display: inline;
+}
+/* 左侧导航栏 */
+.fixed-left{
+	position: fixed;
+	top: 75px;
+	left: 3%;
+	width: 40px;
+	background-color: #FFFFFF;
+	display: none;
+}
+.fixed-left li{
+	height: 68px;
+	text-align: center;
+	padding:0 7px;
+	cursor: pointer;
+	color: #9d9d9d;
+}
+.fixed-left li span{
+	display: inline-block;
+	padding:19px 0;
+}
+.fixed-left li:hover{
+	color: #EE0000;
+}
+.fixed-left li.active{
+		color: #EE0000;
+}
+/* 顶部搜索栏 */
+.fixedTop{
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #fff;
+    box-shadow: 0 3px 3px #f0f0f0;
+	width: 100%;
+	height: 60px;
+	z-index: 1000;
+	display: none;
+}
+.fixedTop>div{
+	margin-top: 11px;
+}
+.fixedTop img{
+	display: inline-block;
+	float: left;
+}
+.fixedTop .search{
+	position: relative;
+	float: left;
+	margin-left:80px ;
+}
+#searchBox{
+	width: 510px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 20px;
+	outline: none;
+}
+#searchBtn{
+	display: inline-block;
+	margin-left: -5px;
+	width: 90px;
+    height: 36px;
+    background-color: #000;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    line-height: 32px
+}
+
+/* 点击显示框 */
+.search .top_search_int_arise {
+	width: 531.4px;
+	position: absolute;
+	background-color: white;
+	top: 34px;
+	left: 0.4px;
+	border-left: 1px solid #c8c8c8;
+	border-right: 1px solid #c8c8c8;
+	border-bottom: 1px solid #c8c8c8;
+	display: none;
+	z-index: 10;
+}
+.search  .top_search_int_arise_txt {
+	padding: 12px 20px 0px 20px;
+}
+.search  .top_search_int_arise_seek_up {
+	font-weight: 600;
+	font-size: 14px;
+	color: #000;
+}
+.search  .top_search_int_arise_seek_down {
+	padding: 14px 0 20px;
+	font-size: 12px;
+	min-height: 24px;
+	overflow: hidden;
+}
+
+.search  .top_search_int_arise_seek_down .recomm {
+	margin: 0 8px 8px 0;
+	background: #f5f5f5;
+}
+.search  .top_search_int_arise_seek_down .recomm a{
+	display: block;
+    padding: 6px 12px;
+    color: #8a8a8a;
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.sephora.order.dao.OrderDao">
+	<sql id="SELECT_BASE">
+	<!-- 待更改 -->
+	SELECT U.USER_NAME,O.`ROW_ID`,O.`USER_ID`,O.`ADDRESS_ID`,O.`SUM_PRICE`,O.`ORDER_STATUS`,O.`PAY`,O.`ACTIVE_FLAG`,O.`CREATE_BY`,O.`CREATE_DATE`,O.`UPDATE_BY`,O.`UPDATE_DATE` 
+	FROM TB_ORDER O JOIN TB_USER U ON O.USER_ID=U.ROW_ID
+	WHERE O.ACTIVE_FLAG=1
+	</sql>
+	
+	<insert id="save" parameterType="order" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO TB_ORDER 
+		(`USER_ID`,`ADDRESS_ID`,`SUM_PRICE`,`ORDER_STATUS`,`PAY`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`)
+		 VALUES(#{userId},#{addressId},#{sumPrice},#{orderStatus},#{pay},#{activeFlag},#{createBy},#{createDate} )
+	</insert>
+	
+	<select id="getByOrder" parameterType="order" resultType="order">
+		<include refid="SELECT_BASE"></include>
+		<if test="userId!=null">
+			AND USER_ID=#{userId}
+		</if>
+		<if test="addressId!=null">
+			AND ADDRESS_ID=#{addressId}
+		</if>
+		<if test="orderStatus!=null">
+			AND ORDER_STATUS=#{orderStatus}
+		</if>
+		<if test="pay!=null">
+			AND PAY=#{pay}
+		</if>
+	</select>
+	
+	<select id="findByOrder" parameterType="order" resultType="order">
+		<include refid="SELECT_BASE"></include>
+		<if test="userId!=null">
+			AND USER_ID=#{userId}
+		</if>
+		<if test="addressId!=null">
+			AND ADDRESS_ID=#{addressId}
+		</if>
+		<if test="orderStatus!=null">
+			AND ORDER_STATUS=#{orderStatus}
+		</if>
+		<if test="pay!=null">
+			AND PAY=#{pay}
+		</if>
+	</select>
+	
+	<update id="update" parameterType="order">
+		UPDATE TB_ORDER 
+		<set>
+			<if test="userId!=null">
+			 USER_ID=#{userId},
+		</if>
+		<if test="addressId!=null">
+			 ADDRESS_ID=#{addressId},
+		</if>
+		<if test="sumPrice!=null">
+			SUM_PRICE=#{sumPrice},
+		</if>
+		<if test="orderStatus!=null">
+			 ORDER_STATUS=#{orderStatus},
+		</if>
+		<if test="pay!=null">
+			 PAY=#{pay},
+		</if>
+		<if test="updateBy!=null">
+			 UPDATE_BY=#{updateBy},
+		</if>
+		<if test="updateDate!=null">
+			 UPDATE_DATE=#{updateDate},
+		</if>
+		</set>
+		WHERE ROW_ID=#{rowId};
+	</update>
+	
+	<delete id="del">
+		DELETE FROM TB_ORDER WHERE ROW_ID=#{rowId};
+	</delete>
+</mapper>

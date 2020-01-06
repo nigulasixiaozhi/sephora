@@ -1,0 +1,207 @@
+/* 顶栏 */
+
+input{
+	outline: none;
+}
+.head {
+	width: 100%;
+	background-color: #FFFFFF;
+	height: 89px;
+}
+
+.head .head_loding .photo {
+	width: 250px;
+	height: 33px;
+	cursor: pointer;
+	margin-top: 28px;
+	display: inline-block;
+}
+
+.head .welcome {
+	font-size: 16px;
+	letter-spacing: 1px;
+	color: #333;
+	margin: 45px 0 0 30px;
+	display: inline-block;
+}
+
+.head .immediately {
+	margin-top: 30px;
+}
+
+.head .immediately a {
+	color: #000;
+}
+
+
+.head .immediately .immedi {
+	width: 0;
+	height: 0;
+	border-top: 4px solid #5d1f1f00;
+	border-left: 5px solid #131212;
+	border-bottom: 4px solid #f9070700;
+	margin-top: 5px;
+	margin-left: 2px;
+	float: right;
+}
+
+.head .immediately a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+.head .already {
+	color: #9d9d9d;
+	font-size: 12px;
+	margin-top: 30px;
+}
+
+/* 中部 */
+.during {
+	background: url(../../img/registered/loginsSearchPassword_Bg.jpg) no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 804px;
+}
+
+.during .during_re {
+	margin: 64px 0 0 80px;
+}
+
+.during .during_veri {}
+
+.during .during_re .graphics {
+	font-size: 14px;
+	width: 100px;
+	height: 32px;
+	line-height: 32px;
+	margin-right: 10px;
+	text-align: center;
+	color: #000000;
+	display: inline-block;
+	float: left;
+}
+
+.during .during_re .int {
+	width: 300px;
+	height: 30px;
+	border: 1px solid #ccc;
+	text-indent: 20px;
+	float: left;
+	font-size: 14px;
+}
+
+.during .during_veri .ver {
+	width: 120px;
+	height: 32px;
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.during .during_phone {
+	margin-top: 34px;
+}
+
+.during .during_sms {
+	margin-top: 34px;
+}
+
+.during .during_pass {
+	margin-top: 34px;
+}
+
+.during .during_password {
+	margin-top: 34px;
+}
+
+/* 获取验证码正常颜色 */
+.during .during_phone .obtain {
+	margin-left: 10px;
+	width: 120px;
+	background: #cecece;
+	/* background: #000; */
+	color: #fff;
+	font-size: 14px;
+	float: left;
+	text-align: center;
+	padding: 7px 0;
+	outline: 0;
+	border: 0;
+}
+
+
+.during .during_phone .obtain:hover {
+	/* background-color: red; */
+	transition: all .5s;
+}
+
+/* .during .during_phone .obtain{
+	margin-left: 10px;
+	width: 120px;
+	background: #000;
+	color: #fff;
+	font-size: 14px;
+	float: left;
+	cursor: pointer;
+	text-align: center;
+	padding: 7px 0;
+} */
+
+.during .during_re .int:hover {
+	border-bottom: 1px solid #000000;
+}
+
+/* 按钮 */
+.during .during_btn .btn {
+	margin-left: 110px;
+	width: 300px;
+	height: 30px;
+	background-color: #999;
+	color: #fff;
+	font-size: 14px;
+	letter-spacing: 2px;
+	text-align: center;
+	margin-top: 34px;
+	padding: 6px 0;
+	outline: 0;
+	cursor: pointer;
+}
+
+.during .during_read {
+	margin-left: 110px;
+	width: 300px;
+	height: 30px;
+	line-height: 30px;
+	color: #9d9d9d;
+}
+
+.during .during_read .read a {
+	color: #9d9d9d;
+}
+
+.during .during_read .use {
+	padding-left: 84px;
+}
+
+.during .during_read .use a {
+	color: #9d9d9d;
+}
+
+.during .during_read a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+.during .during_read .mark {
+	width: 0;
+	height: 0;
+	border-top: 4px solid transparent;
+	border-left: 5px solid #9d9d9d;
+	border-bottom: 4px solid transparent;
+	float: right;
+	margin-top: 12px;
+	margin-right: 1px;
+}

@@ -1,0 +1,700 @@
+.body {
+	padding: 30px 0;
+	background-color: #FFFFFF;
+}
+
+/* 左侧树状导航 */
+.left-tree {
+	width: 180px;
+}
+
+.left-tree .title {
+	width: 100%;
+	font-size: 16px;
+	color: #000;
+	height: 35px;
+	letter-spacing: 2px;
+	border-bottom: 1px solid #000;
+	cursor: pointer;
+}
+.left-tree .title a{
+	color: #000;
+}
+.left-tree .title a:hover{
+	color: #000;
+}
+.left-tree .content {
+	margin-left: 40px;
+	margin-top: 20px;
+}
+
+.left-tree .content dt {
+	cursor: pointer;
+}
+
+.left-tree .content .text {
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	font-weight: 700;
+	font-size: 14px;
+	letter-spacing: 1px;
+	color: #333;
+}
+
+.left-tree .content .arrow {
+	display: inline-block;
+	float: left;
+	width: 0;
+	height: 0;
+	float: left;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	margin: 12px 0 0 8px;
+}
+
+.left-tree .content .arrow.bottom {
+	border-bottom: 4px solid #000;
+}
+
+.left-tree .content .arrow.top {
+	border-top: 4px solid #000;
+}
+
+.left-tree .content dd a {
+	margin-left: 26px;
+	display: inline-block;
+	height: 28px;
+	line-height: 28px;
+	color: #333;
+	font-size: 14px;
+}
+
+.left-tree .content dd a:hover {
+	text-decoration: underline;
+	color: #EE0000;
+}
+
+/* 右侧 */
+.right-bg {
+	width: 950px;
+}
+
+.right-bg .title {
+	margin-left: 60px;
+	font-size: 16px;
+	color: #333;
+	height: 35px;
+	letter-spacing: 2px;
+	border-bottom: 1px solid #000;
+}
+
+.right-bg .right-content {
+	border-left: 1px solid #ccc;
+	padding-left: 60px;
+	padding-top: 20px;
+	width: 890px;
+}
+
+/* 我的丝芙兰 */
+.right-bg .my-sephora .name {
+	width: 240px;
+	height: 130px;
+	background-color: #fafafa;
+}
+
+.right-bg .my-sephora .name img {
+	float: left;
+	width: 80px;
+	height: 80px;
+	border-radius: 100px;
+	margin: 25px 14px 0;
+	cursor: pointer;
+}
+
+.right-bg .my-sephora .name span {
+	float: left;
+	display: inline-block;
+	width: 130px;
+	height: 130px;
+	line-height: 130px;
+	overflow: hidden;
+	font-size: 18px;
+	letter-spacing: 1px;
+	cursor: pointer;
+	color: #000000;
+}
+
+.right-bg .my-sephora .card {
+	position: relative;
+	width: 640px;
+	height: 130px;
+	background-color: #fafafa;
+}
+
+.right-bg .my-sephora .card em {
+	display: inline-block;
+	background: url(../../img/PersonalCenter/card.png) 0px -154px no-repeat;
+	width: 120px;
+	height: 77px;
+	margin: 26px 25px 0 25px;
+}
+
+.right-bg .my-sephora .card-number p:first-child {
+	font-size: 14px;
+	margin-top: 26px;
+	height: 20px;
+	line-height: 20px;
+	color: #333;
+}
+
+.right-bg .my-sephora .card-number p:last-child {
+	margin-top: 10px;
+	font-size: 18px;
+	height: 28px;
+	line-height: 28px;
+	color: #000;
+}
+
+.right-bg .my-sephora .card .change-card {
+	position: absolute;
+	top: 30px;
+	right: 42px;
+}
+
+.right-bg .my-sephora .card .change-card a {
+	font-size: 14px;
+	color: #666;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.right-bg .my-sephora .discount {
+	margin-top: 10px;
+	width: 520px;
+	padding-top: 15px;
+	height: 110px;
+	background-color: #fafafa;
+}
+
+.right-bg .my-sephora .discount .point {
+	width: 115px;
+	padding-left: 35px;
+}
+
+.right-bg .my-sephora .discount .point p:first-child {
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #333;
+}
+
+.right-bg .my-sephora .discount .point p:last-child {
+	font-size: 18px;
+	margin-top: 25px;
+	color: #797979;
+}
+
+.right-bg .my-sephora .discount .point p span {
+	color: #000;
+}
+
+.right-bg .my-sephora .discount .myDiscount {
+	padding-left: 35px;
+	width: 115px;
+}
+
+.right-bg .my-sephora .discount .myDiscount p:first-child {
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #333;
+}
+
+.right-bg .my-sephora .discount .myDiscount p:last-child {
+	margin-top: 25px;
+	color: #797979;
+	height: 28px;
+	line-height: 28px;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.right-bg .my-sephora .discount .myDiscount p span {
+	color: #000000;
+	margin-right: 5px;
+}
+
+.right-bg .my-sephora .discount .myDiscount p:last-child:hover,
+.right-bg .my-sephora .discount .myDiscount p:last-child:hover span {
+	text-decoration: underline;
+	color: #EE0000;
+}
+
+.right-bg .my-sephora .discount .nextDiscount {
+	width: 220px;
+}
+
+.right-bg .my-sephora .discount .nextDiscount p:first-child {
+	height: 20px;
+	line-height: 20px;
+	color: #797979;
+}
+
+.right-bg .my-sephora .discount .nextDiscount .nextBuy {
+	margin-top: 20px;
+	height: 18px;
+	line-height: 18px;
+	color: #797979;
+}
+
+.right-bg .my-sephora .nextBuy span {
+	display: inline-block;
+	margin-left: 60px;
+	font-size: 14px;
+	color: #000;
+	margin-right: 5px;
+}
+
+.right-bg .my-sephora .discount .nextDiscount .or {
+	height: 16px;
+	line-height: 16px;
+	text-indent: 95px;
+	color: #797979;
+}
+
+.right-bg .my-sephora .discount .nextDiscount .nextBuy-point {
+	height: 18px;
+	line-height: 18px;
+	color: #797979;
+}
+
+.right-bg .my-sephora .discount .nextDiscount .nextBuy-point span {
+	margin-left: 35px;
+	color: #000000;
+}
+
+.right-bg .my-sephora .order {
+	width: 360px;
+	height: 110px;
+	background-color: #fafafa;
+	margin-top: 10px;
+	padding-top: 15px;
+}
+
+.right-bg .my-sephora .order>p {
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #333;
+	padding-left: 35px;
+	margin-bottom: 15px;
+}
+
+.right-bg .my-sephora .order .model {
+	float: left;
+	width: 145px;
+	height: 30px;
+	line-height: 30px;
+	color: #797979;
+	padding-left: 35px;
+}
+
+.right-bg .my-sephora .order .model span {
+	margin-left: 30px;
+	color: red;
+	font-size: 14px;
+}
+
+.right-bg .my-sephora .order .model p {
+	display: inline;
+	cursor: pointer;
+}
+
+.right-bg .my-sephora .order .model p:hover span,
+.right-bg .my-sephora .order .model p:hover {
+	text-decoration: underline;
+	color: #EE0000;
+}
+
+.right-bg .MyCoupons {
+	margin-top: 30px;
+	background-color: #fff;
+}
+
+.right-bg .right-content .title {
+	margin-left: 0;
+}
+
+.right-bg .right-content .title a {
+	display: inline-block;
+	float: right;
+	margin-top: 7px;
+	color: #797979;
+	font-size: 12px;
+}
+
+.right-bg .right-content .title a:hover {
+	color: #EE0000;
+	text-decoration: underline;
+}
+
+.right-bg .MyCoupons .MyCoupons-content {
+	margin-top: 30px;
+	height: 108px;
+	line-height: 108px;
+	text-align: center;
+	color: #999;
+}
+
+.right-bg .MyOrder {
+	margin-top: 30px;
+	width: 890px;
+	background-color: #fff;
+}
+
+.right-bg .MyOrder .order-table {
+	width: 890px;
+	color: #333;
+}
+
+.order-table .table-title {
+	height: 54px;
+	line-height: 54px;
+	font-size: 12px;
+	color: #333;
+}
+
+.order-table .table-title th {
+	text-align: center;
+}
+
+.order-table .table-content tr {
+	border-top: 1px solid #dfdfdf;
+	vertical-align: top;
+	height: 106px;
+}
+
+.order-table .table-content tr td {
+
+	text-align: center;
+	padding-top: 20px;
+}
+
+.order-table .table-content .PayButton {
+	display: inline-block;
+	padding: 2px 0;
+	width: 64px;
+	text-align: center;
+	background-color: #e00;
+	color: #fff;
+}
+
+.order-table .table-content .OrderDetails {
+	padding: 1px 0;
+	margin: 2px 0;
+}
+
+.order-table .table-content .NotOrder {
+	padding: 2px 0;
+}
+
+.order-table .table-content div:hover {
+	color: #EE0000;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.order-table .table-content .PayButton:hover {
+	background-color: #a50000;
+}
+
+/* 取消订单弹窗 */
+.MyOrder .bg {
+	background-color: #000;
+	opacity: 0.5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+	display: none;
+}
+
+.MyOrder .alert {
+	position: fixed;
+	width: 500px;
+	height: 350px;
+	top: 50%;
+	left: 50%;
+	margin-left: -250px;
+	margin-top: -175px;
+	background-color: #FFFFFF;
+	z-index: 11;
+	display: none;
+}
+
+.MyOrder .alert .alert-title {
+	position: relative;
+	background-color: #000;
+	width: 100%;
+	color: #fff;
+	padding-top: 20px;
+	padding-bottom: 22px;
+	font-size: 17px;
+	text-align: center;
+	letter-spacing: 1px;
+}
+
+.MyOrder .alert .alert-title .closeButton {
+	position: absolute;
+	top: 17px;
+	right: 25px;
+	font-style: normal;
+	font-size: 20px;
+	opacity: 0.6;
+	cursor: pointer;
+}
+
+.MyOrder .alert .alert-content {
+	width: 324px;
+	margin: 40px 0 0 88px;
+}
+
+.MyOrder .alert-content .select p {
+	color: #4a4a4a;
+	font-size: 14px;
+	position: relative;
+	margin-top: 4px;
+	margin-right: 26px;
+}
+
+.MyOrder .alert-content .select p i {
+	position: absolute;
+	left: -8px;
+	top: -1px;
+	font-style: normal;
+	color: red;
+}
+
+.MyOrder .alert-content .selectBox {
+	cursor: pointer;
+	width: 238px;
+	height: 30px;
+	background-color: #fff;
+	border: 1px solid #cbcbcb;
+	position: relative;
+}
+
+.MyOrder .alert-content .selectBox>span {
+	margin-left: 10px;
+	height: 28px;
+	line-height: 28px;
+	color: #999;
+	letter-spacing: 1px;
+}
+
+.MyOrder .alert-content .selectBox i {
+	background: url(../../img/PersonalCenter/SepCancelOrderReason-icon.png) no-repeat;
+	width: 10px;
+	height: 6px;
+	display: inline-block;
+	position: absolute;
+	top: 11px;
+	right: 11px;
+}
+
+.MyOrder .alert-content .selectBox i.down {
+	background-position: -31px 0;
+}
+
+.MyOrder .alert-content .selectBox i.up {
+	background-position: -31px -6px;
+}
+
+.MyOrder .alert-content .selectBox .selectBox-hide {
+	position: absolute;
+	top: 30px;
+	left: -1px;
+	width: 238px;
+	background-color: #FFFFFF;
+	border: 1px solid #cbcbcb;
+	display: none;
+}
+
+.MyOrder .alert-content .selectBox .selectBox-hide>span {
+	display: block;
+	padding: 10px 0 10px 13px;
+	color: #4a4a4a;
+}
+
+.MyOrder .alert-content .selectBox .selectBox-hide>span:hover {
+	background-color: #eaeaea;
+}
+
+.MyOrder .alert-content .tips {
+	margin-top: 20px;
+	color: #4a4a4a;
+
+}
+
+.MyOrder .alert-content .tips li {
+	padding-bottom: 10px;
+	letter-spacing: 1px;
+}
+
+.MyOrder .alert-content .tips .icon_hint {
+	background: url(../../img/PersonalCenter/SepCancelOrderReason-icon.png) no-repeat;
+	background-position: -17px 0;
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+}
+
+.MyOrder .alert-content .center-button {
+	margin-top: 15px;
+}
+
+.MyOrder .alert-content .center-button .true {
+	display: inline-block;
+	padding: 9px 0;
+	margin-left: 42px;
+	background-color: #000;
+	color: #fff;
+	width: 100px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.MyOrder .alert-content .center-button .flase {
+	display: inline-block;
+	padding: 9px 0;
+	margin-left: 40px;
+	background-color: #eee;
+	color: #999;
+	width: 100px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.MyOrder .audit {
+	color: #FFFFFF;
+	position: fixed;
+	width: 200px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	top: 50%;
+	margin-top: -50px;
+	left: 50%;
+	margin-left: -100px;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: none;
+}
+
+.MyOrder .alert-content .NotNull {
+	color: #FFFFFF;
+	position: fixed;
+	width: 200px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	top: 35%;
+	left: 50%;
+	margin-left: -100px;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: none;
+}
+
+/* 历史商品 */
+.right-bg .OrderHistory {
+	margin-top: 30px;
+	background-color: #fff;
+}
+
+.OrderHistory .History-title {
+	border-bottom: 1px solid #dfdfdf;
+	color: #4f4f4f;
+
+}
+
+.OrderHistory .History-title li {
+	float: left;
+	width: 120px;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.OrderHistory .History-title li:first-child {
+	padding-left: 130px;
+	text-align: left;
+	width: 350px;
+}
+
+.OrderHistory .History-title li:nth-child(2) {
+	width: 70px;
+}
+
+.OrderHistory .History-title li:nth-child(3) {
+	width: 100px;
+}
+
+.OrderHistory .History-content {
+	padding-left: 20px;
+}
+
+.OrderHistory .History-content li {
+	float: left;
+	color: #000000;
+	margin-top: 52px;
+	text-align: center;
+	width: 120px;
+}
+
+.OrderHistory .History-content li:nth-child(1) {
+
+	margin-top: 15px;
+	text-align: left;
+	width: 460px;
+}
+
+.OrderHistory .History-content li:nth-child(2) {
+	width: 70px;
+}
+
+.OrderHistory .History-content li:nth-child(3) {
+	width: 100px;
+}
+
+.OrderHistory .History-content li:last-child:hover {
+	color: #EE0000;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.OrderHistory .History-content .productImg {
+	display: inline-block;
+	width: 90px;
+	height: 90px;
+}
+
+.OrderHistory .History-content .product-content {
+	padding-left: 20px;
+	padding-top: 18px;
+}
+
+.OrderHistory .product-content .productBrands {
+	font-weight: 600;
+	font-size: 14px;
+	margin-bottom: 2px;
+}
+
+.OrderHistory .product-content .productTitle {
+	color: #333;
+	padding-bottom: 2px;
+}
+
+.OrderHistory .product-content .productSize {
+	color: #707070;
+}

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.sephora.user.dao.UserDao">
+	<sql id="select_base">
+		SELECT
+		`ROW_ID`, `USER_KIND` ,`USER_NAME`, `USER_CODE`, `USER_PHONE`, `LOCK_FLAG`
+		,`LAST_LOGIN_IP`, `LAST_LOGIN_DATE`, `ACTIVE_FLAG`, `CREATE_BY`
+		,`CREATE_DATE` ,`UPDATE_BY` ,`UPDATE_DATE`
+		FROM TB_USER WHERE ACTIVE_FLAG=1
+	</sql>
+	<select id="getByUser" parameterType="user" resultType="user">
+		<include refid="select_base"></include>
+		<if test="rowId!=null">
+			AND ROW_ID=#{rowId}
+		</if>
+		<if test="userKind!=null">
+			AND `USER_KIND`=#{userKind}
+		</if>
+		<if test="userName!=null">
+			AND `USER_NAME`=#{userName}
+		</if>
+		<if test="userPhone!=null">
+			AND `USER_PHONE`=#{userPhone}
+		</if>
+		<if test="userCode!=null">
+			AND USER_CODE=#{userCode}
+		</if>
+		<if test="userPass!=null">
+			AND USER_PASS=#{userPass}
+		</if>
+		<if test="lockFlag!=null">
+				AND `LOCK_FLAG`=#{lockFlag}
+		</if>
+	</select>
+
+	<select id="getById" resultType="user">
+		<include refid="select_base"></include>
+		AND ROW_ID=#{rowId}
+	</select>
+	
+	<select id="getByCode" resultType="user">
+		<include refid="select_base"></include>
+		AND USER_CODE=#{userCode}
+	</select>
+
+	<select id="find" parameterType="user" resultType="user">
+		<include refid="select_base"></include>
+		<if test="userKind!=null">
+			AND `USER_KIND`=#{userKind}
+		</if>
+		<if test="userName!=null">
+			AND `USER_NAME`=#{userName}
+		</if>
+		<if test="userPhone!=null">
+			AND `USER_PHONE`=#{userPhone}
+		</if>
+		<if test="userCode!=null">
+			AND USER_CODE=#{userCode}
+		</if>
+		<if test="lockFlag!=null">
+			AND `LOCK_FLAG`=#{lockFlag}
+		</if>
+	</select>
+
+	<insert id="saveUser" parameterType="user"
+		useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO TB_USER (`USER_KIND`, `USER_NAME`, `USER_CODE`, `USER_PASS`,
+		`USER_PHONE`, `LOCK_FLAG`, `LAST_LOGIN_IP`, `LAST_LOGIN_DATE`,
+		`ACTIVE_FLAG`, `CREATE_BY`, `CREATE_DATE`)
+		VALUES(#{userKind},#{userName},#{userCode},#{userPass},#{userPhone},#{lockFlag},#{lastLoginIP},#{lastLoginDate},#{activeFlag},#{createBy},#{createDate}
+		)
+	</insert>
+
+	<update id="updateUser" parameterType="user">
+		UPDATE TB_USER
+		<set>
+			<if test="userKind!=null">
+				`USER_KIND`=#{userKind},
+			</if>
+			<if test="userName!=null">
+				`USER_NAME`=#{userName},
+			</if>
+			<if test="userCode!=null">
+				`USER_CODE`=#{userCode},
+			</if>
+			<if test="userPass!=null">
+				`USER_PASS`=#{userPass},
+			</if>
+			<if test="userPhone!=null">
+				`USER_PHONE`=#{userPhone},
+			</if>
+			<if test="lockFlag!=null">
+				`LOCK_FLAG`=#{lockFlag},
+			</if>
+			<if test="lastLoginIP!=null">
+				`LAST_LOGIN_IP`=#{lastLoginIP},
+			</if>
+			<if test="lastLoginDate!=null">
+				`LAST_LOGIN_DATE`=#{lastLoginDate},
+			</if>
+			<if test="updateBy!=null">
+				UPDATE_BY=#{updateBy},
+			</if>
+			<if test="updateDate!=null">
+				UPDATE_DATE=#{updateDate}
+			</if>
+		</set>
+		WHERE ROW_ID=#{rowId}
+	</update>
+
+	<delete id="delUser">
+		DELETE FROM TB_USER WHERE ROW_ID=#{rowId}
+	</delete>
+</mapper>

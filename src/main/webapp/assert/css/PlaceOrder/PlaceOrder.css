@@ -1,0 +1,189 @@
+.checkoutOrderState {
+	margin-top: 54px;
+	min-width: 1190px;
+}
+
+.title_Alipay.red {
+	border: 2px solid #e00;
+}
+
+.content_step .second {
+	border-bottom: 3px solid #eee;
+}
+.content_step .second span {
+	background-position: -124px -50px;
+}
+.content_step .third {
+	border-bottom: 3px solid #000;
+}
+
+.checkoutOrderState_content {
+	width: 1190px;
+	margin: 0 auto;
+	background-color: white;
+}
+
+.checkoutOrderState_content_title {
+	background-color: #f5f5f5;
+}
+
+.checkoutOrderState_content_title .state_text {
+	font-size: 18px;
+	color: #333;
+	padding: 21px 0;
+	margin-right: 12px;
+}
+
+.checkoutOrderState_content_title .state_time {
+	padding: 25px 0;
+	font-size: 12px;
+	color: #858585;
+}
+.OrderState_content_time {
+	color: #d1152a;;
+}
+.checkoutOrderState_content_box {
+	background-color: #fff;
+	width: 1190px;
+	border-bottom: 1px solid #eee;
+	padding: 58px 0;
+	color: #000000;
+	font-size: 22px;
+	text-align: center;
+	font-weight: bolder;
+}
+
+.checkoutOrderState_content_box .box_prompt_icon {
+	width: 56px;
+	margin: 0 auto;
+	padding-bottom: 15px;
+}
+
+.checkoutOrderState_content_bottom {
+	padding: 50px 0;
+	background-color: #fff;
+	width: 530px;
+	margin: 0 auto;
+}
+
+.content_bottom_left {
+	width: 100px;
+	margin: 0 auto;
+	color: #000000;
+	text-align: center;
+	cursor: pointer;
+}
+
+.content_bottom_right {
+	padding-left: 50px;
+}
+
+.content_bottom_right_bottom {
+	padding-top: 14px;
+}
+
+.content_bottom_right_bottom .checkoutSubmit-info-content-left-service {
+	background-color: #eee;
+	color: #000;
+	border-radius: 100px;
+	display: inline-block;
+	width: 130px;
+	margin-top: 14px;
+}
+
+.MethodOfPayment {
+	margin-top: 30px;
+}
+
+.MethodOfPayment_title {
+	font-size: 18px;
+	color: #333;
+	padding: 21px 0;
+	margin: 0 auto;
+	width: 1190px;
+}
+
+.MethodOfPayment_content {
+	width: 1190px;
+	margin: 0 auto;
+	background-color: white;
+}
+
+.MethodOfPayment_content_top {
+	width: 1190px;
+	padding-top: 20px;
+	border-bottom: 1px solid #eee;
+}
+
+.title_Alipay {
+	width: 183px;
+	padding: 13px 31px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	margin-left: 20px;
+	color: #000;
+	font-size: 16px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.title_Alipay_icon1 {
+	background: url(../../img/PlaceOrder/checkout-third-pay.png) no-repeat 0 0;
+	width: 22px;
+	height: 22px;
+	margin-right: 12px;
+	vertical-align: text-top;
+}
+
+.title_Alipay_icon2 {
+	background: url(../../img/PlaceOrder/checkout-third-pay.png) no-repeat -42px 0;
+	width: 22px;
+	height: 22px;
+	margin-right: 12px;
+	vertical-align: text-top;
+}
+
+.title_Alipay_icon3 {
+	background: url(../../img/PlaceOrder/SilkPay.png) no-repeat;
+	width: 22px;
+	height: 22px;
+	margin-right: 12px;
+	vertical-align: text-top;
+}
+
+.ComputerPay {
+	width: 1190px;
+	margin: 0 auto;
+	background-color: white;
+	padding-bottom: 120px;
+	margin-bottom: 80px;
+}
+
+.ComputerPay_text {
+	text-align: left;
+	font-size: 18px;
+	padding: 100px 0 30px 0;
+	color: #000000;
+	padding-left: 304px;
+}
+
+.ComputerPay_logo {
+	padding-left: 304px;
+}
+
+.ComputerPay_button {
+	padding: 60px 0 0 44px;
+}
+
+.ComputerPay_button .button {
+	width: 240px;
+	text-align: center;
+	background-color: #e00;
+	color: #fff;
+	font-size: 20px;
+	display: block;
+	border: 0;
+	padding: 16px 0;
+	cursor: pointer;
+}

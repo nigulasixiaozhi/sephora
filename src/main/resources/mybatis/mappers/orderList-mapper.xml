@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.sephora.orderlist.dao.OrderListDao">
+	<sql id="SELECT_BASE">
+		SELECT
+		PRODUCT_NAME,IMG_PATH,PRODUCT_PRICE,ROW_ID,ORDER_ID,PRODUCT_ID,BUY_COUNT,SUM_PRICE
+		FROM view_product_order_list WHERE ACTIVE_FLAG=1
+	</sql>
+
+	<insert id="save" parameterType="orderList"
+		useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO
+		TB_ORDER_LIST
+		(`ORDER_ID`,`PRODUCT_ID`,`BUY_COUNT`,`SUM_PRICE`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`)
+		VALUES(#{orderId},#{productId},#{buyCount},#{sumPrice},#{activeFlag},#{createBy},#{createDate}
+		)
+	</insert>
+
+	<select id="getByOrderList" parameterType="orderList"
+		resultType="orderList">
+		<include refid="SELECT_BASE"></include>
+		<if test="rowId!=null">
+			AND ROW_ID=#{rowId}
+		</if>
+		<if test="orderId!=null">
+			AND ORDER_ID=#{orderId}
+		</if>
+	</select>
+
+	<select id="find" parameterType="orderList"
+		resultType="orderList">
+		<include refid="SELECT_BASE"></include>
+		<if test="rowId!=null">
+			AND ROW_ID=#{rowId}
+		</if>
+		<if test="orderId!=null">
+			AND ORDER_ID=#{orderId}
+		</if>
+	</select>
+
+	<update id="update" parameterType="orderList">
+		UPDATE TB_ORDER_LIST
+		<set>
+			<if test="buyCount!=null">
+				BUY_COUNT=#{buyCount}
+			</if>
+			<if test="sumPrice!=null">
+				SUM_PRICE=#{sumPrice}
+			</if>
+		</set>
+		WHERE ROW_ID=#{rowId}
+	</update>
+
+	<delete id="del">
+		DELETE FROM TB_ORDER_LIST WHERE ROW_ID=#{rowId};
+	</delete>
+</mapper>
