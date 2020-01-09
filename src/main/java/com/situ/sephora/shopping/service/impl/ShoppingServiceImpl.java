@@ -20,7 +20,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 	@Override
 	public Long save(Shopping shopping) {
 		shopping.setActiveFlag(1);
-		shopping.setCreateBy(ConfigUtils.COOKIE_USER_NAME);
+		shopping.setCreateBy(ConfigUtils.SESSION_USER_LOGIN);
 		shopping.setCreateDate(new Date());
 		return this.shoppingDao.save(shopping);
 	}
@@ -47,7 +47,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 	@Override
 	public Integer del(Long rowId) {
 		this.shoppingDao.del(rowId);
-		return null;
+		return 1;
 	}
 
 }

@@ -11,6 +11,37 @@ public class Shopping extends BaseClass{
 	private Long productId;//商品id
 	private Integer payCount;//购买数量
 	private Double sumPrice;//总价
+	//额外的属性
+	private String productName;//商品名称
+	private String imgPath;//商品图片路径
+	private String brandName;//品牌名称
+	private Double productPrice;//商品价格
+	
+	
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+	public String getBrandName() {
+		return brandName;
+	}
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+	public Double getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
+	}
 	public Long getUserId() {
 		return UserId;
 	}

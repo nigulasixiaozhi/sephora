@@ -12,6 +12,8 @@ public interface OrderDao {
 	
 	List<Order> findByOrder(Order order);
 	
+	List<Order> findByUserId(Long userId);
+	
 	Long save(Order order);
 	
 	void del(Long rowId);

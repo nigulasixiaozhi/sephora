@@ -9,7 +9,6 @@ import com.situ.sephora.orderlist.domain.OrderList;
 import com.situ.sephora.orderlist.service.OrderListService;
 
 @Controller
-@RequestMapping("/admin")
 public class OrderListController {
 	@Autowired
 	private OrderListService orderListService;

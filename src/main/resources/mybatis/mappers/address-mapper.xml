@@ -4,36 +4,51 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.situ.sephora.address.dao.AddressDao">
 	<sql id="SELECT_BASE">
-		SELECT A.AREA_NAME, AU.`USER_NAME`, AU.`ROW_ID`,AU.`USER_ID`,AU.`PROVINCE`,AU.`CITY`,AU.`DISTRICT`,AU.`DETAILED_ADDRESS`,AU.`ADDRESS_PHONE`,AU.`POSTCODE` 
-	FROM view_address_user AU JOIN V_AREA_3 A ON AU.DISTRICT=A.ROW_ID WHERE AU.ACTIVE_FLAG=1
+		SELECT `USER_NAME`,
+		`ROW_ID`,`USER_ID`,`ADDRESS_NAME`,`PROVINCE`,`CITY`,`DISTRICT`,ADDRESS_PCD,`DETAILED_ADDRESS`,`ADDRESS_PHONE`,`POSTCODE`,`IS_DEFAULT`
+		FROM view_address_user WHERE ACTIVE_FLAG=1
 	</sql>
-	
-	<select id="findByAddress" parameterType="address" resultType="address">
+
+	<select id="findArea" resultType="address">
+		SELECT AREA_CODE,AREA_NAME FROM
+		YT_CD_AREA WHERE PARENT_CODE=#{parCode};
+	</select>
+
+	<select id="findByAddress" parameterType="address"
+		resultType="address">
 		<include refid="SELECT_BASE"></include>
 		<if test="userId!=null">
 			AND USER_ID=#{userId}
+		</if>
+		<if test="userName!=null">
+			AND USER_NAME=#{userName}
 		</if>
 		<if test="province!=null">
 			AND PROVINCE=#{province}
 		</if>
 	</select>
-	
-	<select id="getByAddress" parameterType="address" resultType="address">
+
+	<select id="get" parameterType="address" resultType="address">
 		<include refid="SELECT_BASE"></include>
-		<if test="userId!=null">
-			AND USER_ID=#{userId}
-		</if>
+		<if test="rowId!=null"></if>
+		AND ROW_ID=#{rowId}
 	</select>
-	
-	<insert id="save" parameterType="address" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
-		INSERT INTO TB_ADDRESS
-		 (`USER_ID`,`PROVINCE`,`CITY`,`DISTRICT`,`ADDRESS_PCD`,`DETAILED_ADDRESS`,`ADDRESS_PHONE`,`POSTCODE`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`)
-		  VALUES(#{userId},#{province},#{city},#{district},#{addressPcd},#{detailedAddress},#{addressPhone},#{postcode},#{activeFlag},#{createBy},#{createDate} )
+
+	<insert id="save" parameterType="address"
+		useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
+		INSERT INTO
+		TB_ADDRESS
+		(`USER_ID`,`ADDRESS_NAME`,`PROVINCE`,`CITY`,`DISTRICT`,`DETAILED_ADDRESS`,`ADDRESS_PHONE`,`POSTCODE`,`IS_DEFAULT`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`)
+		VALUES(#{userId},#{addressName},#{province},#{city},#{district},#{detailedAddress},#{addressPhone},#{postcode},#{isDefault},#{activeFlag},#{createBy},#{createDate}
+		)
 	</insert>
-	
+
 	<update id="update" parameterType="address">
-		UPDATE TB_ADDRESS 
+		UPDATE TB_ADDRESS
 		<set>
+			<if test="addressName!=null">
+				ADDRESS_NAME=#{addressName},
+			</if>
 			<if test="province!=null">
 				PROVINCE=#{province},
 			</if>
@@ -43,25 +58,34 @@
 			<if test="district!=null">
 				DISTRICT=#{district},
 			</if>
-			<if test="addressPcd!=null">
-				ADDRESS_PCD=#{addressPcd},
-			</if>
 			<if test="detailedAddress!=null">
 				DETAILED_ADDRESS=#{detailedAddress},
 			</if>
 			<if test="addressPhone!=null">
-				ADDRESS_PHONE=#{addressPhone}
+				ADDRESS_PHONE=#{addressPhone},
 			</if>
 			<if test="postcode!=null">
-				POSTCODE=#{postcode}
+				POSTCODE=#{postcode},
+			</if>
+			<if test="isDefault!=null">
+				IS_DEFAULT=#{isDefault},
 			</if>
 			<if test="updateBy!=null">
-				UPDATE_BY=#{updateBy}
+				UPDATE_BY=#{updateBy},
 			</if>
 			<if test="updateDate!=null">
 				UPDATE_DATE=#{updateDate}
 			</if>
 		</set>
+		WHERE ROW_ID=#{rowId}
+	</update>
+
+	<update id="addEditDefault">
+		UPDATE TB_ADDRESS SET IS_DEFAULT=0 WHERE IS_DEFAULT=1 AND USER_ID=#{userId}
+	</update>
+	
+	<update id="clickDefault">
+		UPDATE TB_ADDRESS SET IS_DEFAULT=1 WHERE ROW_ID=#{rowId};
 	</update>
 	
 	<delete id="del">

@@ -11,7 +11,9 @@ public class OrderList extends BaseClass {
 	private Long productId;//商品ID
 	private Integer buyCount;//购买数量
 	private Double sumPrice;//商品总价
+	//额外的属性
 	private String productName;//商品名称
+	private String brandName;//商品品牌
 	private Double productPrice;//商品价格
 	private String imgPath;//图片路径
 	
@@ -20,6 +22,13 @@ public class OrderList extends BaseClass {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+	
+	public String getBrandName() {
+		return brandName;
+	}
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 	public Double getProductPrice() {
 		return productPrice;

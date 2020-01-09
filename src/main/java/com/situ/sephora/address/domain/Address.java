@@ -7,15 +7,20 @@ import com.situ.sephora.base.domain.BaseClass;
 public class Address extends BaseClass{
 	private static final long serialVersionUID = 1L;
 	private Long userId;//用户ID
+	private String addressName;//收货时的名字
 	private Integer province;//省代号
 	private Integer city;//市代号
 	private Integer district;//区代号
 	private String detailedAddress;//详细地址
 	private String addressPhone;//收货电话
 	private String postcode;//邮编
+	private Integer isDefault; //是否默认 1为默认0不是默认
+	//额外的
 	private String userName;//用户名称
+	private String addressPcd;//省市区
+	private Long areaCode;//地区代号
+	private String areaName;//地区名字
 	
-	private String areaName;//省市区
 	
 	public String getAreaName() {
 		return areaName;
@@ -23,11 +28,24 @@ public class Address extends BaseClass{
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
+	public Long getAreaCode() {
+		return areaCode;
+	}
+	public void setAreaCode(Long areaCode) {
+		this.areaCode = areaCode;
+	}
+	
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getAddressPcd() {
+		return addressPcd;
+	}
+	public void setAddressPcd(String addressPcd) {
+		this.addressPcd = addressPcd;
 	}
 	public Long getUserId() {
 		return userId;
@@ -36,6 +54,12 @@ public class Address extends BaseClass{
 		this.userId = userId;
 	}
 	
+	public String getAddressName() {
+		return addressName;
+	}
+	public void setAddressName(String addressName) {
+		this.addressName = addressName;
+	}
 	public Integer getProvince() {
 		return province;
 	}
@@ -71,6 +95,12 @@ public class Address extends BaseClass{
 	}
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+	public Integer getIsDefault() {
+		return isDefault;
+	}
+	public void setIsDefault(Integer isDefault) {
+		this.isDefault = isDefault;
 	}
 	
 }

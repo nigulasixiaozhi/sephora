@@ -8,11 +8,17 @@ public interface AddressService {
 
 	Long save(Address address);
 	
-	Address getByAddress(Address address);
+	Address get(Address address);
 	
 	List<Address> findByAddress(Address address);
 	
+	List<Address> findArea(Long parCode);
+	
 	Integer update(Address address);
+	
+	Integer addEditDefault(Long userId);
+	
+	Integer clickDefault(Long rowId,Long userId);
 	
 	Integer del(Long rowId);
 	

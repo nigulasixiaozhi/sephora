@@ -24,7 +24,7 @@
 							<span class="text">交易管理</span>
 							<span class="arrow bottom"></span>
 						</dt>
-						<dd><a href="myOrder/">我的订单</a></dd>
+						<dd><a href="myOrder/${user.rowId}">我的订单</a></dd>
 						<dd><a href="">我的优惠券</a></dd>
 						<dd><a href="">我的兑礼订单</a></dd>
 					</div>

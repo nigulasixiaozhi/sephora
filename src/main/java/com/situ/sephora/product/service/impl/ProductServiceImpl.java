@@ -111,11 +111,11 @@ public class ProductServiceImpl implements ProductService {
 		// 文件的后缀
 		String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
 		// 写出的文件地址#此路径应该写到数据库中
-		File file = new File(realPath+"assert/uploads/");
+		File file = new File(realPath+ConfigUtils.FILE_FOLDER);
 		if (!file.isDirectory()) {
 			file.mkdirs();
 		}
-		String filePath = "assert/uploads/" + Calendar.getInstance().getTimeInMillis() + suffix;
+		String filePath = ConfigUtils.FILE_FOLDER + Calendar.getInstance().getTimeInMillis() + suffix;
 		// 要写出的文件
 		File toFile = new File(realPath + filePath);
 		try {

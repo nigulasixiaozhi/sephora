@@ -11,6 +11,8 @@ public interface OrderService {
 	
 	List<Order> findByOrder(Order order);
 	
+	List<Order> findByUserId(Long userId);
+	
 	Integer update(Order order);
 	
 	Integer del(Long rowId);

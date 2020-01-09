@@ -8,7 +8,6 @@
 			<!-- 左侧 -->
 			<div class="top-wrapper-left fl">
 				<span class="top-wrapper-left-logo">欢迎来到丝芙兰</span>
-				<%--  <c:set value="${requestScope.user}" var="user"></c:set>  --%>
 				<c:choose>
 					<c:when test="${!empty user}">
 						<span>${user.userName}</span>
@@ -40,7 +39,7 @@
 					<!-- 箭头 -->
 
 					<div class="top-wrapper-order">
-						<img src="assert/img/head/top_angle_w2.png" class="top-wrapper-right-img"> <a href="myOrder/">我的订单</a>
+						<img src="assert/img/head/top_angle_w2.png" class="top-wrapper-right-img"> <a href="myOrder/${user.rowId }">我的订单</a>
 					</div>
 				</div>
 
@@ -104,7 +103,7 @@
 			</div>
 			<!-- 购物袋 -->
 			<div class="top_search_bag fr">
-				<img src="assert/img/head/shopping_bag.png" class="shopping-bag"> <a href="#"> <span class="top_search_bag_txt">购物袋<span class="shopping-num">0</span>件
+				<img src="assert/img/head/shopping_bag.png" class="shopping-bag"> <a href="${!empty user?'shoppingCart':'login' }"> <span class="top_search_bag_txt">购物袋<span class="shopping-num">0</span>件
 				</span>
 				</a>
 				<!-- 购物车 -->
@@ -113,7 +112,7 @@
 						<img src="assert/img/head/package.png">
 					</div>
 					<div class="top_search_bag_trolley_message fl">
-						<span>购物车内暂时没有商品，登录后将显示您之前加入的商品 </span> <a href="#" class="top_search_bag_trolley_message_ding">登陆</a>
+						<span>购物车内暂时没有商品，登录后将显示您之前加入的商品 </span> <a href="login" class="top_search_bag_trolley_message_ding">登陆</a>
 					</div>
 					<div class="clear"></div>
 				</div>

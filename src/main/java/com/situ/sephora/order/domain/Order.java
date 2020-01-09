@@ -12,14 +12,22 @@ public class Order extends BaseClass{
 	private Double sumPrice;//总价
 	private Integer orderStatus;//订单状态 
 	private Integer pay;//支付方式
-	//
+	//额外的名称
 	private String userName;//用户名称
+	private String addressName;//收货地址名称
 	
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	public String getAddressName() {
+		return addressName;
+	}
+	public void setAddressName(String addressName) {
+		this.addressName = addressName;
 	}
 	public Long getUserId() {
 		return UserId;

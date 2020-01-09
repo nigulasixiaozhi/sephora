@@ -19,7 +19,6 @@ $(".shop_shop_perfume_num .plus").click(function() {
 	var num = parseInt($num.text());
 	num++;
 	$num.text(num);
-
 	var price = $(this).parent().siblings(".shop_shop_perfume_mon").text();
 	$(this).parent().siblings(".shop_shop_perfume_small").text(num * price);
 
@@ -45,9 +44,7 @@ $(".shop_shop_perfume_num .subtract").click(function() {
 	var $num = $(this).siblings(".nums")
 	var num = parseInt($num.text());
 	num--;
-	if (num < 0) {
-		alert("商品已被清零!");
-	} else {
+	if (num>1) {
 		$num.text(num);
 		//小计
 		var price = $(this).parent().siblings(".shop_shop_perfume_mon").text();
@@ -68,6 +65,8 @@ $(".shop_shop_perfume_num .subtract").click(function() {
 			$(".settle_money_up_money").text(ms - m);
 			$(".settle_money_down_le span").text(ms - m);
 		}
+	} else{
+		$num.text(1);
 	}
 
 });
@@ -114,35 +113,35 @@ $("#checkAll").click(function() {
 });
 
 // 第二个
-$("#checkAlls").click(function() {
-	var checked = $(this).prop("checked");
-	// console.log("1");
-	$(".shop_all_whole input:checkbox").prop("checked", checked);
-	$(".shop_shop input:checkbox").prop("checked", checked);
-	if (checked == true) {
-		cal_Num()
-		cal_Cost()
-	} else {
-		$(".settle_money_up_num").text("0");
-		$(".settle_money_up_money").text("0");
-		$(".settle_money_down_le span").text("0");
-	}
-});
-// 第三个
-$("#checkAllss").click(function() {
-	var checked = $(this).prop("checked");
-	console.log("1");
-	$(".shop_all_whole input:checkbox").prop("checked", checked);
-	$(".shop_shop input:checkbox").prop("checked", checked);
-	if (checked == true) {
-		cal_Num()
-		cal_Cost()
-	} else {
-		$(".settle_money_up_num").text("0");
-		$(".settle_money_up_money").text("0");
-		$(".settle_money_down_le span").text("0");
-	}
-});
+//$("#checkAlls").click(function() {
+//	var checked = $(this).prop("checked");
+//	// console.log("1");
+//	$(".shop_all_whole input:checkbox").prop("checked", checked);
+//	$(".shop_shop input:checkbox").prop("checked", checked);
+//	if (checked == true) {
+//		cal_Num()
+//		cal_Cost()
+//	} else {
+//		$(".settle_money_up_num").text("0");
+//		$(".settle_money_up_money").text("0");
+//		$(".settle_money_down_le span").text("0");
+//	}
+//});
+//// 第三个
+//$("#checkAllss").click(function() {
+//	var checked = $(this).prop("checked");
+//	//console.log("1");
+//	$(".shop_all_whole input:checkbox").prop("checked", checked);
+//	$(".shop_shop input:checkbox").prop("checked", checked);
+//	if (checked == true) {
+//		cal_Num()
+//		cal_Cost()
+//	} else {
+//		$(".settle_money_up_num").text("0");
+//		$(".settle_money_up_money").text("0");
+//		$(".settle_money_down_le span").text("0");
+//	}
+//});
 // 判断全选
 $(".shop_shop input:checkbox").click(function() {
 	// 总共多少个
@@ -190,23 +189,23 @@ $(".shop_shop input:checkbox").click(function() {
 	}
 })
 // 点击删除
-$(".shop_shop_perfume_del").click(function() {
-
-	// 数量
-	var n = parseInt($(this).siblings(".shop_shop_perfume_num").find(".nums").text());
-	var ns = parseInt($(".settle .settle_money_up_num").text());
-	$(".settle_money_up_num").text(ns - n);
-
-	// 价格
-	var m = parseFloat($(this).siblings(".shop_shop_perfume_small").text());
-	var ms = parseInt($(".settle .settle_money_up_money").text());
-
-	$(".settle_money_up_money").text(ms - m);
-	$(".settle_money_down_le span").text(ms - m);
-
-	$(this).parents(".shop_shop_perfume").remove();
-
-})
+//$(".shop_shop_perfume_del").click(function() {
+//
+//	// 数量
+//	var n = parseInt($(this).siblings(".shop_shop_perfume_num").find(".nums").text());
+//	var ns = parseInt($(".settle .settle_money_up_num").text());
+//	$(".settle_money_up_num").text(ns - n);
+//
+//	// 价格
+//	var m = parseFloat($(this).siblings(".shop_shop_perfume_small").text());
+//	var ms = parseInt($(".settle .settle_money_up_money").text());
+//
+//	$(".settle_money_up_money").text(ms - m);
+//	$(".settle_money_down_le span").text(ms - m);
+//
+//	$(this).parents(".shop_shop_perfume").remove();
+//
+//})
 // 点击更改规格
 $(".shop_shop_perfume_message_ml a").click(function() {
 

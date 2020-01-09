@@ -36,6 +36,11 @@ public class OrderServiceImpl implements OrderService {
 		order = PageUtils.buildSearchParam(order);
 		return this.orderDao.findByOrder(order);
 	}
+	
+	@Override
+	public List<Order> findByUserId(Long userId) {
+		return this.orderDao.findByUserId(userId);
+	}
 
 	@Override
 	public Integer update(Order order) {
@@ -49,4 +54,5 @@ public class OrderServiceImpl implements OrderService {
 		this.orderDao.del(rowId);
 		return 1;
 	}
+
 }

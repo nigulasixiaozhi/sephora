@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title></title>
-		<jsp:include page="/base.jsp"></jsp:include>
+<jsp:include page="/base.jsp"></jsp:include>
 <link rel="stylesheet" type="text/css" href="assert/css/reset.css" />
-<link rel="stylesheet" type="text/css" href="assert/css/head/Hohead.css" />
+<link rel="stylesheet" type="text/css" href="assert/css/head/Genhead.css" />
 <link rel="stylesheet" type="text/css" href="assert/css/MyOrder/MyOrder.css" />
 </head>
 <body>
 
-	<!-- 头部 -->
-	<%@ include file="/head.jsp"%>
 	<div class="body container clearfix">
 		<div class="left-tree fl">
 			<div class="title">
@@ -24,7 +23,7 @@
 						<span class="text">交易管理</span> <span class="arrow bottom"></span>
 					</dt>
 					<dd>
-						<a href="myOrder/">我的订单</a>
+						<a href="myOrder/${user.rowId }">我的订单</a>
 					</dd>
 					<dd>
 						<a href="">我的优惠券</a>
@@ -79,36 +78,56 @@
 					</select></li>
 					<li>操作</li>
 				</ul>
-				<div class="MyOreder-content clearfix">
-					<div class="contentLeft fl">
-						<div class="number">
-							<span>订单号 :</span> <span>1198585318101562</span> <span>2019-03-21 23:10</span>
+				<c:if test="${!empty order}">
+					<c:forEach items="${order}" var="order">
+						<div class="MyOreder-content clearfix">
+							<div class="contentLeft fl">
+								<div class="number">
+									<span>订单号 :</span> <span>${order.rowId }</span> <span>${order.createBy }</span>
+								</div>
+								<c:if test="${!empty orderList }">
+									<c:forEach items="${orderList}" var="list">
+										<c:if test="${order.rowId==list.orderId}">
+											<ul class="shopingList clearfix">
+												<li class="clearfix"><img class="fl" src="${list.imgPath}">
+													<div class="productName ">${list.brandName }</div>
+													<div class="productTitle">${list.brandName }</div>
+													<div class="productSize">规格：瓶</div></li>
+												<li>${list.buyCount }</li>
+												<li>￥${list.sumPrice }</li>
+												<li></li>
+											</ul>
+										</c:if>
+									</c:forEach>
+								</c:if>
+							</div>
+							<ul class="contentRight fl">
+								<li>${order.addressName}</li>
+								<li>
+									<p>￥${order.sumPrice}</p>
+									<p>(含运费￥0.00)</p>
+									<p>在线支付</p>
+								</li>
+								<li>已取消</li>
+								<li>
+									<c:choose>
+										<c:when test="${order.orderStatus==4}">
+											<p>再次购买</p>
+											<p>订单详情</p>
+										</c:when>
+										<c:otherwise>
+											<p class="payButton">立即支付</p>
+											<p>订单详情</p>
+											<p id="offOrder">取消订单</p>
+										</c:otherwise>
+									</c:choose>
+								</li>
+							</ul>
 						</div>
-						<ul class="shopingList clearfix">
-							<li class="clearfix"><img class="fl" src="assert/img/MyOrder/1_n_06178_350x350.jpg">
-								<div class="productName ">MARC JACOBS</div>
-								<div class="productTitle">莫杰雏菊梦境女士淡香水</div>
-								<div class="productSize">规格：瓶</div></li>
-							<li>1</li>
-							<li>￥690.00</li>
-							<li></li>
-						</ul>
-					</div>
-					<ul class="contentRight fl">
-						<li>xxx</li>
-						<li>
-							<p>￥690.00</p>
-							<p>(含运费￥0.00)</p>
-							<p>在线支付</p>
-						</li>
-						<li>已取消</li>
-						<li>
-							<p>再次购买</p>
-							<p>订单详情</p>
-						</li>
-					</ul>
-				</div>
-				<div class="MyOreder-content clearfix">
+					</c:forEach>
+				</c:if>
+
+				<!-- <div class="MyOreder-content clearfix">
 					<div class="contentLeft fl">
 						<div class="number">
 							<span>订单号 :</span> <span>1198585318134689</span> <span>2019-03-22 10:10</span>
@@ -166,7 +185,7 @@
 							<p>订单详情</p>
 						</li>
 					</ul>
-				</div>
+				</div> -->
 				<div class="clearfix">
 					<div class="buttonTeam fr">
 						<span class="paging"> &lt;上一页 </span> <span class="pageNumber">1 </span> <span class="paging"> 下一页&gt; </span> <span class="skip">到第<input type="text">页
@@ -248,7 +267,6 @@
 										.removeClass("boder");
 							})
 
-					
 					// 搜索框
 					$(".int").click(function() {
 						$(".top_search_int_arise").css("display", "block")
@@ -258,6 +276,18 @@
 					})
 
 				})
+		//java
+		//添加头部
+		addHead();
+		function addHead() {
+			$.ajax({
+				post : "get",
+				url : "findCategoryChild/",
+				success : function(res) {
+					$("body").prepend(res);
+				}
+			})
+		}
 	</script>
 </body>
 </html>

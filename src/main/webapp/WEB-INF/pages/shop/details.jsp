@@ -67,7 +67,7 @@
 					<div class="price clearfix">
 						<p class="one fl">价格</p>
 						<p class="two fl">￥</p>
-						<span class="three fl">${product.productPrice }</span>
+						<span id="productPrice" class="three fl">${product.productPrice }</span>
 						<p class="eight fr"></p>
 					</div>
 					<div class="capacity clearfix">
@@ -81,7 +81,7 @@
 					<div class="fourButton clearfix">
 						<div class="number fl clearfix">
 							<!-- <input type="text" readonly="readonly" id="txt1" class="txt1 fl" value=""> -->
-							<button type="button" readonly="readonly" id="txt1" class="txt1 fl" value="">1</button>
+							<input type="button" readonly="readonly" id="txt1" class="txt1 fl" value="1"></input>
 							<div class="arrow fl">
 								<div class="topArrow clearfix">
 									<div class="icon1 fl"></div>
@@ -93,10 +93,12 @@
 							</div>
 						</div>
 
-						<a href="#">
+						<a class="shoppingCart" href="">
 							<div class="redButton fl clearfix">
-								<a href="shoppingcart/"><p class="fl">加入购物车</p>
-									<div class="icon3 fl"></div> </a>
+								<input type="hidden" id="userId" value="${user.rowId}" />
+								<input type="hidden" id="productId" value="${product.rowId}" />
+								<p class="fl">加入购物车</p>
+								<div class="icon3 fl"></div> 
 							</div>
 						</a>
 					</div>
@@ -215,7 +217,7 @@
 								<li id="all4">配送信息</li>
 							</ul>
 						</div>
-						<a href="#" class="fixedDis fr">
+						<a href="" class="fixedDis fr shoppingCart">
 							<div class="redButton fl clearfix">
 								<p class="fl">加入购物车</p>
 								<div class="icon3 fl"></div>
@@ -685,13 +687,11 @@
 
 		</div>
 	</div>
-	<!-- 脚部 -->
-		<%@ include file="/foot.jsp" %>
 	<!-- 右侧导航栏 -->
 	<ul class="toolbar">
-		<li><a href=""> <span class="toolbar-text">个人信息</span> <em class="sprite-toolbar person"></em>
+		<li><a href="personalCenter"> <span class="toolbar-text">个人信息</span> <em class="sprite-toolbar person"></em>
 		</a></li>
-		<li><a href=""> <span class="toolbar-text">购物车</span> <em class="sprite-toolbar shoping"></em>
+		<li><a href="shoppingCart"> <span class="toolbar-text">购物车</span> <em class="sprite-toolbar shoping"></em>
 		</a></li>
 		<li><a href=""> <span class="toolbar-text">联系客服</span> <em class="sprite-toolbar service"></em>
 		</a></li>
@@ -700,7 +700,8 @@
 		<li><a href="javascript:;"> <span class="toolbar-text">返回顶部</span> <em class="sprite-toolbar return"></em>
 		</a></li>
 	</ul>
-
+	<!-- 脚部 -->
+	<%@ include file="/foot.jsp" %>
 
 
 	<script src="assert/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -732,7 +733,7 @@
 						function() {
 							scrollTop = $(this).scrollTop();
 							var spriteTitle = $(".sprite-title");
-							// 				console.log(offsetTop);
+							// console.log(offsetTop);
 							// console.log(scrollTop);
 							if (scrollTop > 663) {
 								$(".toolbar").show();
@@ -765,6 +766,29 @@
 				scrollTop : 0,
 			})
 		})
+		//加入购物车
+		$(".shoppingCart").click(function(){
+			var userId = $("#userId").val();
+			var productId = $("#productId").val();
+			var payCount = $("#txt1").val();
+			var sumPrice = $("#productPrice").text()*payCount;
+			 $.ajax({
+				type:"post",
+				url:"shopping/add",
+				data:{
+					userId,productId,payCount,sumPrice
+				},
+				success:function(res){
+					if(res){
+						if(confirm("是否去购物车结算？")){
+							window.location.href="shoppingCart";
+						}
+					}
+				}
+			})
+			return false;
+		})
+		
 		//java
 			//添加头部
 			addHead();

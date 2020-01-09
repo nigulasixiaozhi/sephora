@@ -52,12 +52,12 @@ $(document).ready(function() {
 	//点击增加
 	$(".topArrow").click(function() {
 		var $txt = $("#txt1");
-		var num = parseInt($txt.text());
+		var num = parseInt($txt.val());
 		num++;
 // 		if (num < 0) {
 // 			return;
 // 		}
-		var txt2 = $txt.text(num);
+		var txt2 = $txt.val(num);
 		// console.log(txt2)
 		if (num > 10) {
 			// $(".topArrow").addClass("disable");
@@ -67,12 +67,12 @@ $(document).ready(function() {
 	});
 	$(".buttomArrow").click(function() {
 		var $txt = $("#txt1");
-		var num = parseInt($txt.text());
+		var num = parseInt($txt.val());
 		num--;
-		if (num < 0) {
+		if (num < 1) {
 			return;
 		}
-		var txt3 = $txt.text(num);
+		var txt3 = $txt.val(num);
 	});
 	//购物车按钮
 	$(".redButton").hover(function() {

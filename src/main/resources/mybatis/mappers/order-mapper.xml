@@ -4,10 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.situ.sephora.order.dao.OrderDao">
 	<sql id="SELECT_BASE">
-	<!-- 待更改 -->
-	SELECT U.USER_NAME,O.`ROW_ID`,O.`USER_ID`,O.`ADDRESS_ID`,O.`SUM_PRICE`,O.`ORDER_STATUS`,O.`PAY`,O.`ACTIVE_FLAG`,O.`CREATE_BY`,O.`CREATE_DATE`,O.`UPDATE_BY`,O.`UPDATE_DATE` 
-	FROM TB_ORDER O JOIN TB_USER U ON O.USER_ID=U.ROW_ID
-	WHERE O.ACTIVE_FLAG=1
+	SELECT USER_NAME,ADDRESS_NAME,`ROW_ID`,`USER_ID`,`ADDRESS_ID`,`SUM_PRICE`,`ORDER_STATUS`,`PAY`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`,`UPDATE_BY`,`UPDATE_DATE` 
+	FROM view_user_order_address WHERE ACTIVE_FLAG=1
 	</sql>
 	
 	<insert id="save" parameterType="order" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
@@ -46,6 +44,11 @@
 		<if test="pay!=null">
 			AND PAY=#{pay}
 		</if>
+	</select>
+	
+	<select id="findByUserId" resultType="order">
+		<include refid="SELECT_BASE"></include> 
+		AND USER_ID=#{userId}
 	</select>
 	
 	<update id="update" parameterType="order">

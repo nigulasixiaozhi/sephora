@@ -22,7 +22,7 @@
 					<td><c:if test="${!empty address}">
 							<c:forEach items="${address }" var="address">
 								<c:if test="${order.addressId==address.rowId}">
-									${address.areaName}${address.detailedAddress }
+									${address.addressPcd}${address.detailedAddress }
 								</c:if>
 							</c:forEach>
 						</c:if></td>

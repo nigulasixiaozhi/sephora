@@ -21,4 +21,8 @@ public class ConfigUtils implements Serializable {
 	public static final String COOKIE_ADMIN_NAME = "admin.reiz.com";
 
 	public static final String SYS = "sys";
+	//图片写出文件的路径
+	public static final String FILE_BASE_PATH="/Users/pang/eclipse-sephora/sephora/src/main/webapp/";
+	//图片写出的文件夹
+	public static final String FILE_FOLDER = "filesephora/product/";
 }
