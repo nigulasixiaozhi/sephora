@@ -48,7 +48,7 @@
 			<div class="shop_all">
 				<!-- 全选 -->
 				<div class="shop_all_whole fl">
-					<input type="checkbox" name="" id="checkAll" value="" /> <span>全选</span>
+					<input type="checkbox" id="checkAll"/> <span>全选</span>
 				</div>
 				<!-- 商品信息 -->
 				<div class="shop_all_message fl">商品信息</div>
@@ -70,7 +70,7 @@
 						<div data-id="${list.rowId }" class="shop_shop_perfume">
 							<!-- 选项 -->
 							<div class="shop_shop_perfume_choice fl">
-								<input type="checkbox" />
+								<input type="checkbox" ${list.checked==1?'checked':'' } />
 							</div>
 							<!-- 图片 -->
 							<div class="shop_shop_perfume_img fl">
@@ -90,9 +90,9 @@
 							<!-- 价格 -->
 							<div class="shop_shop_perfume_mon fl">${list.productPrice }</div>
 							<div class="shop_shop_perfume_num fl">
-								<div class="subtract fl">-</div>
-								<div class="nums fl">${list.payCount }</div>
-								<div class="plus fl">+</div>
+								<div class="subtract button fl">-</div>
+								<div class="nums fl">${list.payCount}</div>
+								<div class="plus button fl">+</div>
 								<div class="clear"></div>
 							</div>
 							<div class="shop_shop_perfume_small fl">${list.sumPrice }</div>
@@ -192,7 +192,7 @@
 			<div class="container">
 				<!-- 全选 -->
 				<div class="settle_all fl">
-					<input type="checkbox" name="" id="checkAlls" value="" /> <span>全选</span>
+					<input type="checkbox"/> <span>全选</span>
 				</div>
 				<!-- 批量 -->
 				<div class="settle_del fl">批量删除</div>
@@ -202,59 +202,22 @@
 				</div>
 
 				<!-- 立即结算 -->
-				<a href="shoppingProcess/">
+				<a id="shopProcess" href="shoppingProcess/">
+					<input type="hidden" id="userId" value="${user.rowId}" />
 					<p class="settle_settleaccounts fr">立即结算</p>
 				</a>
 				<!-- 金额 -->
+				<c:set value="${checkedPriceAndCount}" var="checked"></c:set>
 				<div class="settle_money fr">
 					<div class="settle_money_up ">
 						<div class="settle_money_up_up fr">
-							已选择<span class="settle_money_up_num">0</span>件商品，合计:¥ <span class="settle_money_up_money">0.00</span>
+							已选择<span class="settle_money_up_num">${!empty checked?checked.checkedCount:0}</span>件商品，合计:¥ <span class="settle_money_up_money">${!empty checked?checked.checkedPrice:0.00}</span>
 						</div>
 						<div class="clear"></div>
 					</div>
 					<div class="settle_money_down">
 						<div class="settle_money_down_le fl">
-							商品总额:¥&nbsp;<span>0.00</span>
-						</div>
-						<div class="settle_money_down_ri fl">
-							<img src="assert/img/shoppingcart/checkout_first_minu.png"> <span>共节省:¥&nbsp;</span><span>0.00</span>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				<div class="clear"></div>
-			</div>
-		</div>
-		<!-- 第六块，浮窗 -->
-		<div class="settles">
-			<div class="container">
-				<!-- 全选 -->
-				<div class="settle_all fl">
-					<input type="checkbox" name="" id="checkAllss" value="" /> <span>全选</span>
-				</div>
-				<!-- 批量 -->
-				<div class="settle_del fl">批量删除</div>
-				<!-- 联系 -->
-				<div class="settle_relation fl">
-					<span>联系客服</span> <img src="assert/img/shoppingcart/checkout-submit-phone.png">
-				</div>
-
-				<!-- 立即结算 -->
-				<a href="shoppingProcess/">
-					<div class="settle_settleaccounts fr">立即结算</div>
-				</a>
-				<!-- 金额 -->
-				<div class="settle_money fr">
-					<div class="settle_money_up ">
-						<div class="settle_money_up_up fr">
-							已选择<span class="settle_money_up_num">0</span>件商品，合计:¥ <span class="settle_money_up_money">0.00</span>
-						</div>
-						<div class="clear"></div>
-					</div>
-					<div class="settle_money_down">
-						<div class="settle_money_down_le fl">
-							商品总额:¥&nbsp;<span>0.00</span>
+							商品总额:¥&nbsp;<span>${!empty checked?checked.checkedPrice:0.00}</span>
 						</div>
 						<div class="settle_money_down_ri fl">
 							<img src="assert/img/shoppingcart/checkout_first_minu.png"> <span>共节省:¥&nbsp;</span><span>0.00</span>
@@ -271,7 +234,7 @@
 	<%@ include file="/foot.jsp"%>
 	<script src="assert/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="assert/lib/jquery.SuperSlide.2.1.3.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="assert/js/shoppingcart/shoppingcart.js"></script>
+<!-- 	<script type="text/javascript" src="assert/js/shoppingcart/shoppingcart.js"></script> -->
 	<script type="text/javascript">
 		jQuery(".txtScroll-top").slide({
 			mainCell : ".bd ul",
@@ -281,8 +244,111 @@
 			vis : 1,
 			delayTime : 1000,
 		});
+		//滚动事件
+		$(window).scroll(function() {
+			var scrollTop = $(this).scrollTop();
+			//console.log(scrollTop);
+			if (scrollTop < 345) {
+				$(".settle ").css({
+					"position":"fixed",
+					"bottom":"0",
+					"margin":"0"
+				});
+			} else {
+				$(".settle ").css({
+					"position":"inherit",
+					"margin":"50px 0 100px"
+				});
+			};
+		});
 	</script>
 	<script type="text/javascript">
+		//增加或减少商品数量
+		$(".shop_shop_perfume_num .button").click(function(){
+			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");
+			var payCount =$(this).siblings(".nums").text();
+			var price = $(this).parent().siblings(".shop_shop_perfume_mon").text();
+			var checkedFlag = $(this).parents(".shop_shop_perfume_num").siblings(".shop_shop_perfume_choice").find("input").prop("checked");
+			var checked =checkedFlag?1:0;
+			
+			if($(this).hasClass("plus")){
+				payCount++;
+			}else if($(this).hasClass("subtract")){
+				if(payCount>1){
+					payCount--;
+				}
+			}
+			var sumPrice =(payCount*price).toFixed(1);
+			var shop = {rowId,payCount,sumPrice,checked};//创建shop对象
+			var shopping= ajaxCount(shop);//调用方法获得返回值
+			//console.log(shopping);
+			if(shopping!=null){
+				$(this).siblings(".nums").text(shopping.payCount);
+				$(this).parent().siblings(".shop_shop_perfume_small").text(shopping.sumPrice.toFixed(1));
+				var $inputs = $(".shop_shop .shop_shop_perfume_choice input");
+				var flag=false;
+				for(var i=0;i<$inputs.length;i++){
+					if($inputs.eq(i).prop("checked")){
+						flag = true;
+						break;
+					}
+				}
+				if(flag){
+					setCheckedPriceAndCount(shopping);
+				}
+			}
+			
+		})
+		
+		//多选框
+		$(".shop_shop .shop_shop_perfume_choice input").click(function(){
+			var checkedFlag = $(this).prop("checked");
+			var checkedLength = $(".shop_shop .shop_shop_perfume_choice input:checked").length;
+			var checboxLength = $(".shop_shop .shop_shop_perfume_choice input").length;
+			if(checkedLength==checboxLength){
+				$(".checkAll").prop("checked",true);
+			}else{
+				$(".checkAll").prop("checked",false);
+			}
+			var checked =checkedFlag?1:0;
+			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");
+			var shop ={checked,rowId};
+			var shopping = ajaxCount(shop);
+			setCheckedPriceAndCount(shopping);
+		})
+		
+		//全选框
+		$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").click(function(){
+			var checkedFlag = $(this).prop("checked");
+			var userId = $("#userId").val();
+			var checked =checkedFlag?1:0;
+			$(".checkAll").prop("checked",checkedFlag);
+			$(".shop_shop .shop_shop_perfume_choice input").prop("checked",checkedFlag);
+			$.ajax({
+				type:"post",
+				url:"shopping/updateChecked",
+				data:{userId,checked},
+				success:function(res){
+					if(res){
+						$.ajax({
+							type:"get",
+							url:"shopping/checekdPriceAndCount",
+							success:function(res){
+								setCheckedPriceAndCount(res);
+							}
+						})
+					}
+				}
+			})
+		})
+		
+		
+		//提交订单
+		$("#shopProcess").click(function(){
+			var userId = $("#userId").val();
+			var sumPrice = $(this).parent().siblings(".shop_shop_perfume_small").text();
+		})
+	
 		//删除
 		$(".shop_shop_perfume_del").on("click", "i", function() {
 			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");
@@ -298,7 +364,38 @@
 				})
 			}
 		})
-
+	
+		//给选中的数量和总价赋值
+		function setCheckedPriceAndCount(shopping){
+			$(".settle .settle_money_up_num").text(shopping.checkedCount?shopping.checkedCount:0);//选中的总数量
+			$(".settle_money_down_le span").text(shopping.checkedPrice?shopping.checkedPrice:0);//选中的总价格
+			$(".settle .settle_money_up_money").text(shopping.checkedPrice?shopping.checkedPrice:0)//合计
+		}
+		
+		//增加或减少时商品数据
+		function ajaxCount(shop){
+			var shopping;
+			$.ajax({
+				type:"post",
+				async:false,
+				url:"shopping/update",
+				data:{...shop},
+				success:function(res){
+					if(res){
+						$.ajax({
+							type:"get",
+							async:false,
+							url:"shopping/get/"+shop.rowId,
+							success:function(result){
+								shopping = result;
+							}
+						})
+					}
+				}
+			})
+			return shopping;
+		}
+		
 		//初始化购物车数据
 		function initData(){
 			$.ajax({
@@ -308,8 +405,9 @@
 					if(res){
 						$(".shop_shop_perfume").remove();
 						$.each(res,function(index,item){
+							var $checkbox =item.checked==1?'<input type="checkbox" checked/>':'<input type="checkbox"/>';
 							var shop ='<div data-id='+item.rowId+' class="shop_shop_perfume">'+
-							'<!-- 选项 --><div class="shop_shop_perfume_choice fl"><input type="checkbox" /></div>'+
+							'<!-- 选项 --><div class="shop_shop_perfume_choice fl">'+$checkbox+'</div>'+
 							'<!-- 图片 --><div class="shop_shop_perfume_img fl"><img src='+item.imgPath+'></div>'+
 							'<!-- 信息 --><div class="shop_shop_perfume_message fl">'+
 							'<!-- 名字 --><div class="shop_shop_perfume_message_name"><a href="#">'+item.brandName+'</a></div>'+
@@ -325,6 +423,7 @@
 				}
 			})
 		}
+		
 		
 		//java
 		//添加头部

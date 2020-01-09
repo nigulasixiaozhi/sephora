@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.situ.sephora.shopping.dao.ShoppingDao">
 	<sql id="select_column">
-		`USER_ID`,`PRODUCT_ID`,`PAY_COUNT`,`SUM_PRICE`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE` 
+		`USER_ID`,`PRODUCT_ID`,`PAY_COUNT`,`SUM_PRICE`,`CHECKED`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE` 
 	</sql>
 	<sql id="select_base">
 		SELECT PRODUCT_NAME,BRAND_NAME,IMG_PATH,PRODUCT_PRICE,ROW_ID,<include refid="select_column"></include>
@@ -12,18 +12,28 @@
 	</sql>
 	<insert id="save" parameterType="shopping" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
 		INSERT INTO TB_SHOPPING (<include refid="select_column"></include>)
-		VALUES (#{userId},#{productId},#{payCount},#{sumPrice},#{activeFlag},#{createBy},#{createDate});
+		VALUES (#{userId},#{productId},#{payCount},#{sumPrice},#{checked},#{activeFlag},#{createBy},#{createDate});
 	</insert>
-	<select id="get" parameterType="shopping" resultType="shopping">
+	<select id="get" resultType="shopping">
 		<include refid="select_base"></include>
-		<if test="rowId!=null">
 			AND ROW_ID=#{rowId}
-		</if>
+	</select>
+	
+	<select id="getChecekdPriceAndCount" resultType="shopping">
+		SELECT SUM(SUM_PRICE) AS CHECKED_PRICE,SUM(PAY_COUNT) AS CHECKED_COUNT 
+		FROM TB_SHOPPING WHERE ACTIVE_FLAG=1 AND CHECKED=1 
 	</select>
 	
 	<select id="find" parameterType="shopping" resultType="shopping">
 		<include refid="select_base"></include>
+		<if test="checked!=null">
+			AND CHECKED=#{checked}
+		</if>
 	</select>
+	
+	<update id="updateChecked">
+		UPDATE TB_SHOPPING SET CHECKED=#{checked} WHERE USER_ID=#{userId};	
+	</update>
 	
 	<update id="update" parameterType="shopping">
 		UPDATE TB_SHOPPING 
@@ -37,8 +47,11 @@
 			<if test="sumPrice!=null">
 				SUM_PRICE=#{sumPrice},
 			</if>
-			<if test="active_flag!=null">
-				ACTIVE_FLAG=#{active_flag},
+			<if test="checked!=null">
+				CHECKED=#{checked},
+			</if>
+			<if test="activeFlag!=null">
+				ACTIVE_FLAG=#{activeFlag},
 			</if>
 			<if test="updateBy!=null">
 				UPDATE_BY=#{updateBy},
@@ -47,6 +60,7 @@
 				UPDATE_DATE=#{updateDate},
 			</if>
 		</set>
+		WHERE ROW_ID=#{rowId}
 	</update>
 	
 	<delete id="del">

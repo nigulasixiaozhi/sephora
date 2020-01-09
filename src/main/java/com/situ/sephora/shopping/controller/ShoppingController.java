@@ -18,6 +18,18 @@ public class ShoppingController {
 	private ShoppingService shoppingService;
 	
 	@ResponseBody
+	@RequestMapping("/get/{rowId}")
+	public Shopping getShopping(@PathVariable Long rowId){
+		return this.shoppingService.get(rowId);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/checekdPriceAndCount")
+	public Shopping checekdPriceAndCount(){
+		return this.shoppingService.checekdPriceAndCount();
+	}
+	
+	@ResponseBody
 	@RequestMapping("/find")
 	public List<Shopping> findShopping(){
 		return this.shoppingService.find(null);
@@ -33,6 +45,12 @@ public class ShoppingController {
 	@RequestMapping("/update")
 	public Integer updateShopping(Shopping shopping) {
 		return this.shoppingService.update(shopping);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateChecked")
+	public Integer updateChecked(Integer checked,Long userId) {
+		return this.shoppingService.updateChecked(checked, userId);
 	}
 	
 	@ResponseBody

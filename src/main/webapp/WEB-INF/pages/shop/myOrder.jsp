@@ -71,6 +71,7 @@
 					<li>收货人</li>
 					<li>合计</li>
 					<li><select class="OrderState1" name="">
+							<option value="">全部状态</option>
 							<option value="">待支付</option>
 							<option value="">已完成</option>
 							<option value="">处理中</option>
@@ -107,15 +108,25 @@
 									<p>(含运费￥0.00)</p>
 									<p>在线支付</p>
 								</li>
-								<li>已取消</li>
+								<li><c:choose>
+										<c:when test="${order.orderStatus==0}"><p>已取消</p></c:when>
+										<c:when test="${order.orderStatus==1}"><p>待发货</p></c:when>
+										<c:when test="${order.orderStatus==2}"><p>已发货</p></c:when>
+										<c:when test="${order.orderStatus==3}"><p>已签收</p></c:when>
+										<c:when test="${order.orderStatus==4}"><p>未支付</p></c:when>
+									</c:choose></li>
 								<li>
 									<c:choose>
-										<c:when test="${order.orderStatus==4}">
+										<c:when test="${order.orderStatus==0||order.orderStatus==3}">
 											<p>再次购买</p>
 											<p>订单详情</p>
 										</c:when>
-										<c:otherwise>
+										<c:when test="${order.orderStatus==4}">
 											<p class="payButton">立即支付</p>
+											<p>订单详情</p>
+											<p id="offOrder">取消订单</p>
+										</c:when>
+										<c:otherwise>
 											<p>订单详情</p>
 											<p id="offOrder">取消订单</p>
 										</c:otherwise>

@@ -19,6 +19,8 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Long save(Order order) {
+		order.setOrderStatus(4);
+		order.setPay(0);
 		order.setActiveFlag(1);
 		order.setCreateBy(ConfigUtils.SESSION_ADMIN_LOGIN);
 		order.setCreateDate(new Date());

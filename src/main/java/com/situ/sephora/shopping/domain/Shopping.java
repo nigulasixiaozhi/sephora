@@ -11,13 +11,28 @@ public class Shopping extends BaseClass{
 	private Long productId;//商品id
 	private Integer payCount;//购买数量
 	private Double sumPrice;//总价
+	private Integer checked;//是否选中
 	//额外的属性
 	private String productName;//商品名称
 	private String imgPath;//商品图片路径
 	private String brandName;//品牌名称
 	private Double productPrice;//商品价格
+	private Integer checkedCount;//选中商品的数量;
+	private Double checkedPrice;//选中商品的价格
 	
 	
+	public Integer getCheckedCount() {
+		return checkedCount;
+	}
+	public void setCheckedCount(Integer checkedCount) {
+		this.checkedCount = checkedCount;
+	}
+	public Double getCheckedPrice() {
+		return checkedPrice;
+	}
+	public void setCheckedPrice(Double checkedPrice) {
+		this.checkedPrice = checkedPrice;
+	}
 	public String getProductName() {
 		return productName;
 	}
@@ -66,4 +81,11 @@ public class Shopping extends BaseClass{
 	public void setSumPrice(Double sumPrice) {
 		this.sumPrice = sumPrice;
 	}
+	public Integer getChecked() {
+		return checked;
+	}
+	public void setChecked(Integer checked) {
+		this.checked = checked;
+	}
+	
 }

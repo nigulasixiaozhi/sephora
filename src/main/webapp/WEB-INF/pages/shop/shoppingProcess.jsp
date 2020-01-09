@@ -539,16 +539,8 @@
 		<script src="assert/lib/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assert/lib/jquery.SuperSlide.2.1.3.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assert/js/ShoppingProcess.js/ShoppingProcess-jq.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assert/lib/js/distpicker.data.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assert/lib/js/distpicker.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				//省市区xuanze
-				$("#distpicker2").distpicker({
-					province: "---- 所在省 ----",
-					city: "---- 所在市 ----",
-					district: "---- 所在区 ----"
-				});
 				//收货地址弹出框
 				$(".windowsTitle .close").click(function() {
 					$(this).parents(".edit").hide();

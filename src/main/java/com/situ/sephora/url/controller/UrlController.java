@@ -123,6 +123,7 @@ public class UrlController implements Serializable {
 	@RequestMapping("/shoppingCart")
 	public ModelAndView shoppingCart(ModelAndView modelAndView) {
 		modelAndView.addObject("shoppingList",this.shoppingService.find(null));
+		modelAndView.addObject("checkedPriceAndCount",this.shoppingService.checekdPriceAndCount());
 		modelAndView.setViewName(PAGE_SHOPPING_CART);
 		return modelAndView;
 	}
