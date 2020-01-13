@@ -163,7 +163,7 @@
 			<div class="top_allproducts_left  fl">
 				<!-- 商品类目背景图 -->
 				<div class="top_allproducts_left_img">
-					<a href="#"> 全部商品类目 </a>
+					<a href="list"> 全部商品类目 </a>
 				</div>
 				<!-- 下拉导航栏 -->
 				<div class="top_allproducts_navigation">
@@ -174,7 +174,7 @@
 									<!-- 第一块，热门 -->
 									<li class="top_allproducts_navigation_ul_li_one">
 										<div class="hot">
-											<a href="#">${category.listName}</a>
+											<a href="list/${category.rowId}">${category.listName}</a>
 										</div>
 										<div class="lip">
 											<span class="description"><a href="#">魅惑美唇</a></span> <span class="description"><a href="#">塑造立体轮廓</a></span> <span class="description"><a href="#">热销气垫</a></span>
@@ -192,12 +192,12 @@
 															<div class="cosmeticleft fl">
 																<div class="detailed">
 																	<div class="smallcosup">
-																		<a href="#">${level2List.listName }</a>
+																		<a href="list/${level2List.rowId}">${level2List.listName }</a>
 																	</div>
 																	<div class="smallcosdown">
 																		<c:if test="${!empty level2List.childList}">
 																			<c:forEach items="${level2List.childList}" var="level3List">
-																				<span><a href="#">${level3List.listName}</a></span>
+																				<span><a href="list/${level3List.rowId}">${level3List.listName}</a></span>
 																			</c:forEach>
 																		</c:if>
 																	</div>

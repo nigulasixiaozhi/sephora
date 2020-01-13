@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,7 @@
 						<div class="MyOreder-content clearfix">
 							<div class="contentLeft fl">
 								<div class="number">
-									<span>订单号 :</span> <span>${order.rowId }</span> <span>${order.createDate }</span>
+									<span>订单号 :</span> <span>${order.rowId }</span> <span><fmt:formatDate value="${order.createDate}" type="both"/> </span>
 								</div>
 								<c:if test="${!empty orderList }">
 									<c:forEach items="${orderList}" var="list">

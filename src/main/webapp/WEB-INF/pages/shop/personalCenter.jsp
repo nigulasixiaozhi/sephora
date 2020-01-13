@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,7 +132,7 @@
 												</c:when>
 											</c:choose></td>
 										<td>￥${order.sumPrice }</td>
-										<td>${order.createDate}</td>
+										<td><fmt:formatDate value="${order.createDate}" type="both"/> </td>
 										<td><c:choose>
 												<c:when test="${order.orderStatus==0}">
 													<p>已取消</p>
@@ -164,7 +165,6 @@
 													<div class="NotOrder">取消订单</div>
 												</c:otherwise>
 											</c:choose></td>
-											
 									</tr>
 								</c:forEach>
 							</c:if>

@@ -88,14 +88,15 @@ public class UrlController implements Serializable {
 	//订单列表
 	private final String PAGE_ADMIN_ORDER_LIST="admin/orderList";
 	
+	//在头部获取所有的分类
 	@RequestMapping("/findCategoryChild")
 	public ModelAndView findCategoryChild(ModelAndView modelAndView) {
 		modelAndView.addObject("category",this.categoryService.findChild());
-		modelAndView.addObject("shopCart",this.shoppingService.find());
 		modelAndView.setViewName(PAGE_HEAD);
 		return modelAndView;
 	}
 	
+	//头部购物袋的数据
 	@RequestMapping("/findHeadShopCart")
 	public ModelAndView findHeadShopCart(ModelAndView modelAndView) {
 		modelAndView.addObject("shopCart",this.shoppingService.find());
@@ -103,25 +104,37 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//购物流程的头部
 	@RequestMapping("/shoppingHead")
 	public ModelAndView shoppingHead(ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_SHOPPING_HEAD);
 		return modelAndView;
 	}
-	
+
+	//跳转主页
 	@RequestMapping(path = { "/", "/index" })
 	public ModelAndView goIndex(ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_INDEX);
 		return modelAndView;
 	}
 
+	//跳转列表页
 	@RequestMapping("/list")
 	public ModelAndView list(ModelAndView modelAndView) {
-		modelAndView.addObject("productList",this.productService.find(null));
+		modelAndView.addObject("productList",this.productService.findByGoOutFlag());
+		modelAndView.setViewName(PAGE_LIST);
+		return modelAndView;
+	}
+	
+	//通过分类跳转列表页
+	@RequestMapping("/list/{categoryId}")
+	public ModelAndView categoryList(@PathVariable Long categoryId, ModelAndView modelAndView) {
+		modelAndView.addObject("productList",this.productService.findByCategory(categoryId));
 		modelAndView.setViewName(PAGE_LIST);
 		return modelAndView;
 	}
 
+	//跳转详情页
 	@RequestMapping("/details/{rowId}")
 	public ModelAndView details(@PathVariable Long rowId, ModelAndView modelAndView) {
 		modelAndView.addObject("product",this.productService.getByRowId(rowId));
@@ -129,6 +142,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转购物车
 	@RequestMapping("/shoppingCart")
 	public ModelAndView shoppingCart(ModelAndView modelAndView) {
 		User user = ContextUtils.getLoginUser();
@@ -143,6 +157,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转订单流程
 	@RequestMapping("/shoppingProcess")
 	public ModelAndView shoppingProcess(ModelAndView modelAndView) {
 		User user = ContextUtils.getLoginUser();
@@ -157,12 +172,14 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转登录
 	@RequestMapping("/login")
 	public ModelAndView login(ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_LOGIN);
 		return modelAndView;
 	}
 	
+	//跳转退出登录
 	@RequestMapping("/exitUser")
 	public ModelAndView exitUser(ModelAndView modelAndView,HttpServletRequest request) {
 		request.getSession().removeAttribute(ConfigUtils.SESSION_USER_LOGIN);
@@ -170,12 +187,14 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//跳转注册
 	@RequestMapping("/registered")
 	public ModelAndView registered(ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_REGISTERED);
 		return modelAndView;
 	}
 
+	//跳转个人中心
 	@RequestMapping("/personalCenter")
 	public ModelAndView personalCenter(ModelAndView modelAndView,HttpServletRequest request) {
 		Object object =  request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
@@ -190,12 +209,21 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转个人信息
 	@RequestMapping("/personalData")
 	public ModelAndView personalData(ModelAndView modelAndView) {
-		modelAndView.setViewName(PAGE_PERSONAL_DATA);
+		User user = ContextUtils.getLoginUser();
+		if(user!=null) {
+			modelAndView.addObject("userInfo",this.userService.getById(user.getRowId()));
+			modelAndView.setViewName(PAGE_PERSONAL_DATA);
+		}else {
+			modelAndView.setViewName(PAGE_LOGIN);
+		}
+		
 		return modelAndView;
 	}
 
+	//跳转地址信息
 	@RequestMapping("/address")
 	public ModelAndView address(ModelAndView modelAndView,HttpServletRequest request) {
 		Object user =  request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
@@ -209,6 +237,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转我的订单
 	@RequestMapping("/myOrder/{userId}")
 	public ModelAndView myOrder(ModelAndView modelAndView,@PathVariable Long userId) {
 		modelAndView.addObject("order",this.orderService.findByUserId(userId));
@@ -217,12 +246,14 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转后台登录
 	@RequestMapping(path = { "/admin", "/admin/login" })
 	public ModelAndView adminLogin(ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_ADMIN_LOGIN);
 		return modelAndView;
 	}
 
+	//跳转后台主页
 	@RequestMapping("admin/index")
 	public ModelAndView adminIndex(ModelAndView modelAndView) {
 		User user= ContextUtils.getAdminUser();
@@ -234,6 +265,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转后台用户列表查询
 	@RequestMapping("admin/selectUser")
 	public ModelAndView selectUser(User user, ModelAndView modelAndView) {
 		modelAndView.addObject("userList", userService.find(user));
@@ -241,6 +273,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//跳转后台用户列表
 	@RequestMapping("admin/userList")
 	public ModelAndView userList(User user, ModelAndView modelAndView) {
 		modelAndView.addObject("userList", userService.find(user));
@@ -248,6 +281,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 
+	//跳转后台编辑用户
 	@RequestMapping("admin/goUpdateUser")
 	public ModelAndView updateUser(User user, ModelAndView modelAndView) {
 		modelAndView.addObject("userInfo",userService.getByUser(user) );
@@ -255,12 +289,14 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//跳转后台添加用户
 	@RequestMapping("admin/goAddUser")
 	public ModelAndView addUser( ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_ADMIN_USER_ADD_EDIT);
 		return modelAndView;
 	}
 	
+	//跳转后台分类
 	@RequestMapping("admin/goCategory")
 	public ModelAndView category( ModelAndView modelAndView) {
 		modelAndView.addObject("category",this.categoryService.find(null));
@@ -268,6 +304,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//跳转后台产品列表
 	@RequestMapping("admin/goProductList")
 	public ModelAndView productList(ModelAndView modelAndView) {
 		modelAndView.addObject("product",this.productService.find(null));
@@ -276,6 +313,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//跳转后台查询产品
 	@RequestMapping("admin/selectProduct")
 	public ModelAndView selectProduct(Product product,ModelAndView modelAndView) {
 		modelAndView.addObject("product",this.productService.find(product));
@@ -285,6 +323,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//跳转后台订单
 	@RequestMapping("admin/goOrder")
 	public ModelAndView order(ModelAndView modelAndView) {
 		modelAndView.addObject("order",this.orderService.findByOrder(null));
@@ -293,6 +332,7 @@ public class UrlController implements Serializable {
 		return modelAndView;
 	}
 	
+	//跳转后台订单列表
 	@RequestMapping("admin/goOrderList")
 	public ModelAndView orderList(OrderList orderList, ModelAndView modelAndView) {
 		modelAndView.addObject("orderList",this.orderListServie.find(orderList));

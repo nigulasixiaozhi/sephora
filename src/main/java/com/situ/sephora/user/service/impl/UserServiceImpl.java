@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
 		userDao.updateUser(user);
 		return 1;
 	}
+	
+	@Override
+	public User getById(Long rowId) {
+		return this.userDao.getById(rowId);
+	}
 
 	@Override
 	public User getByUser(User user) {

@@ -8,7 +8,7 @@ public interface AddressService {
 
 	Long save(Address address);
 	
-	Address get(Address address);
+	Address get(Long rowId);
 	
 	List<Address> findByAddress(Address address);
 	

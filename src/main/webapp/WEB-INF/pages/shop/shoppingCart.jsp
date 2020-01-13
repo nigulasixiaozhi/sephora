@@ -95,7 +95,7 @@
 								<div class="plus button fl">+</div>
 								<div class="clear"></div>
 							</div>
-							<div class="shop_shop_perfume_small fl">${list.sumPrice }</div>
+							<div class="shop_shop_perfume_small fl">${list.productPrice*list.payCount }</div>
 							<div class="shop_shop_perfume_del fl">
 								<i class="icon_del icon_delete"></i>
 							</div>
@@ -265,36 +265,52 @@
 	<script type="text/javascript">
 		//增加或减少商品数量
 		$(".shop_shop_perfume_num .button").click(function(){
-			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");
-			var payCount =$(this).siblings(".nums").text();
+			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id"); //获取购物车id
+			/* var payCount =$(this).siblings(".nums").text();
 			var price = $(this).parent().siblings(".shop_shop_perfume_mon").text();
 			var checkedFlag = $(this).parents(".shop_shop_perfume_num").siblings(".shop_shop_perfume_choice").find("input").prop("checked");
-			var checked =checkedFlag?1:0;
+			var checked =checkedFlag?1:0; */
+			var payCount,price,checked; //创建变量
+			$.ajax({//放送ajax查询该类的数据
+				type:"get",
+				async:false,
+				url:"shopping/get/"+rowId,
+				success:function(res){
+					if(res){//如果不为空给变量赋值
+						 payCount = res.payCount;
+						 price = res.productPrice;
+						 checked = res.checked;
+						 $(this).siblings(".nums").text(res.payCount);//当页面的数量被更改时变回来
+						$(this).parent().siblings(".shop_shop_perfume_small").text(sumPrice.toFixed(1));
+					}
+				}
+			})
 			
-			if($(this).hasClass("plus")){
+			if($(this).hasClass("plus")){//令购买数量加减
 				payCount++;
 			}else if($(this).hasClass("subtract")){
 				if(payCount>1){
 					payCount--;
 				}
 			}
-			var sumPrice =(payCount*price).toFixed(1);
+			sumPrice = payCount*price;//给总价赋值
+			/* var sumPrice =(payCount*price).toFixed(1); */
 			var shop = {rowId,payCount,sumPrice,checked};//创建shop对象
 			var shopping= ajaxCount(shop);//调用方法获得返回值
 			//console.log(shopping);
-			if(shopping!=null){
-				$(this).siblings(".nums").text(shopping.payCount);
-				$(this).parent().siblings(".shop_shop_perfume_small").text(shopping.sumPrice.toFixed(1));
-				var $inputs = $(".shop_shop .shop_shop_perfume_choice input");
+			if(shopping!=null){//如果返回值不为空
+				$(this).siblings(".nums").text(shopping.payCount);//给购买数量赋值
+				$(this).parent().siblings(".shop_shop_perfume_small").text(shopping.sumPrice.toFixed(1));//给总价赋值
+				var $inputs = $(".shop_shop .shop_shop_perfume_choice input");//查找多选框
 				var flag=false;
-				for(var i=0;i<$inputs.length;i++){
+				for(var i=0;i<$inputs.length;i++){//判断是否有多选框选中
 					if($inputs.eq(i).prop("checked")){
 						flag = true;
 						break;
 					}
 				}
-				if(flag){
-					setCheckedPriceAndCount(shopping);
+				if(flag){//如果有多选框选中则执行方法
+					setCheckedPriceAndCount(shopping);//给结算的价格和数量赋值
 				}
 			}
 			
@@ -302,6 +318,7 @@
 		
 		//当进来页面时全选框是否选中
 		if($(".shop_shop .shop_shop_perfume_choice input:checked").length==$(".shop_shop .shop_shop_perfume_choice input").length){
+				//如果多选框选中的长度等于本身的长度则给表格的全选框选中
 				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",true);
 			}else{
 				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",false);
@@ -309,35 +326,35 @@
 		
 		//多选框
 		$(".shop_shop .shop_shop_perfume_choice input").click(function(){
-			var checkedFlag = $(this).prop("checked");
-			var checkedLength = $(".shop_shop .shop_shop_perfume_choice input:checked").length;
-			var checboxLength = $(".shop_shop .shop_shop_perfume_choice input").length;
-			if(checkedLength==checboxLength){
+			var checkedFlag = $(this).prop("checked");//当前多选框是否选中
+			var checkedLength = $(".shop_shop .shop_shop_perfume_choice input:checked").length;//已选中的多选框的长度
+			var checboxLength = $(".shop_shop .shop_shop_perfume_choice input").length;//多选框的长度
+			if(checkedLength==checboxLength){//如果两者相等
 				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",true);
 			}else{
 				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",false);
 			}
-			var checked =checkedFlag?1:0;
-			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");
-			var shop ={checked,rowId};
-			var shopping = ajaxCount(shop);
-			setCheckedPriceAndCount(shopping);
+			var checked =checkedFlag?1:0;//判断多选框是否选中
+			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");//获取rowId
+			var shop ={checked,rowId};//创建对象
+			var shopping = ajaxCount(shop);//执行方法，更改当前商品的选中状态
+			setCheckedPriceAndCount(shopping);//给结算赋值
 		})
 		
 		//全选框
 		$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").click(function(){
-			var checkedFlag = $(this).prop("checked");
-			var userId = $("#userId").val();
-			var checked =checkedFlag?1:0;
-			$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",checkedFlag);
-			$(".shop_shop .shop_shop_perfume_choice input").prop("checked",checkedFlag);
-			$.ajax({
+			var checkedFlag = $(this).prop("checked");//得到当前是否选中
+			var userId = $("#userId").val();//得到用户id
+			var checked =checkedFlag?1:0;//通过是否选中来创建value值
+			$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",checkedFlag);//通过全选框是否选中来改变多选框的选中状态
+			$(".shop_shop .shop_shop_perfume_choice input").prop("checked",checkedFlag);//结算的选中状态赋值
+			$.ajax({//通过用户id来改变所有商品的选中状态
 				type:"post",
 				url:"shopping/updateChecked",
 				data:{userId,checked},
 				success:function(res){
 					if(res){
-						$.ajax({
+						$.ajax({//获取选中商品的总数量和总价
 							type:"get",
 							url:"shopping/checekdPriceAndCount",
 							success:function(res){
@@ -350,21 +367,16 @@
 		})
 		
 		
-		//提交订单
-		$("#shopProcess").click(function(){
-			
-		})
-	
 		//删除
 		$(".shop_shop_perfume_del").on("click", "i", function() {
-			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");
-			if(confirm("是否要删除？")){
+			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");//获取rowid
+			if(confirm("是否要删除？")){//执行删除
 				$.ajax({
 					type:"get",
 					url:"shopping/del/"+rowId,
 					success:function(res){
 						if(res){
-							initData();
+							initData();//执行初始化数据方法
 						}
 					}
 				})
@@ -381,14 +393,14 @@
 		//增加或减少时商品数据
 		function ajaxCount(shop){
 			var shopping;
-			$.ajax({
+			$.ajax({//更新商品
 				type:"post",
-				async:false,
+				async:false,//同步操作
 				url:"shopping/update",
-				data:{...shop},
+				data:{...shop},//解构对象
 				success:function(res){
 					if(res){
-						$.ajax({
+						$.ajax({//获取当前更改的对象
 							type:"get",
 							async:false,
 							url:"shopping/get/"+shop.rowId,
@@ -399,18 +411,18 @@
 					}
 				}
 			})
-			return shopping;
+			return shopping;//返回这个对象
 		}
 		
 		//初始化购物车数据
 		function initData(){
-			$.ajax({
+			$.ajax({//发现所有的数据
 				type:"get",
 				url:"shopping/find",
 				success:function(res){
 					if(res){
 						$(".shop_shop_perfume").remove();
-						$.each(res,function(index,item){
+						$.each(res,function(index,item){//插入数据到页面
 							var $checkbox =item.checked==1?'<input type="checkbox" checked/>':'<input type="checkbox"/>';
 							var shop ='<div data-id='+item.rowId+' class="shop_shop_perfume">'+
 							'<!-- 选项 --><div class="shop_shop_perfume_choice fl">'+$checkbox+'</div>'+

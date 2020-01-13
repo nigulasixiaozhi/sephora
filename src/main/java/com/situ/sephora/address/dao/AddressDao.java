@@ -2,7 +2,6 @@ package com.situ.sephora.address.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.situ.sephora.address.domain.Address;
@@ -10,7 +9,7 @@ import com.situ.sephora.address.domain.Address;
 @Repository
 public interface AddressDao {
 
-	Address get(Address address);
+	Address get(Long rowId);
 	
 	List<Address> findByAddress(Address address);
 	

@@ -7,12 +7,10 @@
 		<title></title>
 		<jsp:include page="/base.jsp"></jsp:include>
 		<link rel="stylesheet" type="text/css" href="assert/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="assert/css/head/Hohead.css" />
+		<link rel="stylesheet" type="text/css" href="assert/css/head/Genhead.css" />
 		<link rel="stylesheet" type="text/css" href="assert/css/personalData/personalData.css" />
 	</head>
 	<body>
-		<!-- 头部 -->
-		<%@ include file="/head.jsp" %>
 		<div class="body container clearfix">
 			<!-- 左侧树状导航 -->
 			<jsp:include page="/leftTree.jsp"></jsp:include>
@@ -23,21 +21,21 @@
 				<div class="right-content ">
 					<div class="name clearfix">
 						<p><em class="star">*</em>姓名/称谓</p>
-						<input type="text">
+						<input type="text" value="${userInfo.userName }">
 					</div>
 					<div class="phone clearfix">
 						<p><em class="star">*</em>手机</p>
-						<input type="text">
+						<input type="text" value="${userInfo.userPhone }">
 					</div>
-					<div class="email clearfix">
+					<!-- <div class="email clearfix">
 						<p><em class="star">*</em>邮箱</p>
 						<input type="text">
-					</div>
-					<div class="sex clearfix">
+					</div> -->
+					<!-- <div class="sex clearfix">
 						<p><em class="star">*</em>性别</p>
 						<input type="radio" name="sex" checked=""><span>男</span>
 						<input type="radio" name="sex"><span>女</span>
-					</div>
+					</div> -->
 					<div class="headImg ">
 						<div class="clearfix">
 							<p>头像</p>
@@ -56,11 +54,11 @@
 							<li><img src="assert/img/personalData/img1.png"></li>
 						</ul>
 					</div>
-					<div class="nickname clearfix">
+					<!-- <div class="nickname clearfix">
 						<p>昵称</p>
 						<input type="text">
-					</div>
-					<div class="nickname clearfix">
+					</div> -->
+					<!-- <div class="nickname clearfix">
 						<p>省市区</p>
 						<div id="distpicker2">
 							<select id="select1"></select>
@@ -71,7 +69,8 @@
 					<div class="adress clearfix">
 						<p>地址</p>
 						<input type="text">
-					</div>
+					</div> -->
+					<input id="rowId" type="hidden" value="${userLogin.rowId }" />
 					<span class="save">保存信息</span>
 				</div>
 			</div>
@@ -86,8 +85,6 @@
 		<%@ include file="/foot.jsp" %>
 		<script src="assert/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assert/lib/jquery.SuperSlide.2.1.3.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assert/lib/js/distpicker.data.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assert/lib/js/distpicker.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			//文本轮播
 			$(".txtScroll-top").slide({
@@ -119,12 +116,6 @@
 			$(".left-tree .content dd").eq(3).find("a").css({
 				color: "#ee0000",
 			})
-			//省市区xuanze
-			$("#distpicker2").distpicker({
-				province: "---- 所在省 ----",
-				city: "---- 所在市 ----",
-				district: "---- 所在区 ----"
-			});
 			$(".imgTitle li").click(function() {
 				$(this).addClass("white").removeClass("black").siblings("li").addClass("black").removeClass("white");
 			})
@@ -138,10 +129,23 @@
 			$(".imgTitle li").eq(1).click(function() {
 				$(".uploading").show().siblings(".imgContent").hide();
 			})
+			//保存按钮
 			$(".save").click(function() {
-				$(".bg").show();
-				$(".shade").show();
+				 $.ajax({
+					type:"post",
+					url:"admin/UpdateUser",
+					data:{
+						"rowId":$("#rowId").val(),
+						"userName":$(".name input").val(),
+						"userPhone":$(".phone input").val()
+					},
+					success:function(res){
+						$(".bg").show();
+						$(".shade").show();
+					}
+				}) 
 			})
+			//弹框按钮
 			$(".shade .true").click(function() {
 				$(".bg").fadeOut();
 				$(".shade").fadeOut();
@@ -153,6 +157,19 @@
 		$(".top_search_int_arise").mouseleave(function() {
 			$(".top_search_int_arise").css("display", "none")
 		})
+		
+
+//添加头部
+addHead();
+function addHead(){
+	$.ajax({
+		post:"get",
+		url:"findCategoryChild/",
+		success:function(res){
+			$("body").prepend(res);
+		}
+	})
+}
 		</script>
 	</body>
 </html>

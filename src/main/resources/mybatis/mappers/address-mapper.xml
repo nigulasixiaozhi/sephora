@@ -28,9 +28,8 @@
 		</if>
 	</select>
 
-	<select id="get" parameterType="address" resultType="address">
+	<select id="get" resultType="address">
 		<include refid="SELECT_BASE"></include>
-		<if test="rowId!=null"></if>
 		AND ROW_ID=#{rowId}
 	</select>
 

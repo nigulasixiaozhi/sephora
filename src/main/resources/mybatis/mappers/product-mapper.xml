@@ -37,6 +37,16 @@
 			AND GO_OUT_FLAG=#{goOutFlag}
 		</if>
 	</select>
+	
+	<select id="findByGoOutFlag" resultType="product">
+		<include refid="SELECT_BASE"></include>
+		AND GO_OUT_FLAG=1;
+	</select>
+	
+	<select id="findByCategory" resultType="product">
+		<include refid="SELECT_BASE"></include>
+		AND GO_OUT_FLAG=1 AND CATEGORY_ID = #{categoryId}
+	</select>
 
 	<select id="getByProduct" parameterType="product"
 		resultType="product">
@@ -53,6 +63,10 @@
 		<include refid="SELECT_BASE"></include>
 		AND ROW_ID=#{rowId}
 	</select>
+	
+	<update id="updateInventory">
+		UPDATE TB_PRODUCT SET INVENTORY=INVENTORY-#{inventory} WHERE ROW_ID=#{rowId}
+	</update>
 
 	<update id="update" parameterType="product">
 		UPDATE TB_PRODUCT

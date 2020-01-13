@@ -269,9 +269,9 @@
 	})
 	
 	
-	initCategoryData();
+	initCategoryData(-1,1);
 	//查询分类
-	function initCategoryData(parId=-1,id=1){
+	function initCategoryData(parId,id){
 		var options="";
 		//if(parId==-1){
 			options='<option value="">选择种类</option>';

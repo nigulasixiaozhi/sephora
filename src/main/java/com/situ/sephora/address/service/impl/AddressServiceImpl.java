@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.situ.sephora.address.dao.AddressDao;
 import com.situ.sephora.address.domain.Address;
 import com.situ.sephora.address.service.AddressService;
-import com.situ.sephora.user.dao.UserDao;
-import com.situ.sephora.user.domain.User;
 import com.situ.sephora.utils.ConfigUtils;
 import com.situ.sephora.utils.PageUtils;
 
@@ -33,9 +31,8 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public Address get(Address address) {
-		address = PageUtils.buildSearchParam(address);
-		return this.addressDao.get(address);
+	public Address get(Long rowId) {
+		return this.addressDao.get(rowId);
 	}
 
 	@Override

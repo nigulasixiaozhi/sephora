@@ -15,5 +15,7 @@ public interface UserService {
 	
 	User getByUser(User user);
 	
+	User getById(Long rowId);
+	
 	void initUserData();
 }

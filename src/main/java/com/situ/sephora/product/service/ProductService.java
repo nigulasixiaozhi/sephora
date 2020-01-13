@@ -14,6 +14,10 @@ public interface ProductService {
 	
 	List<Product> find(Product product);
 	
+	List<Product> findByGoOutFlag();
+	
+	List<Product> findByCategory(Long categoryId);
+	
 	List<Product> findCategory();
 	
 	Integer update(Product product,String realPath);

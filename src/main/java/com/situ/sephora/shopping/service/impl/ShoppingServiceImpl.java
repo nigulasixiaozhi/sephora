@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.situ.sephora.product.dao.ProductDao;
 import com.situ.sephora.product.domain.Product;
@@ -27,34 +25,34 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public Long save(Shopping shopping) {
-		Shopping shopping2 = this.shoppingDao.getByProductId(shopping.getProductId());
-		if (shopping2 != null) {
+		Shopping shopping2 = this.shoppingDao.getByProductId(shopping.getProductId());//通过商品id得到购物车对象
+		if (shopping2 != null) {//如果不为空则以存在该商品的购物车，将购买数量相加
 			shopping2.setPayCount(shopping2.getPayCount() + shopping.getPayCount());
-			this.update(shopping2);
+			this.update(shopping2);//执行更新
 			return 1L;
-		} else {
-			Product product = this.productDao.getByRowId(shopping.getProductId());
+		} else {//如果为空则不存在该商品的购物车
+			Product product = this.productDao.getByRowId(shopping.getProductId());//通过商品id得到商品对象
 			if (product != null) {
-				shopping.setSumPrice(product.getProductPrice() * shopping.getPayCount());
+				shopping.setSumPrice(product.getProductPrice() * shopping.getPayCount());//给总价赋值
 			}
 			shopping.setChecked(1);
 			shopping.setActiveFlag(1);
 			shopping.setCreateBy(ConfigUtils.SESSION_USER_LOGIN);
 			shopping.setCreateDate(new Date());
-			return this.shoppingDao.save(shopping);
+			return this.shoppingDao.save(shopping);//执行保存
 		}
 
 	}
 
 	@Override
 	public Shopping get(Long rowId) {
-		Shopping shopping = this.shoppingDao.get(rowId);
+		Shopping shopping = this.shoppingDao.get(rowId);//根据id查找到当前对象
 		if (shopping != null) {
-			User user = ContextUtils.getLoginUser();
+			User user = ContextUtils.getLoginUser();//得到当前用户对象
 			if (user != null) {
-				Shopping checkedShopping = this.shoppingDao.getChecekdPriceAndCount(user.getRowId());
+				Shopping checkedShopping = this.shoppingDao.getChecekdPriceAndCount(user.getRowId());//得到当前用户选中商品的数量总和和总价
 				if (checkedShopping != null) {
-					shopping.setCheckedPrice(checkedShopping.getCheckedPrice());
+					shopping.setCheckedPrice(checkedShopping.getCheckedPrice());//赋值给查找出来的对象
 					shopping.setCheckedCount(checkedShopping.getCheckedCount());
 				}
 			}
@@ -66,7 +64,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public Shopping checekdPriceAndCount() {
 		User user = ContextUtils.getLoginUser();
 		if (user != null) {
-			return this.shoppingDao.getChecekdPriceAndCount(user.getRowId());
+			return this.shoppingDao.getChecekdPriceAndCount(user.getRowId());//得到当前用户选中商品的数量总和和总价
 		} else {
 			return null;
 		}
@@ -76,7 +74,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public List<Shopping> find() {
 		User user = ContextUtils.getLoginUser();
 		if (user != null) {
-			return this.shoppingDao.find(user.getRowId());
+			return this.shoppingDao.find(user.getRowId());//得到当前用户的总数据
 		} else {
 			return null;
 		}
@@ -87,14 +85,14 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public List<Shopping> findByChecked() {
 		User user = ContextUtils.getLoginUser();
 		if (user != null) {
-			return this.shoppingDao.findByChecked(user.getRowId());
+			return this.shoppingDao.findByChecked(user.getRowId());//得到当前用户选中的总数据
 		} else {
 			return null;
 		}
 	}
 
 	@Override
-	public Integer update(Shopping shopping) {
+	public Integer update(Shopping shopping) {//更新
 		shopping.setUpdateBy(ConfigUtils.SESSION_USER_LOGIN);
 		shopping.setUpdateDate(new Date());
 		shopping = PageUtils.buildSearchParam(shopping);
@@ -103,20 +101,23 @@ public class ShoppingServiceImpl implements ShoppingService {
 	}
 
 	@Override
-	public Integer updateChecked(Integer checked, Long userId) {
+	public Integer updateChecked(Integer checked, Long userId) {//更新选中状态
 		this.shoppingDao.updateChecked(checked, userId);
 		return 1;
 	}
 
 	@Override
-	public Integer del(Long rowId) {
+	public Integer del(Long rowId) {//删除
 		this.shoppingDao.del(rowId);
 		return 1;
 	}
 
 	@Override
-	public Integer del(List<Long> shoppingId) {
+	public Integer del(List<Long> shoppingId) {//批量删除
 		for (Long id : shoppingId) {
+			Shopping shopping = this.shoppingDao.get(id);
+			//订单提交后删除购物车数据，并将产品库存减相应的数值
+			this.productDao.updateInventory(shopping.getPayCount(), shopping.getProductId());
 			this.shoppingDao.del(id);
 		}
 		return 1;

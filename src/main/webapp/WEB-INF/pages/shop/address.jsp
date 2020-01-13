@@ -366,13 +366,28 @@
 			//编辑地址按钮
 			$(".addressList ").on("click", ".changeAdress", function() {
 				$("#rowId").val($(this).parents("li").attr("data-id"));
+				var rowId = $("#rowId").val();
 				$("#true").hide();
 				$(".buttomTeam .save").eq(0).show();
 				$(".edit").fadeIn();
-				var index = $(this).parents("li").index();
-				$(".name input").val($(".addressList li").eq(index).find(".userName").text());
-				$(".phone input").val($(".addressList li").eq(index).find(".phone").text());
-				$(".particularAdress input").val($(".addressList li").eq(index).find(".address span").text()); 
+				$.ajax({
+					type:"get",
+					url:"address/get/"+rowId,
+					success:function(res){
+						var province = res.province;
+						var city = res.city;
+						var district = res.district;
+						$(".name input").val(res.addressName);
+						$(".phone input").val(res.addressPhone);
+						$(".particularAdress input").val(res.detailedAddress); 
+						initAddressData(-1,1,province);
+						initAddressData(province,2,city);
+						initAddressData(city,3,district);
+						if(res.isDefault==1){
+							$("#isDefault").prop("checked","true");
+						}
+					}
+				})
 			})
 			//保存编辑的收货地址
 			$(".buttomTeam .save").eq(0).click(function() {
@@ -523,9 +538,9 @@ function initAddressData(parentCode,id,slectArea){
 					options+=option;
 				})
 				$("#select"+id).html(options);
-				/* if(slectArea){
-					$("#select"+id).val();
-				} */
+				 if(slectArea){
+					$("#select"+id).val(slectArea);
+				} 
 			}
 		}
 	})

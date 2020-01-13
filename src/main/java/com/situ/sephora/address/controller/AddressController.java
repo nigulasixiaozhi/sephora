@@ -34,6 +34,12 @@ public class AddressController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/get/{rowId}")
+	public Address getAddress(@PathVariable Long rowId) {
+		return this.addressService.get(rowId);
+	}
+	
+	@ResponseBody
 	@RequestMapping("/update")
 	public Integer updateAddress(Address address) {
 		return this.addressService.update(address);
