@@ -12,41 +12,9 @@
 </head>
 <body>
 	<div class="body container clearfix">
-		<div class="left-tree fl">
-			<div class="title">
-				<a href="personalCenter/">我的丝芙兰</a>
-			</div>
-			<dl class="content ">
-				<div>
-					<dt class="clearfix">
-						<span class="text">交易管理</span> <span class="arrow bottom"></span>
-					</dt>
-					<dd>
-						<a href="myOrder/${user.rowId}">我的订单</a>
-					</dd>
-					<dd>
-						<a href="">我的优惠券</a>
-					</dd>
-					<dd>
-						<a href="">我的兑礼订单</a>
-					</dd>
-				</div>
-				<div>
-					<dt class="clearfix">
-						<span class="text">个人信息管理</span> <span class="arrow bottom"></span>
-					</dt>
-					<dd>
-						<a href="personalData/">编辑个人资料</a>
-					</dd>
-					<dd>
-						<a href="address/">收货地址管理</a>
-					</dd>
-					<dd>
-						<a href="">更改密码</a>
-					</dd>
-				</div>
-			</dl>
-		</div>
+		
+		<!-- 左侧树状导航 -->
+		<jsp:include page="/leftTree.jsp"></jsp:include>
 		<div class="right-bg fr">
 			<div class="title">
 				收货地址 <span class="fr">+ 新增收货地址</span>
@@ -56,7 +24,7 @@
 				<ul class="addressList">
 					<c:if test="${!empty addressList}">
 						<c:forEach items="${addressList}" var="list">
-							<c:if test="${user.rowId==list.userId}">
+							<c:if test="${userLogin.rowId==list.userId}">
 								<li data-id="${list.rowId }" class="clearfix">
 									<div class="userMessage fl ">
 										<div class="name-nowTips clearfix">
@@ -120,7 +88,7 @@
 						<input id="isDefault" value="1" name="isDefault" type="checkbox">设为默认地址
 					</div>
 					<div class="buttomTeam">
-						<input type="hidden" id="userId" value="${user.rowId}" name="userId" /> <input type="hidden" id="rowId" name="rowId" /> <span class="save">保存并使用</span> <span id="true" class="save">确定添加</span> <span class="flase">取消</span>
+						<input type="hidden" id="userId" value="${userLogin.rowId}" name="userId" /> <input type="hidden" id="rowId" name="rowId" /> <span class="save">保存并使用</span> <span id="true" class="save">确定添加</span> <span class="flase">取消</span>
 					</div>
 				</div>
 			</form>
@@ -416,13 +384,11 @@
 			//设为默认按钮
 			$(".addressList ").on("click", ".default", function() {
 				var rowId= $(this).parents("li").attr("data-id");
-				var userId = $("#userId").val();
 				$.ajax({
 					type:"post",
 					url:"address/clickDefault",
 					data:{
 						"rowId":rowId,
-						"userId":userId
 					},
 					success:(res)=>{
 						if(res){
@@ -479,7 +445,9 @@
 				addAndEdit("address/add");
 				$("#address_edit_add")[0].reset();
 			})
-		})
+			
+			
+		})//$(document).ready(function() 结束
 		
 		//添加或修改地址
 		function addAndEdit(url){
@@ -487,9 +455,8 @@
 			var serialize = $("#address_edit_add").serialize();
 			if($("#isDefault").prop("checked")){
 				$.ajax({
-					type:"post",
-					url:"address/addEditDefault",
-					data:{userId},
+					type:"get",
+					url:"address/addEditDefault/"+userId,
 					success:function(res){
 						if(res){
 							 $.ajax({
@@ -542,9 +509,9 @@ $("#select2").change(function(){
 })
 
 
-initAddressData();
+initAddressData(-1,1);
 //查询分类
-function initAddressData(parentCode=-1,id=1){
+function initAddressData(parentCode,id,slectArea){
 	var options="<option>----请选择----</option>";
 	$.ajax({
 		type:"get",
@@ -556,6 +523,9 @@ function initAddressData(parentCode=-1,id=1){
 					options+=option;
 				})
 				$("#select"+id).html(options);
+				/* if(slectArea){
+					$("#select"+id).val();
+				} */
 			}
 		}
 	})

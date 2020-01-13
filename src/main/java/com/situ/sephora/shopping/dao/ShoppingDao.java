@@ -14,9 +14,13 @@ public interface ShoppingDao {
 	
 	Shopping get(Long rowId);
 	
-	Shopping getChecekdPriceAndCount();
+	Shopping getByProductId(Long productId);
 	
-	List<Shopping> find(Shopping shopping);
+	Shopping getChecekdPriceAndCount(Long userId);
+	
+	List<Shopping> find(Long userId);
+	
+	List<Shopping> findByChecked(Long userId);
 	
 	void update(Shopping shopping);
 	

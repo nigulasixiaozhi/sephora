@@ -152,6 +152,7 @@
 		"text-overflow":"ellipsis"
 	})
 
+	//商品查询
 	$("#selectProduct").click(function() {
 		$.ajax({
 			type : "post",
@@ -159,17 +160,22 @@
 			dataType : "html",
 			data : $("#selectForm").serialize(),
 			success : function(res) {
+				//把原有的数据替换
 				$("#content").html(res);
 			}
 		})
 	})
-
+	
+	//打开添加商品模态框
 	$("#addProduct").click(function() {
 		$.ajax({
 			type : "get",
 			url : "admin/goAddUser",
 			success : function(res) {
 				if (res) {
+					$("#form_product_add_edit")[0].reset();
+					$("#form_product_add_edit textarea").val("");
+					$("#form_product_add_edit img").attr("src","");
 					$("#rowId").val("");
 					$("#modal_product").modal("show");
 				}
@@ -177,9 +183,10 @@
 		})
 	})
 
+	//执行修改或删除
 	$("#productList").on("click", "a", function() {
 		var rowId = $(this).parents("tr").attr("data-id");
-		var url = $(this).attr("href");
+		var url = $(this).attr("href");//根据获取的href来执行
 		var title = $(this).text();
 		if (confirm("是否要执行" + title + "操作")) {
 			$.ajax({
@@ -189,7 +196,7 @@
 					"rowId" : rowId
 				},
 				success : function(res) {
-					if (res.rowId) {
+					if (res.rowId) {//如果返回值有rowId则执行更新
 						$("#modal_product").modal("show");
 						$("#rowId").val(res.rowId);
 						$("#productName").val(res.productName);
@@ -200,7 +207,8 @@
 						$("#inventory").val(res.inventory);
 						$("#goOutFlag").val(res.goOutFlag);
 						$("#productInfo").text(res.productInfo);
-					} else {
+					} else {//否则执行删除
+						//初始化数据
 						initData();
 					}
 				}
@@ -210,7 +218,7 @@
 	})
 
 	
-	
+	//添加商品
 	$("#button_submit").click(function() {
 		var rowId = $("#rowId").val();
 		var url = "admin/doSaveProduct";
@@ -232,7 +240,7 @@
 			success : function(result) {
 				if (result) {
 					$("#modal_product").modal("hide");
-					window.setTimeout(function(){
+					window.setTimeout(function(){//延时500毫秒执行方法
 						initData();
 					},500)					
 					
@@ -273,17 +281,20 @@
 			url:"goFindCategory",
 			data:{parId},
 			success:function(categoryList){
-				if(categoryList){
+				if(categoryList){//将返回的分类数组进行遍历
 					$.each(categoryList,function(index,category){
+						//将html添加到字符中
 						var option = "<option value='"+category.rowId+"'>"+category.listName+"</option>";
 						options+=option;
 					})
+					//将下拉框中的html替换
 					$("#category"+id).html(options);
 				}
 			}
 		})
 	}
 	
+	//初始化数据
 	function initData() {
 		$.ajax({
 			type : "get",

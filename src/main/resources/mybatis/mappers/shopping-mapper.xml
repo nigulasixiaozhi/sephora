@@ -19,16 +19,24 @@
 			AND ROW_ID=#{rowId}
 	</select>
 	
-	<select id="getChecekdPriceAndCount" resultType="shopping">
-		SELECT SUM(SUM_PRICE) AS CHECKED_PRICE,SUM(PAY_COUNT) AS CHECKED_COUNT 
-		FROM TB_SHOPPING WHERE ACTIVE_FLAG=1 AND CHECKED=1 
+	<select id="getByProductId" resultType="shopping">
+		<include refid="select_base"></include>
+		AND PRODUCT_ID=#{productId}
 	</select>
 	
-	<select id="find" parameterType="shopping" resultType="shopping">
+	<select id="getChecekdPriceAndCount" resultType="shopping">
+		SELECT SUM(SUM_PRICE) AS CHECKED_PRICE,SUM(PAY_COUNT) AS CHECKED_COUNT 
+		FROM TB_SHOPPING WHERE ACTIVE_FLAG=1 AND CHECKED=1 AND USER_ID=#{userId}
+	</select>
+	
+	<select id="find" resultType="shopping">
 		<include refid="select_base"></include>
-		<if test="checked!=null">
-			AND CHECKED=#{checked}
-		</if>
+		AND USER_ID=#{userId}
+	</select>
+	
+	<select id="findByChecked" resultType="shopping">
+		<include refid="select_base"></include>
+		AND USER_ID=#{userId} AND CHECKED=1
 	</select>
 	
 	<update id="updateChecked">

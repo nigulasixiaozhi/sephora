@@ -95,7 +95,7 @@
 
 						<a class="shoppingCart" href="">
 							<div class="redButton fl clearfix">
-								<input type="hidden" id="userId" value="${user.rowId}" />
+								<input type="hidden" id="userId" value="${userLogin.rowId}" />
 								<input type="hidden" id="productId" value="${product.rowId}" />
 								<p class="fl">加入购物车</p>
 								<div class="icon3 fl"></div> 
@@ -771,21 +771,25 @@
 			var userId = $("#userId").val();
 			var productId = $("#productId").val();
 			var payCount = $("#txt1").val();
-			var sumPrice = $("#productPrice").text()*payCount;
-			 $.ajax({
-				type:"post",
-				url:"shopping/add",
-				data:{
-					userId,productId,payCount,sumPrice
-				},
-				success:function(res){
-					if(res){
-						if(confirm("是否去购物车结算？")){
-							window.location.href="shoppingCart";
+			if($("#userId").val()!=""){
+				$.ajax({
+					type:"post",
+					url:"shopping/add",
+					data:{
+						userId,productId,payCount
+					},
+					success:function(res){
+						if(res){
+							if(confirm("是否去购物车结算？")){
+								window.location.href="shoppingCart";
+							}
 						}
 					}
-				}
-			})
+				})
+			}else{
+				window.location.href="login";
+			}
+			 
 			return false;
 		})
 		

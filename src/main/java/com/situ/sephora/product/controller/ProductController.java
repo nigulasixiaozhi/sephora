@@ -18,12 +18,24 @@ public class ProductController implements Serializable {
 	@Autowired
 	private ProductService productService;
 
+	/**
+	 * 打开商品更新
+	 * @param product
+	 * @return 商品类
+	 */
+	
 	@ResponseBody
 	@RequestMapping("/goUpdateProduct")
 	public Product goUpdateProduct(Product product) {
 		return this.productService.getByProduct(product);
 	}
 	
+	
+	/**
+	 * 执行添加商品
+	 * @param product
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/doSaveProduct")
 	public Long saveProduct(Product product) {
@@ -32,15 +44,25 @@ public class ProductController implements Serializable {
 		return this.productService.save(product, realPath);
 	}
 
+	/**
+	 * 执行更新商品
+	 * @param product
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/doUpdateProduct")
 	public Integer doUpdateProduct(Product product) {
 		// 文件的存放路径
 		String realPath =ConfigUtils.FILE_BASE_PATH;
-		System.out.println(realPath);
+		//System.out.println(realPath);
 		return this.productService.update(product, realPath);
 	}
 
+	/**
+	 * 执行删除
+	 * @param rowId
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/doDelProduct")
 	public Integer delProduct(Long rowId) {

@@ -5,7 +5,7 @@ import java.util.List;
 import com.situ.sephora.orderlist.domain.OrderList;
 
 public interface OrderListService {
-	Long save(OrderList orderList);
+	Long save(Long orderId, List<Long> shoppingId);
 	
 	Integer update(OrderList orderList);
 	

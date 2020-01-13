@@ -5,7 +5,7 @@ import java.util.List;
 import com.situ.sephora.order.domain.Order;
 
 public interface OrderService {
-	Long save(Order order);
+	Long save(Long addressId);
 	
 	Order getByOrder(Order order);
 	

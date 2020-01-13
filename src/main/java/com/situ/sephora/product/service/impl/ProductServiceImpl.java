@@ -22,9 +22,12 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productdao;
 
+	/**
+	 * 保存商品
+	 */
 	@Override
 	public Long save(Product product, String realPath) {
-		if (product.getImgFile().getSize() != 0) {
+		if (product.getImgFile().getSize() >0) {//如果传入的图片大小大于1
 			String filePath = this.testUpload(product, realPath);
 			product.setImgPath(filePath);
 		}
@@ -34,6 +37,9 @@ public class ProductServiceImpl implements ProductService {
 		return this.productdao.save(product);
 	}
 
+	/**
+	 * 根据product查询一个
+	 */
 	@Override
 	public Product getByProduct(Product product) {
 		if (product != null) {
@@ -43,20 +49,29 @@ public class ProductServiceImpl implements ProductService {
 		return null;
 	}
 
+	/**
+	 * 根据rowId查询一个
+	 */
 	@Override
 	public Product getByRowId(Long rowId) {
 		return this.productdao.getByRowId(rowId);
 	}
 	
+	/**
+	 * 根据product查找全部
+	 */
 	@Override
 	public List<Product> find(Product product) {
 		product = PageUtils.buildSearchParam(product);
 		return this.productdao.find(product);
 	}
-
+	
+	/**
+	 * 更新
+	 */
 	@Override
 	public Integer update(Product product, String realPath) {
-		if (product.getImgFile().getSize() != 0) {
+		if (product.getImgFile().getSize() > 0) {
 			String filePath = this.testUpload(product, realPath);
 			product.setImgPath(filePath);
 		}
@@ -67,6 +82,9 @@ public class ProductServiceImpl implements ProductService {
 		return 1;
 	}
 
+	/**
+	 * 删除
+	 */
 	@Override
 	public Integer del(Long rowId) {
 		this.productdao.del(rowId);
@@ -78,18 +96,20 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findCategory() {
 		List<Product> products = this.productdao.find(null);
 		List<Product> category = null;
-		if (products.size() > 1) {
+		if (products.size() > 1) {//products不为空
 			boolean flag;
 			category = new ArrayList<Product>();
-			category.add(products.get(0));
-			for (Product product : products) {
+			category.add(products.get(0));//向category添加一个商品
+			for (Product product : products) {//遍历products
 				flag = true;
-				for (int i = 0; i < category.size(); i++) {
+				for (int i = 0; i < category.size(); i++) {//遍历category
+					//如果两者的id相等代表对象重复需要剔除
 					if (category.get(i).getCategoryId() == product.getCategoryId()) {
 						flag = false;
 						break;
 					}
 				}
+				//当不重复时添加进数组
 				if (flag) {
 					category.add(product);
 				}
@@ -98,6 +118,12 @@ public class ProductServiceImpl implements ProductService {
 		return category;
 	}
 
+	/**
+	 * 文件上传
+	 * @param product
+	 * @param realPath
+	 * @return 相对路径
+	 */
 	private String testUpload(Product product, String realPath) {
 		// System.out.println(product.getProductName());
 		// System.out.println(product.getImgFile());

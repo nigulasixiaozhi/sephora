@@ -34,7 +34,7 @@ public class UserController implements Serializable {
 	@RequestMapping("/doLogin")
 	public User doLogin(User user,HttpServletRequest request) {
 		User user2 = userService.getByUser(user);
-		 request.getSession().setAttribute("user", user2);
+		 request.getSession().setAttribute(ConfigUtils.SESSION_USER_LOGIN, user2);
 		return user2;
 	}
 

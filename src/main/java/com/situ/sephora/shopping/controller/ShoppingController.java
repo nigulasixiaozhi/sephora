@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.situ.sephora.shopping.domain.Shopping;
@@ -32,7 +34,7 @@ public class ShoppingController {
 	@ResponseBody
 	@RequestMapping("/find")
 	public List<Shopping> findShopping(){
-		return this.shoppingService.find(null);
+		return this.shoppingService.find();
 	}
 	
 	@ResponseBody
@@ -54,8 +56,14 @@ public class ShoppingController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/del/{rowId}")
+	@RequestMapping(path = {"/del/{rowId}"},method = RequestMethod.GET )
 	public Integer delShopping(@PathVariable Long rowId) {
 		return this.shoppingService.del(rowId);
+	}
+	
+	@ResponseBody
+	@RequestMapping(path ={"/del"},method = RequestMethod.POST)
+	public Integer delShopping(@RequestParam("shoppingId[]") List<Long> shoppingId) {
+		return this.shoppingService.del(shoppingId);
 	}
 }

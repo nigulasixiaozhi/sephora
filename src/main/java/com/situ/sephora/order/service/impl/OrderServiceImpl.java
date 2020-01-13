@@ -9,22 +9,39 @@ import org.springframework.stereotype.Service;
 import com.situ.sephora.order.dao.OrderDao;
 import com.situ.sephora.order.domain.Order;
 import com.situ.sephora.order.service.OrderService;
+import com.situ.sephora.shopping.dao.ShoppingDao;
+import com.situ.sephora.shopping.domain.Shopping;
+import com.situ.sephora.user.domain.User;
 import com.situ.sephora.utils.ConfigUtils;
+import com.situ.sephora.utils.ContextUtils;
 import com.situ.sephora.utils.PageUtils;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDao orderDao;
+	@Autowired
+	private ShoppingDao shoppingDao;
 
 	@Override
-	public Long save(Order order) {
+	public Long save(Long addressId) {
+		Order order = new Order();
+		User user = ContextUtils.getLoginUser();
+		if(user!=null) {
+			order.setUserId(user.getRowId());
+			Shopping shopping = this.shoppingDao.getChecekdPriceAndCount(user.getRowId());
+			if(shopping!=null&&shopping.getCheckedPrice()!=null) {
+				order.setSumPrice(shopping.getCheckedPrice());
+			}
+		}
+		order.setAddressId(addressId);
 		order.setOrderStatus(4);
 		order.setPay(0);
 		order.setActiveFlag(1);
 		order.setCreateBy(ConfigUtils.SESSION_ADMIN_LOGIN);
 		order.setCreateDate(new Date());
-		return this.orderDao.save(order);
+		 this.orderDao.save(order);
+		return order.getRowId();
 	}
 
 	@Override

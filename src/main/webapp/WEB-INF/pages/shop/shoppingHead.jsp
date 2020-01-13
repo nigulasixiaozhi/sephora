@@ -9,12 +9,12 @@
 			<div class="top-wrapper-left fl">
 				<span class="top-wrapper-left-logo">欢迎来到丝芙兰</span>
 				<c:choose>
-					<c:when test="${!empty user}">
-						<span>${user.userName}</span>
+					<c:when test="${!empty userLogin}">
+						<span>${userLogin.userName}</span>
 						<i class="top-wrapper-left-i"></i>
 						<a href="exitUser">退出</a>
 					</c:when>
-					<c:when test="${empty user}">
+					<c:when test="${empty userLogin}">
 						<a href="login/" class="top-wrapper-left-login">请登录</a>
 						<i class="top-wrapper-left-i"></i>
 						<a href="registered/">免费注册</a>
@@ -39,7 +39,7 @@
 					<!-- 箭头 -->
 
 					<div class="top-wrapper-order">
-						<img src="assert/img/head/top_angle_w2.png" class="top-wrapper-right-img"> <a href="myOrder/${user.rowId}">我的订单</a>
+						<img src="assert/img/head/top_angle_w2.png" class="top-wrapper-right-img"> <a href="myOrder/${userLogin.rowId}">我的订单</a>
 					</div>
 				</div>
 

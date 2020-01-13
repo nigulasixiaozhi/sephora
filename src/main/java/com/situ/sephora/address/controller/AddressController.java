@@ -2,6 +2,8 @@ package com.situ.sephora.address.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.situ.sephora.address.domain.Address;
 import com.situ.sephora.address.service.AddressService;
+import com.situ.sephora.user.domain.User;
+import com.situ.sephora.utils.ConfigUtils;
 
 @Controller
 @RequestMapping("/address")
@@ -42,14 +46,16 @@ public class AddressController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/addEditDefault")
-	public Integer addEditDefault(Long userId) {
+	@RequestMapping("/addEditDefault/{userId}")
+	public Integer addEditDefault(@PathVariable Long userId) {
 		return this.addressService.addEditDefault(userId);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/clickDefault")
-	public Integer clickDefault(Long rowId,Long userId) {
+	public Integer clickDefault(Long rowId,HttpServletRequest request) {
+		User user =(User) request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
+		Long userId = user.getRowId();
 		return this.addressService.clickDefault(rowId, userId);
 	}
 	

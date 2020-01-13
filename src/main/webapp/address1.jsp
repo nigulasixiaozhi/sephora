@@ -10,7 +10,7 @@
 	<ul>
 		<c:if test="${!empty addressList}">
 			<c:forEach items="${addressList}" var="list">
-				<c:if test="${user.rowId==list.userId}">
+				<c:if test="${userLogin.rowId==list.userId}">
 					<li class="clearfix">
 						<div class="userMessage fl ">
 							<div class="name-nowTips clearfix">

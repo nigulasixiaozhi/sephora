@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.situ.sephora.order.domain.Order;
 import com.situ.sephora.order.service.OrderService;
 
 @Controller
@@ -16,7 +15,7 @@ public class OrderController {
 	
 	@ResponseBody
 	@RequestMapping("/add")
-	public Long addOrder(Order order) {
-		return this.orderService.save(order);
+	public Long addOrder(Long addressId) {
+		return this.orderService.save(addressId);
 	}
 }

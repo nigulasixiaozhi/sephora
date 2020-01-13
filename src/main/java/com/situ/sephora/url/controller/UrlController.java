@@ -3,7 +3,6 @@ package com.situ.sephora.url.controller;
 import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.situ.sephora.address.service.AddressService;
 import com.situ.sephora.category.service.CategoryService;
-import com.situ.sephora.order.domain.Order;
 import com.situ.sephora.order.service.OrderService;
 import com.situ.sephora.orderlist.domain.OrderList;
 import com.situ.sephora.orderlist.service.OrderListService;
@@ -22,6 +20,7 @@ import com.situ.sephora.product.service.ProductService;
 import com.situ.sephora.shopping.service.ShoppingService;
 import com.situ.sephora.user.domain.User;
 import com.situ.sephora.user.service.UserService;
+import com.situ.sephora.utils.ConfigUtils;
 import com.situ.sephora.utils.ContextUtils;
 
 @Controller
@@ -44,6 +43,8 @@ public class UrlController implements Serializable {
 
 	//头部
 	private final String PAGE_HEAD = "shop/head";
+	//头部的购物车
+	private final String PAGE_HEAD_SHOP_CART ="shop/headShopCart";
 	//购物车相关头部
 	private final String PAGE_SHOPPING_HEAD="shop/shoppingHead";
 	
@@ -90,7 +91,15 @@ public class UrlController implements Serializable {
 	@RequestMapping("/findCategoryChild")
 	public ModelAndView findCategoryChild(ModelAndView modelAndView) {
 		modelAndView.addObject("category",this.categoryService.findChild());
+		modelAndView.addObject("shopCart",this.shoppingService.find());
 		modelAndView.setViewName(PAGE_HEAD);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/findHeadShopCart")
+	public ModelAndView findHeadShopCart(ModelAndView modelAndView) {
+		modelAndView.addObject("shopCart",this.shoppingService.find());
+		modelAndView.setViewName(PAGE_HEAD_SHOP_CART);
 		return modelAndView;
 	}
 	
@@ -122,15 +131,29 @@ public class UrlController implements Serializable {
 
 	@RequestMapping("/shoppingCart")
 	public ModelAndView shoppingCart(ModelAndView modelAndView) {
-		modelAndView.addObject("shoppingList",this.shoppingService.find(null));
-		modelAndView.addObject("checkedPriceAndCount",this.shoppingService.checekdPriceAndCount());
-		modelAndView.setViewName(PAGE_SHOPPING_CART);
+		User user = ContextUtils.getLoginUser();
+		if (user!=null) {
+			modelAndView.addObject("shoppingList",this.shoppingService.find());
+			modelAndView.addObject("checkedPriceAndCount",this.shoppingService.checekdPriceAndCount());
+			modelAndView.setViewName(PAGE_SHOPPING_CART);
+		}else {
+			modelAndView.setViewName(PAGE_LOGIN);
+		}
+		
 		return modelAndView;
 	}
 
 	@RequestMapping("/shoppingProcess")
 	public ModelAndView shoppingProcess(ModelAndView modelAndView) {
+		User user = ContextUtils.getLoginUser();
+		if (user!=null) {
+		modelAndView.addObject("shopping",this.shoppingService.findByChecked());
+		modelAndView.addObject("sumPriceAndCount", this.shoppingService.checekdPriceAndCount());
+		modelAndView.addObject("addressList",this.addressService.findByAddress(null));
 		modelAndView.setViewName(PAGE_SHOPPING_PROCESS);
+		}else {
+			modelAndView.setViewName(PAGE_LOGIN);
+		}
 		return modelAndView;
 	}
 
@@ -142,7 +165,7 @@ public class UrlController implements Serializable {
 	
 	@RequestMapping("/exitUser")
 	public ModelAndView exitUser(ModelAndView modelAndView,HttpServletRequest request) {
-		request.getSession().removeAttribute("user");
+		request.getSession().removeAttribute(ConfigUtils.SESSION_USER_LOGIN);
 		modelAndView.setViewName(PAGE_INDEX);
 		return modelAndView;
 	}
@@ -155,8 +178,10 @@ public class UrlController implements Serializable {
 
 	@RequestMapping("/personalCenter")
 	public ModelAndView personalCenter(ModelAndView modelAndView,HttpServletRequest request) {
-		Object user =  request.getSession().getAttribute("user");
-		if (user!=null&&!user.equals("")) {
+		Object object =  request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
+		if (object!=null&&!object.equals("")) {
+			User user = (User) object;
+			modelAndView.addObject("order",this.orderService.findByUserId(user.getRowId()));
 			modelAndView.setViewName(PAGE_PERSONAL_CENTER);
 		}else {
 			modelAndView.setViewName(PAGE_LOGIN);
@@ -173,14 +198,14 @@ public class UrlController implements Serializable {
 
 	@RequestMapping("/address")
 	public ModelAndView address(ModelAndView modelAndView,HttpServletRequest request) {
-		Object user =  request.getSession().getAttribute("user");
+		Object user =  request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
 		if (user!=null&&!user.equals("")) {
 			modelAndView.setViewName(PAGE_ADDRESS);
+			modelAndView.addObject("addressList",this.addressService.findByAddress(null));
 		}else {
 			modelAndView.setViewName(PAGE_LOGIN);
 		}
-		modelAndView.addObject("addressList",this.addressService.findByAddress(null));
-		modelAndView.setViewName(PAGE_ADDRESS);
+		
 		return modelAndView;
 	}
 
@@ -200,7 +225,7 @@ public class UrlController implements Serializable {
 
 	@RequestMapping("admin/index")
 	public ModelAndView adminIndex(ModelAndView modelAndView) {
-		User user= ContextUtils.getLoginUser();
+		User user= ContextUtils.getAdminUser();
 		if (user!=null) {
 			modelAndView.setViewName(PAGE_ADMIN_INDEX);
 		}else {

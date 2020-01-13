@@ -1431,6 +1431,8 @@
 			// 链接修改
 			$(".floor-2 .hot-brands a").attr("href","list/");
 			// $(".top_allproducts a").attr("href","List.html");
+			
+			
 			})
 			
 			//java
@@ -1480,6 +1482,7 @@
 				});
 			}
 			
+		
 			
 		</script>
 	</body>

@@ -14,31 +14,8 @@
 		<!-- 头部 -->
 		<%@ include file="/head.jsp" %>
 		<div class="body container clearfix">
-			<div class="left-tree fl">
-				<div class="title">
-					<a href="personalCenter/">我的丝芙兰</a>
-				</div>
-				<dl class="content ">
-					<div>
-						<dt class="clearfix">
-							<span class="text">交易管理</span>
-							<span class="arrow bottom"></span>
-						</dt>
-						<dd><a href="myOrder/${user.rowId}">我的订单</a></dd>
-						<dd><a href="">我的优惠券</a></dd>
-						<dd><a href="">我的兑礼订单</a></dd>
-					</div>
-					<div>
-						<dt class="clearfix">
-							<span class="text">个人信息管理</span>
-							<span class="arrow bottom"></span></dt>
-						<dd><a href="personalData/">编辑个人资料</a></dd>
-						<dd><a href="address/">收货地址管理</a></dd>
-						<dd><a href="">更改密码</a></dd>
-					</div>
-
-				</dl>
-			</div>
+			<!-- 左侧树状导航 -->
+			<jsp:include page="/leftTree.jsp"></jsp:include>
 			<div class="right-bg fr">
 				<div class="title">
 					编辑个人资料

@@ -12,42 +12,8 @@
 </head>
 <body>
 	<div class="body container clearfix">
-		<div class="left-tree fl">
-			<div class="title">
-				<a href="personalCenter/">我的丝芙兰</a>
-			</div>
-			<dl class="content ">
-				<div>
-					<dt class="clearfix">
-						<span class="text">交易管理</span> <span class="arrow bottom"></span>
-					</dt>
-					<dd>
-						<a href="myOrder/${user.rowId }">我的订单</a>
-					</dd>
-					<dd>
-						<a href="">我的优惠券</a>
-					</dd>
-					<dd>
-						<a href="">我的兑礼订单</a>
-					</dd>
-				</div>
-				<div>
-					<dt class="clearfix">
-						<span class="text">个人信息管理</span> <span class="arrow bottom"></span>
-					</dt>
-					<dd>
-						<a href="personalData/">编辑个人资料</a>
-					</dd>
-					<dd>
-						<a href="address/">收货地址管理</a>
-					</dd>
-					<dd>
-						<a href="">更改密码</a>
-					</dd>
-				</div>
-
-			</dl>
-		</div>
+		<!-- 左侧树状导航 -->
+		<jsp:include page="/leftTree.jsp"></jsp:include>
 		<div class="right-bg fr">
 			<div class="title">我的SEPHORA</div>
 			<div class="right-content ">
@@ -83,7 +49,7 @@
 						<div class="MyOreder-content clearfix">
 							<div class="contentLeft fl">
 								<div class="number">
-									<span>订单号 :</span> <span>${order.rowId }</span> <span>${order.createBy }</span>
+									<span>订单号 :</span> <span>${order.rowId }</span> <span>${order.createDate }</span>
 								</div>
 								<c:if test="${!empty orderList }">
 									<c:forEach items="${orderList}" var="list">
@@ -91,7 +57,7 @@
 											<ul class="shopingList clearfix">
 												<li class="clearfix"><img class="fl" src="${list.imgPath}">
 													<div class="productName ">${list.brandName }</div>
-													<div class="productTitle">${list.brandName }</div>
+													<div class="productTitle">${list.productName }</div>
 													<div class="productSize">规格：瓶</div></li>
 												<li>${list.buyCount }</li>
 												<li>￥${list.sumPrice }</li>
@@ -106,14 +72,19 @@
 								<li>
 									<p>￥${order.sumPrice}</p>
 									<p>(含运费￥0.00)</p>
-									<p>在线支付</p>
+									<p><c:choose>
+										<c:when test="${order.pay==0}"><p>未支付</p></c:when>
+										<c:when test="${order.pay==1}"><p>微信</p></c:when>
+										<c:when test="${order.pay==2}"><p>支付宝</p></c:when>
+										<c:when test="${order.pay==3}"><p>银行卡</p></c:when>
+									</c:choose></p>
 								</li>
 								<li><c:choose>
 										<c:when test="${order.orderStatus==0}"><p>已取消</p></c:when>
 										<c:when test="${order.orderStatus==1}"><p>待发货</p></c:when>
 										<c:when test="${order.orderStatus==2}"><p>已发货</p></c:when>
 										<c:when test="${order.orderStatus==3}"><p>已签收</p></c:when>
-										<c:when test="${order.orderStatus==4}"><p>未支付</p></c:when>
+										<c:when test="${order.orderStatus==4}"><p>待支付</p></c:when>
 									</c:choose></li>
 								<li>
 									<c:choose>

@@ -202,9 +202,9 @@
 				</div>
 
 				<!-- 立即结算 -->
-				<a id="shopProcess" href="shoppingProcess/">
-					<input type="hidden" id="userId" value="${user.rowId}" />
-					<p class="settle_settleaccounts fr">立即结算</p>
+				<a href="shoppingProcess/">
+					<input type="hidden" id="userId" value="${userLogin.rowId}" />
+					<p id="shopProcess" class="settle_settleaccounts fr">立即结算</p>
 				</a>
 				<!-- 金额 -->
 				<c:set value="${checkedPriceAndCount}" var="checked"></c:set>
@@ -300,15 +300,22 @@
 			
 		})
 		
+		//当进来页面时全选框是否选中
+		if($(".shop_shop .shop_shop_perfume_choice input:checked").length==$(".shop_shop .shop_shop_perfume_choice input").length){
+				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",true);
+			}else{
+				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",false);
+			}
+		
 		//多选框
 		$(".shop_shop .shop_shop_perfume_choice input").click(function(){
 			var checkedFlag = $(this).prop("checked");
 			var checkedLength = $(".shop_shop .shop_shop_perfume_choice input:checked").length;
 			var checboxLength = $(".shop_shop .shop_shop_perfume_choice input").length;
 			if(checkedLength==checboxLength){
-				$(".checkAll").prop("checked",true);
+				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",true);
 			}else{
-				$(".checkAll").prop("checked",false);
+				$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",false);
 			}
 			var checked =checkedFlag?1:0;
 			var rowId = $(this).parents(".shop_shop_perfume").attr("data-id");
@@ -322,7 +329,7 @@
 			var checkedFlag = $(this).prop("checked");
 			var userId = $("#userId").val();
 			var checked =checkedFlag?1:0;
-			$(".checkAll").prop("checked",checkedFlag);
+			$(".shop_all_whole input[type=checkbox],.settle_all input[type=checkbox]").prop("checked",checkedFlag);
 			$(".shop_shop .shop_shop_perfume_choice input").prop("checked",checkedFlag);
 			$.ajax({
 				type:"post",
@@ -345,8 +352,7 @@
 		
 		//提交订单
 		$("#shopProcess").click(function(){
-			var userId = $("#userId").val();
-			var sumPrice = $(this).parent().siblings(".shop_shop_perfume_small").text();
+			
 		})
 	
 		//删除

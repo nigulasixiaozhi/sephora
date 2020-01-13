@@ -30,14 +30,16 @@
 							<c:when test="${order.orderStatus==1}">待发货</c:when>
 							<c:when test="${order.orderStatus==2}">已发货</c:when>
 							<c:when test="${order.orderStatus==3}">已签收</c:when>
+							<c:when test="${order.orderStatus==4}">未付款</c:when>
 							<c:when test="${order.orderStatus==0}">已取消</c:when>
 						</c:choose></td>
 					<td><c:choose>
 							<c:when test="${order.pay==1}">微信</c:when>
 							<c:when test="${order.pay==2}">支付宝</c:when>
 							<c:when test="${order.pay==3}">银行卡</c:when>
+							<c:when test="${order.pay==0}">未支付</c:when>
 						</c:choose></td>
-					<td><a class="btn btn-default" href="admin">发货</a></td>
+					<td><a class="btn btn-default ${order.pay==0?'disabled':''} " href="admin">发货</a></td>
 				</tr>
 			</c:forEach>
 		</c:if>

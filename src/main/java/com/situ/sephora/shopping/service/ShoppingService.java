@@ -11,11 +11,15 @@ public interface ShoppingService {
 	
 	Shopping checekdPriceAndCount();
 	
-	List<Shopping> find(Shopping shopping);
+	List<Shopping> find();
+	
+	List<Shopping> findByChecked();
 	
 	Integer update(Shopping shopping);
 	
 	Integer updateChecked(Integer checked,Long userId);
 	
 	Integer del(Long rowId);
+	
+	Integer del(List<Long> shoppingId);
 }

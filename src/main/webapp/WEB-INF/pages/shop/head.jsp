@@ -9,18 +9,18 @@
 			<div class="top-wrapper-left fl">
 				<span class="top-wrapper-left-logo">欢迎来到丝芙兰</span>
 				<c:choose>
-					<c:when test="${!empty user}">
-						<span>${user.userName}</span>
-						 <i class="top-wrapper-left-i"></i> 
-						 <a href="exitUser">退出</a>
+					<c:when test="${!empty userLogin}">
+						<span>${userLogin.userName}</span>
+						<i class="top-wrapper-left-i"></i>
+						<a href="exitUser">退出</a>
 					</c:when>
-					<c:when test="${empty user}">
+					<c:when test="${empty userLogin}">
 						<a href="login/" class="top-wrapper-left-login">请登录</a>
-						 <i class="top-wrapper-left-i"></i> 
-						 <a href="registered/">免费注册</a>
+						<i class="top-wrapper-left-i"></i>
+						<a href="registered/">免费注册</a>
 					</c:when>
 				</c:choose>
-				
+
 			</div>
 			<!-- 轮播 -->
 			<div class="txtScroll-top fl">
@@ -39,7 +39,7 @@
 					<!-- 箭头 -->
 
 					<div class="top-wrapper-order">
-						<img src="assert/img/head/top_angle_w2.png" class="top-wrapper-right-img"> <a href="myOrder/${user.rowId }">我的订单</a>
+						<img src="assert/img/head/top_angle_w2.png" class="top-wrapper-right-img"> <a href="myOrder/${userLogin.rowId }">我的订单</a>
 					</div>
 				</div>
 
@@ -103,19 +103,55 @@
 			</div>
 			<!-- 购物袋 -->
 			<div class="top_search_bag fr">
-				<img src="assert/img/head/shopping_bag.png" class="shopping-bag"> <a href="${!empty user?'shoppingCart':'login' }"> <span class="top_search_bag_txt">购物袋<span class="shopping-num">0</span>件
-				</span>
+				<%-- <img src="assert/img/head/shopping_bag.png" class="shopping-bag"> 
+				<a href="${!empty userLogin?'shoppingCart':'login' }">
+				 <span class="top_search_bag_txt">购物袋<span class="shopping-num">
+				 <c:out value="${shopCart.size()}" default="0"></c:out> </span>件</span>
 				</a>
 				<!-- 购物车 -->
 				<div class="top_search_bag_trolley">
-					<div class="top_search_bag_trolley_img fl">
-						<img src="assert/img/head/package.png">
-					</div>
-					<div class="top_search_bag_trolley_message fl">
-						<span>购物车内暂时没有商品，登录后将显示您之前加入的商品 </span> <a href="login" class="top_search_bag_trolley_message_ding">登陆</a>
-					</div>
-					<div class="clear"></div>
-				</div>
+					 <c:if test="${empty userLogin }">
+						<div>
+							<div class="top_search_bag_trolley_img fl">
+								<img src="assert/img/head/package.png">
+							</div>
+							<div class="top_search_bag_trolley_message fl">
+								<span>购物车内暂时没有商品，登录后将显示您之前加入的商品 </span> <a href="login" class="top_search_bag_trolley_message_ding">登陆</a>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</c:if>
+					<c:if test="${!empty userLogin }">
+						<ul class="search_shop_cart">
+							<c:if test="${!empty shopCart}">
+								<c:set value="0" var="sumCount"></c:set>
+								<c:set value="0" var="sumPrice"></c:set>
+								<c:forEach items="${shopCart}" var="shopCart">
+									<li data-id="${shopCart.rowId}"><c:set value="${sumCount+shopCart.payCount}" var="sumCount"></c:set> <c:set value="${sumPrice+shopCart.productPrice*shopCart.payCount}" var="sumPrice"></c:set>
+										<div class="fl">
+											<a href="details/${shopCart.productId }"><img src="${shopCart.imgPath}" /></a>
+										</div>
+										<div class="product_title fl">${shopCart.productName}</div>
+										<div class="product_price fr">
+											<p>
+												￥<span class="price">${shopCart.productPrice}</span>*<span class="count">${shopCart.payCount}</span>
+											</p>
+											<p class="shop_cart_del">删除</p>
+										</div>
+										<div class="clear"></div></li>
+								</c:forEach>
+							</c:if>
+
+						</ul>
+						<div class="total">
+							<p class="fl">
+								共<span class="sum_count"><c:out value="${sumCount}" default="0"></c:out> </span>件商品&nbsp;共计<span class="sum_price"><c:out value="${sumPrice}" default="0"></c:out></span>
+							</p>
+							<a href="shoppingCart" class="fr go_shop_cart">去购物车</a>
+							<div class="clear"></div>
+						</div>
+					</c:if> 
+				</div> --%>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -222,3 +258,40 @@
 		</div>
 	</div>
 </div>
+<script>
+	
+	initShopCart();
+	setTimeout(function(){
+		$(".search_shop_cart li").on("click", ".shop_cart_del", function() {
+			var rowId = $(this).parents("li").attr("data-id");
+			var $this = $(this);
+			if (confirm("是否要删除？")) {
+				$.ajax({
+					type : "get",
+					url : "shopping/del/" + rowId,
+					success : function(res) {
+						if (res) {
+							initShopCart();
+						}
+					}
+				})
+			}
+		})
+		$(".top_search_bag").mouseenter(function(){
+		initShopCart();
+	})
+	},500)
+	
+	
+	
+	function initShopCart() {
+		$.ajax({
+			type : "get",
+			url : "findHeadShopCart/",
+			dataType : "html",
+			success : function(res) {
+				$(".top_search_bag").html(res);
+			}
+		})
+	}
+</script>

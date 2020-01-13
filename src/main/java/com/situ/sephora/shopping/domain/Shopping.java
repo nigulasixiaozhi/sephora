@@ -17,8 +17,8 @@ public class Shopping extends BaseClass{
 	private String imgPath;//商品图片路径
 	private String brandName;//品牌名称
 	private Double productPrice;//商品价格
-	private Integer checkedCount;//选中商品的数量;
-	private Double checkedPrice;//选中商品的价格
+	private Integer checkedCount;//选中商品的总数量;
+	private Double checkedPrice;//选中商品的总价格
 	
 	
 	public Integer getCheckedCount() {

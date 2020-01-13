@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.situ.sephora.orderlist.dao.OrderListDao;
 import com.situ.sephora.orderlist.domain.OrderList;
 import com.situ.sephora.orderlist.service.OrderListService;
+import com.situ.sephora.shopping.dao.ShoppingDao;
+import com.situ.sephora.shopping.domain.Shopping;
 import com.situ.sephora.utils.ConfigUtils;
 import com.situ.sephora.utils.PageUtils;
 
@@ -16,13 +18,28 @@ import com.situ.sephora.utils.PageUtils;
 public class OrderListServiceImpl implements OrderListService{
 	@Autowired
 	private OrderListDao orderListDao;
+	@Autowired
+	private ShoppingDao shoppingDao;
 
 	@Override
-	public Long save(OrderList orderList) {
-		orderList.setActiveFlag(1);
-		orderList.setCreateBy(ConfigUtils.SESSION_ADMIN_LOGIN);
-		orderList.setCreateDate(new Date());
-		return this.orderListDao.save(orderList);
+	public Long save(Long orderId,List<Long> shoppingId) {
+		OrderList orderList = new OrderList();
+		for (Long id : shoppingId) {
+			Shopping shopping = this.shoppingDao.get(id);
+			if (shopping!=null) {
+				orderList.setProductId(shopping.getProductId());
+				orderList.setBuyCount(shopping.getPayCount());
+				orderList.setSumPrice(shopping.getSumPrice());
+				orderList.setOrderId(orderId);
+				orderList.setActiveFlag(1);
+				orderList.setCreateBy(ConfigUtils.SESSION_ADMIN_LOGIN);
+				orderList.setCreateDate(new Date());
+				 this.orderListDao.save(orderList);
+			}else {
+				return null;
+			}
+		}
+		return 1L;
 	}
 
 	@Override

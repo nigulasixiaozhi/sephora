@@ -92,61 +92,9 @@ $(window).scroll(function(e) {
 	// 	console.log(scrollTop);
 	// 	console.log(maxTop);
 	if (scrollTop < maxTop) {
-		$(".checkoutSubmit-info-content-static_").addClass("fixed");
+		$(".checkoutSubmit-info-content-static>div").addClass("checkoutSubmit-info-content-static_").addClass("fixed");
 	} else {
-		$(".checkoutSubmit-info-content-static_").removeClass("fixed");
+		$(".checkoutSubmit-info-content-static>div").removeClass("checkoutSubmit-info-content-static_").removeClass("fixed");
 	};
 });
 
-
-//新建地址,弹出窗口
-$(document).ready(function() {
-	//
-	var input = $(".input").val();
-	var select = $(".P_select").val();
-	var _name = $(".input_name").val();
-	var _num = $(".input_num").val();
-
-	// 新建地址
-	// $(".address_content_uesr_ul_li_create").click(function() {
-	// 	$(".bg").show(100);
-	// 	$(".Popup_window").show(100);
-	// });
-	//保存使用
-	$(".save").click(function() {
-		// var inp = $(".input").val();
-		// 		if (!inp) {
-		// 			alert("输入为空")
-		// 		}
-		if ((input && select && _name && _num)=='') {
-			$(".detection").addClass("visible");
-			return;
-		} else {
-			$(".address_content_uesr_ul_li_create").style.display = "none";
-			$(".module_span").style.display = "block";
-			$(".bg").fadeOut(10);
-			$(".Popup_window").fadeOut(10);
-		}
-		
-
-
-
-
-	});
-	//取消
-	$(".flase").click(function() {
-		$(".bg").hide();
-		$(".Popup_window").hide();
-		$(".detection").removeClass("visible");
-	});
-	//X
-	$(".close").click(function() {
-		$(".bg").hide();
-		$(".Popup_window").hide();
-		$(".detection").removeClass("visible");
-	});
-
-
-
-
-});

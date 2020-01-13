@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,8 +7,7 @@
 <title></title>
 <jsp:include page="/base.jsp"></jsp:include>
 <link rel="stylesheet" type="text/css" href="assert/css/reset.css" />
-<link rel="stylesheet" type="text/css"
-	href="assert/css/head/Genhead.css" />
+<link rel="stylesheet" type="text/css" href="assert/css/head/Genhead.css" />
 <link rel="stylesheet" type="text/css" href="assert/css/List/list.css" />
 </head>
 <body>
@@ -313,8 +311,7 @@
 					</div>
 					<!-- 更多选项 -->
 					<div class="screen_more">
-						<span>更多选项</span> <i class="icon_option icon_flag"></i> <i
-							class="icon_option icon_up"></i>
+						<span>更多选项</span> <i class="icon_option icon_flag"></i> <i class="icon_option icon_up"></i>
 					</div>
 
 				</div>
@@ -326,23 +323,17 @@
 					<!-- 左侧 -->
 					<div class="screen_commod_up_le fl">
 						<ul class="screen_commod_up_le_one">
-							<li class="active"><a href="#">综合</a> <i
-								class="icon_option icon_arrow"></i></li>
-							<li><a href="#">销量</a> <i class="icon_option icon_arrow"></i>
-								<span class="screen_commod_up_le_one_mark"></span></li>
-							<li><a href="#">新品</a> <i class="icon_option icon_arrow"></i>
-								<span class="screen_commod_up_le_one_mark"></span></li>
-							<li><a href="#">人气</a> <i class="icon_option icon_arrow"></i>
-								<span class="screen_commod_up_le_one_mark"></span></li>
-							<li><a href="#">价格</a> <i class="icon_option icon_arrow"></i>
-							</li>
+							<li class="active"><a href="#">综合</a> <i class="icon_option icon_arrow"></i></li>
+							<li><a href="#">销量</a> <i class="icon_option icon_arrow"></i> <span class="screen_commod_up_le_one_mark"></span></li>
+							<li><a href="#">新品</a> <i class="icon_option icon_arrow"></i> <span class="screen_commod_up_le_one_mark"></span></li>
+							<li><a href="#">人气</a> <i class="icon_option icon_arrow"></i> <span class="screen_commod_up_le_one_mark"></span></li>
+							<li><a href="#">价格</a> <i class="icon_option icon_arrow"></i></li>
 
 						</ul>
 					</div>
 					<!-- 仅看有货 -->
 					<div class="screen_commod_up_con fl">
-						<input type="checkbox" class="int" name="" id="" value="" /> <a
-							href="#">仅看有货</a>
+						<input type="checkbox" class="int" name="" id="" value="" /> <a href="#">仅看有货</a>
 					</div>
 					<!-- 页码 -->
 					<div class="screen_commod_up_num fl">
@@ -361,23 +352,17 @@
 					<!-- 左侧 -->
 					<div class="screen_commod_up_le fl">
 						<ul class="screen_commod_up_le_one">
-							<li class="active"><a href="#">综合</a> <i
-								class="icon_option icon_arrow"></i></li>
-							<li><a href="#">销量</a> <i class="icon_option icon_arrow"></i>
-								<span class="screen_commod_up_le_one_mark"></span></li>
-							<li><a href="#">新品</a> <i class="icon_option icon_arrow"></i>
-								<span class="screen_commod_up_le_one_mark"></span></li>
-							<li><a href="#">人气</a> <i class="icon_option icon_arrow"></i>
-								<span class="screen_commod_up_le_one_mark"></span></li>
-							<li><a href="#">价格</a> <i class="icon_option icon_arrow"></i>
-							</li>
+							<li class="active"><a href="#">综合</a> <i class="icon_option icon_arrow"></i></li>
+							<li><a href="#">销量</a> <i class="icon_option icon_arrow"></i> <span class="screen_commod_up_le_one_mark"></span></li>
+							<li><a href="#">新品</a> <i class="icon_option icon_arrow"></i> <span class="screen_commod_up_le_one_mark"></span></li>
+							<li><a href="#">人气</a> <i class="icon_option icon_arrow"></i> <span class="screen_commod_up_le_one_mark"></span></li>
+							<li><a href="#">价格</a> <i class="icon_option icon_arrow"></i></li>
 
 						</ul>
 					</div>
 					<!-- 仅看有货 -->
 					<div class="screen_commod_up_con fl">
-						<input type="checkbox" class="int" name="" id="" value="" /> <a
-							href="#">仅看有货</a>
+						<input type="checkbox" class="int" name="" id="" value="" /> <a href="#">仅看有货</a>
 					</div>
 					<!-- 页码 -->
 					<div class="screen_commod_up_num fl">
@@ -394,38 +379,38 @@
 				<!-- 商品 -->
 				<div class="screen_commod_con">
 					<c:if test="${!empty productList}">
-		<c:set value="${productList.size()%5==0?productList.size()/5:productList.size()/5+1}" var="line"></c:set>
-		<c:set value="0" var="begin"></c:set>
-		<c:set value="4" var="end"></c:set>
-		<c:forEach var="list" begin="1" end="${line}">
-			<!-- 一行 -->
-			<div class="line">
-				<c:forEach items="${productList}" var="list" begin="${begin}" end="${end}">
-					<!-- 一个香水 -->
-					<div class="screen_commod_con_pie fl">
-						<div class="screen_commod_con_pie_one">
-							<a href="details/${list.rowId }"> <!-- 图片 -->
-								<div class="screen_commod_con_pie_img">
-									<img src="${list.imgPath }" />
-								</div>
-								<div class="screen_commod_con_pie_name">${list.brandName }</div>
-								<div class="screen_commod_con_pie_des">
-									<a href="details/${list.rowId }"> ${list.productName } </a>
-								</div>
-								<div class="screen_commod_con_pie_pri">￥${list.productPrice }</div> <!-- 立即购买 -->
-								<div class="screen_commod_con_pie_cov">
-									<img src="assert/img/List/category_purchace_bag.png"> <a href="">立即购买</a>
-								</div>
-							</a>
-						</div>
-					</div>
-				</c:forEach>
-				<c:set value="${begin+end+1}" var="begin"></c:set>
-				<c:set value="${end+5}" var="end"></c:set>
-				<div class="clear"></div>
-			</div>
-		</c:forEach>
-	</c:if>
+						<c:set value="${productList.size()%5==0?productList.size()/5:productList.size()/5+1}" var="line"></c:set>
+						<c:set value="0" var="begin"></c:set>
+						<c:set value="4" var="end"></c:set>
+						<c:forEach var="list" begin="1" end="${line}">
+							<!-- 一行 -->
+							<div class="line">
+								<c:forEach items="${productList}" var="list" begin="${begin}" end="${end}">
+									<!-- 一个香水 -->
+									<div class="screen_commod_con_pie fl">
+										<div class="screen_commod_con_pie_one">
+											<a href="details/${list.rowId }"> <!-- 图片 -->
+												<div class="screen_commod_con_pie_img">
+													<img src="${list.imgPath }" />
+												</div>
+												<div class="screen_commod_con_pie_name">${list.brandName }</div>
+												<div class="screen_commod_con_pie_des">
+													<a href="details/${list.rowId }"> ${list.productName } </a>
+												</div>
+												<div class="screen_commod_con_pie_pri">￥${list.productPrice }</div> <!-- 立即购买 -->
+												<div class="screen_commod_con_pie_cov">
+													<img src="assert/img/List/category_purchace_bag.png"> <a href="">立即购买</a>
+												</div>
+											</a>
+										</div>
+									</div>
+								</c:forEach>
+								<c:set value="${begin+end+1}" var="begin"></c:set>
+								<c:set value="${end+5}" var="end"></c:set>
+								<div class="clear"></div>
+							</div>
+						</c:forEach>
+					</c:if>
 				</div>
 				<!-- 底标 -->
 				<div class="screen_commod_down">
@@ -460,25 +445,19 @@
 
 	<!-- 右侧导航栏 -->
 	<ul class="toolbar">
-		<li><a href=""> <span class="toolbar-text">个人信息</span> <em
-				class="sprite-toolbar person"></em>
+		<li><a href=""> <span class="toolbar-text">个人信息</span> <em class="sprite-toolbar person"></em>
 		</a></li>
-		<li><a href=""> <span class="toolbar-text">购物车</span> <em
-				class="sprite-toolbar shoping"></em>
+		<li><a href=""> <span class="toolbar-text">购物车</span> <em class="sprite-toolbar shoping"></em>
 		</a></li>
-		<li><a href=""> <span class="toolbar-text">联系客服</span> <em
-				class="sprite-toolbar service"></em>
+		<li><a href=""> <span class="toolbar-text">联系客服</span> <em class="sprite-toolbar service"></em>
 		</a></li>
-		<li><a href=""> <span class="toolbar-text">移动丝芙兰</span> <em
-				class="sprite-toolbar mobile"></em>
+		<li><a href=""> <span class="toolbar-text">移动丝芙兰</span> <em class="sprite-toolbar mobile"></em>
 		</a></li>
-		<li><a href="javascript:;"> <span class="toolbar-text">返回顶部</span>
-				<em class="sprite-toolbar return"></em>
+		<li><a href="javascript:;"> <span class="toolbar-text">返回顶部</span> <em class="sprite-toolbar return"></em>
 		</a></li>
 	</ul>
 	<script type="text/javascript" src="assert/js/jquery-3.3.1.min.js"></script>
-	<script src="assert/lib/jquery.SuperSlide.2.1.3.js"
-		type="text/javascript" charset="utf-8"></script>
+	<script src="assert/lib/jquery.SuperSlide.2.1.3.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="assert/js/List/list.js"></script>
 	<script type="text/javascript">
 		jQuery(".txtScroll-top").slide({
@@ -538,19 +517,19 @@
 						})
 		// 链接修改
 		// $(".top_allproducts a").attr("href","List.html");
-		
+
 		//java
-			//添加头部
-			addHead();
-			function addHead(){
-				$.ajax({
-					post:"get",
-					url:"findCategoryChild/",
-					success:function(res){
-						$("body").prepend(res);
-					}
-				})
-			}
+		//添加头部
+		addHead();
+		function addHead() {
+			$.ajax({
+				post : "get",
+				url : "findCategoryChild/",
+				success : function(res) {
+					$("body").prepend(res);
+				}
+			})
+		}
 	</script>
 </body>
 </html>
