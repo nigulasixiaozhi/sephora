@@ -37,6 +37,17 @@ public class UserController implements Serializable {
 		 request.getSession().setAttribute(ConfigUtils.SESSION_USER_LOGIN, user2);
 		return user2;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getUrlPath")
+	public String getUrlPath(HttpServletRequest request) {
+		 Object object = request.getSession().getAttribute(ConfigUtils.URL_PATH);
+		 if (object!=null) {
+			String urlPath = (String) object;
+			return urlPath;
+		}
+		 return null;
+	}
 
 	@ResponseBody
 	@RequestMapping("admin/doLogin")

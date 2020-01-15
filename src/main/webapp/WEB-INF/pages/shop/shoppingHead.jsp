@@ -42,8 +42,6 @@
 						<img src="assert/img/head/top_angle_w2.png" class="top-wrapper-right-img"> <a href="myOrder/${userLogin.rowId}">我的订单</a>
 					</div>
 				</div>
-
-
 				<img src="assert/img/head/vip-club.png" class="vip-club"> <a href="#" class="top-wrapper-right-content-vip">会员俱乐部</a> <img src="assert/img/head/mobile-sephora.png" class="mobile-sephora"> <a href="#" class="top-wrapper-right-content-pho">手机丝芙兰</a> <a href="#" class="top-wrapper-right-content">美力事业</a> <a href="#" class="top-wrapper-right-content">帮助中心</a>
 			</div>
 			<div class="clear"></div>

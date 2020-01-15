@@ -17,7 +17,7 @@
 	<div class="logo">
 		<div class="container">
 			<div class="logo_logo fl">
-				<a href="index.html"><img src="assert/img/shoppingcart/download.png" class="photo"></a>
+				<a href="index/"><img src="assert/img/shoppingcart/download.png" class="photo"></a>
 			</div>
 			<div class="logo_my fr">
 				<div class="logo_my_le fl">
@@ -271,7 +271,7 @@
 			var checkedFlag = $(this).parents(".shop_shop_perfume_num").siblings(".shop_shop_perfume_choice").find("input").prop("checked");
 			var checked =checkedFlag?1:0; */
 			var payCount,price,checked; //创建变量
-			$.ajax({//放送ajax查询该类的数据
+			$.ajax({//发送ajax查询该类的数据
 				type:"get",
 				async:false,
 				url:"shopping/get/"+rowId,
@@ -281,7 +281,11 @@
 						 price = res.productPrice;
 						 checked = res.checked;
 						 $(this).siblings(".nums").text(res.payCount);//当页面的数量被更改时变回来
-						$(this).parent().siblings(".shop_shop_perfume_small").text(sumPrice.toFixed(1));
+					}
+				},
+				error:function(res){
+					if(res.responseText =="用户未登录"){
+						window.location.href="login";
 					}
 				}
 			})

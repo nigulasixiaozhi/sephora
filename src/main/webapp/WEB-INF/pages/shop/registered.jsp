@@ -100,7 +100,7 @@
 							alert("注册成功！");
 							window.location.href="index/";
 						}else{
-							alert("注册失败");
+							alert("账户名称重复");
 						}
 					}
 				})

@@ -15,6 +15,26 @@
 	<!-- Spring MVC 不拦截次配置下的文件 -->
 	<!-- 将SpringMVC上下文中定义一个请求进行筛查,如果发现是没有经过映射的请求,就将请求交由WEB应用服务器默认的Servlet处理,如果不是静态资源的请求,才由DispatcherServlet继续处理。 -->
 	<mvc:default-servlet-handler />
+	<!-- 配置拦截器 -开始 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- <mvc:mapping path="/**" /> 如果只写一个*,则不能拦截类似/*/*的请求。静态资源的请求需要判断不进行拦截 -->
+			<!-- 配置需要拦截的请求 -->
+			<mvc:mapping path="/address/**" />
+			 <mvc:mapping path="/shopping/**" /> 
+			 <mvc:mapping path="/shoppingCart" /> 
+			<mvc:mapping path="/shoppingProcess" />
+			<mvc:mapping path="/personalCenter" />
+			<mvc:mapping path="/personalData" />
+			<mvc:mapping path="/myOrder/**" />
+			<!-- 配置忽略的请求 -->
+			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:exclude-mapping path="/**.jsp" />
+			<!-- 此处配置自己书写的拦截器 -->
+			<bean class="com.situ.sephora.shoploginInterceptor.ShopLoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!-- 配置拦截器 -结束 -->
 	<!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- 自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->

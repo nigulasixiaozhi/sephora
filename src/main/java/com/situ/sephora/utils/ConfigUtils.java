@@ -19,6 +19,8 @@ public class ConfigUtils implements Serializable {
 	public static final String COOKIE_USER_NAME = "user.reiz.com";
 	// 管理员登录- cookie name
 	public static final String COOKIE_ADMIN_NAME = "admin.reiz.com";
+	//跳转的url路径
+	public static final String URL_PATH="urlPath";
 
 	public static final String SYS = "sys";
 	//图片写出文件的路径

@@ -771,7 +771,6 @@
 			var userId = $("#userId").val();
 			var productId = $("#productId").val();
 			var payCount = $("#txt1").val();
-			if($("#userId").val()!=""){
 				$.ajax({
 					type:"post",
 					url:"shopping/add",
@@ -786,9 +785,6 @@
 						}
 					}
 				})
-			}else{
-				window.location.href="login";
-			}
 			 
 			return false;
 		})

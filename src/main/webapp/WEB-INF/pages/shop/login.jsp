@@ -101,7 +101,19 @@
 				success:function(res){
 					if(res){
 						alert("登陆成功");
-						 window.location.href="index";
+						$.ajax({
+							type:"get",
+							url:"getUrlPath",
+							success:function(urlPath){
+								if(res){
+									window.location.href=urlPath;
+								}else{
+									 window.location.href="index";
+								}
+							}
+						})
+						
+						
 					}else{
 						alert("账号或密码错误")
 					}

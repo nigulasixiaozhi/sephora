@@ -145,30 +145,19 @@ public class UrlController implements Serializable {
 	//跳转购物车
 	@RequestMapping("/shoppingCart")
 	public ModelAndView shoppingCart(ModelAndView modelAndView) {
-		User user = ContextUtils.getLoginUser();
-		if (user!=null) {
-			modelAndView.addObject("shoppingList",this.shoppingService.find());
-			modelAndView.addObject("checkedPriceAndCount",this.shoppingService.checekdPriceAndCount());
-			modelAndView.setViewName(PAGE_SHOPPING_CART);
-		}else {
-			modelAndView.setViewName(PAGE_LOGIN);
-		}
-		
+		modelAndView.addObject("shoppingList",this.shoppingService.find());
+		modelAndView.addObject("checkedPriceAndCount",this.shoppingService.checekdPriceAndCount());
+		modelAndView.setViewName(PAGE_SHOPPING_CART);
 		return modelAndView;
 	}
 
 	//跳转订单流程
 	@RequestMapping("/shoppingProcess")
 	public ModelAndView shoppingProcess(ModelAndView modelAndView) {
-		User user = ContextUtils.getLoginUser();
-		if (user!=null) {
 		modelAndView.addObject("shopping",this.shoppingService.findByChecked());
 		modelAndView.addObject("sumPriceAndCount", this.shoppingService.checekdPriceAndCount());
 		modelAndView.addObject("addressList",this.addressService.findByAddress(null));
 		modelAndView.setViewName(PAGE_SHOPPING_PROCESS);
-		}else {
-			modelAndView.setViewName(PAGE_LOGIN);
-		}
 		return modelAndView;
 	}
 
@@ -226,14 +215,15 @@ public class UrlController implements Serializable {
 	//跳转地址信息
 	@RequestMapping("/address")
 	public ModelAndView address(ModelAndView modelAndView,HttpServletRequest request) {
-		Object user =  request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
-		if (user!=null&&!user.equals("")) {
-			modelAndView.setViewName(PAGE_ADDRESS);
-			modelAndView.addObject("addressList",this.addressService.findByAddress(null));
-		}else {
-			modelAndView.setViewName(PAGE_LOGIN);
-		}
-		
+//		Object user =  request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
+//		if (user!=null&&!user.equals("")) {
+//			modelAndView.addObject("addressList",this.addressService.findByAddress(null));
+//			modelAndView.setViewName(PAGE_ADDRESS);
+//		}else {
+//			modelAndView.setViewName(PAGE_LOGIN);
+//		}
+		modelAndView.addObject("addressList",this.addressService.findByAddress(null));
+		modelAndView.setViewName(PAGE_ADDRESS);
 		return modelAndView;
 	}
 

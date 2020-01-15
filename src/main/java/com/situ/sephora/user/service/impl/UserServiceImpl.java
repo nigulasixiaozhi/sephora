@@ -21,13 +21,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Long saveUser(User user, Integer userKind) {
-		user.setUserPass(MD5Utils.encode(user.getUserPass()));
-		user.setActiveFlag(1);
-		user.setCreateBy("admin");
-		user.setCreateDate(new Date());
-		user.setLockFlag(User.USER_LOCK_NO);
-		user.setUserKind(userKind);
-		return userDao.saveUser(user);
+		User user2 = this.userDao.getByCode(user.getUserCode());
+		if (user2==null) {
+			user.setUserPass(MD5Utils.encode(user.getUserPass()));
+			user.setActiveFlag(1);
+			user.setCreateBy("admin");
+			user.setCreateDate(new Date());
+			user.setLockFlag(User.USER_LOCK_NO);
+			user.setUserKind(userKind);
+			return userDao.saveUser(user);
+		}else {
+			return null;
+		}
+		
 	}
 
 	@Override
