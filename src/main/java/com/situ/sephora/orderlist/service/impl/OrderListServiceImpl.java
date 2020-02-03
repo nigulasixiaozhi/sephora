@@ -27,6 +27,7 @@ public class OrderListServiceImpl implements OrderListService{
 		for (Long id : shoppingId) {
 			Shopping shopping = this.shoppingDao.get(id);
 			if (shopping!=null) {
+				orderList.setProductPrice(shopping.getProductPrice());
 				orderList.setProductId(shopping.getProductId());
 				orderList.setBuyCount(shopping.getPayCount());
 				orderList.setSumPrice(shopping.getSumPrice());

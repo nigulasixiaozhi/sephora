@@ -520,7 +520,7 @@
 
 		//java
 		//添加头部
-		//addHead();
+		addHead();
 		function addHead() {
 			$.ajax({
 				post : "get",

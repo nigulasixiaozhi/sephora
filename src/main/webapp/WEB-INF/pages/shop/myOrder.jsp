@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,96 +18,13 @@
 			<div class="title">我的SEPHORA</div>
 			<div class="right-content ">
 				<ul class="nav clearfix">
-					<li><span>全部</span></li>
+					<li><span class="boder">全部</span></li>
 					<li><span>待支付</span></li>
 					<li><span>处理中</span></li>
 					<li><span>配送中</span></li>
 					<li><span>已完成</span></li>
 				</ul>
-				<ul class="MyOreder-title clearfix">
-					<li><select class="OrderState" name="">
-							<option value="">最近三个月订单</option>
-							<option value="">今年订单</option>
-							<option value="">2018年订单</option>
-					</select></li>
-					<li>商品</li>
-					<li>数量</li>
-					<li>单价</li>
-					<li></li>
-					<li>收货人</li>
-					<li>合计</li>
-					<li><select class="OrderState1" name="">
-							<option value="">全部状态</option>
-							<option value="">待支付</option>
-							<option value="">已完成</option>
-							<option value="">处理中</option>
-					</select></li>
-					<li>操作</li>
-				</ul>
-				<c:if test="${!empty order}">
-					<c:forEach items="${order}" var="order">
-						<div class="MyOreder-content clearfix">
-							<div class="contentLeft fl">
-								<div class="number">
-									<span>订单号 :</span> <span>${order.rowId }</span> <span><fmt:formatDate value="${order.createDate}" type="both"/> </span>
-								</div>
-								<c:if test="${!empty orderList }">
-									<c:forEach items="${orderList}" var="list">
-										<c:if test="${order.rowId==list.orderId}">
-											<ul class="shopingList clearfix">
-												<li class="clearfix"><img class="fl" src="${list.imgPath}">
-													<div class="productName ">${list.brandName }</div>
-													<div class="productTitle">${list.productName }</div>
-													<div class="productSize">规格：瓶</div></li>
-												<li>${list.buyCount }</li>
-												<li>￥${list.sumPrice }</li>
-												<li></li>
-											</ul>
-										</c:if>
-									</c:forEach>
-								</c:if>
-							</div>
-							<ul class="contentRight fl">
-								<li>${order.addressName}</li>
-								<li>
-									<p>￥${order.sumPrice}</p>
-									<p>(含运费￥0.00)</p>
-									<p><c:choose>
-										<c:when test="${order.pay==0}"><p>未支付</p></c:when>
-										<c:when test="${order.pay==1}"><p>微信</p></c:when>
-										<c:when test="${order.pay==2}"><p>支付宝</p></c:when>
-										<c:when test="${order.pay==3}"><p>银行卡</p></c:when>
-									</c:choose></p>
-								</li>
-								<li><c:choose>
-										<c:when test="${order.orderStatus==0}"><p>已取消</p></c:when>
-										<c:when test="${order.orderStatus==1}"><p>待发货</p></c:when>
-										<c:when test="${order.orderStatus==2}"><p>已发货</p></c:when>
-										<c:when test="${order.orderStatus==3}"><p>已签收</p></c:when>
-										<c:when test="${order.orderStatus==4}"><p>待支付</p></c:when>
-									</c:choose></li>
-								<li>
-									<c:choose>
-										<c:when test="${order.orderStatus==0||order.orderStatus==3}">
-											<p>再次购买</p>
-											<p>订单详情</p>
-										</c:when>
-										<c:when test="${order.orderStatus==4}">
-											<p class="payButton">立即支付</p>
-											<p>订单详情</p>
-											<p id="offOrder">取消订单</p>
-										</c:when>
-										<c:otherwise>
-											<p>订单详情</p>
-											<p id="offOrder">取消订单</p>
-										</c:otherwise>
-									</c:choose>
-								</li>
-							</ul>
-						</div>
-					</c:forEach>
-				</c:if>
-
+				<div id="orderList"></div>
 				<!-- <div class="MyOreder-content clearfix">
 					<div class="contentLeft fl">
 						<div class="number">
@@ -168,13 +84,7 @@
 						</li>
 					</ul>
 				</div> -->
-				<div class="clearfix">
-					<div class="buttonTeam fr">
-						<span class="paging"> &lt;上一页 </span> <span class="pageNumber">1 </span> <span class="paging"> 下一页&gt; </span> <span class="skip">到第<input type="text">页
-						</span>
-						<button type="button">确定</button>
-					</div>
-				</div>
+				
 				<div class="like">
 					<i class="likeImg"></i>
 					<ul class="likeProduct clearfix">
@@ -256,8 +166,77 @@
 					$(".top_search_int_arise").mouseleave(function() {
 						$(".top_search_int_arise").css("display", "none")
 					})
-
+					
+					//取消订单
+				$(".right-content").on("click", ".offOrder",function(){
+					var rowId =$(this).parents(".MyOreder-content").attr("data-id");
+					$.ajax({
+						type:"post",
+						url:"order/update",
+						data:{
+							"rowId":rowId,
+							"orderStatus":0
+						},
+						success:function(res){
+							if(res){
+								initOrderList();
+							}
+						}
+					})
 				})
+				
+				//点击分页
+				$(".right-content").on("click",".pageNumber",function(){
+					var pageCurrent = $(this).text();
+					initOrderList(pageCurrent);
+				})
+				//点击上一页和下一页
+				$(".right-content").on("click",".paging",function(){
+					var $page = $(".buttonTeam .pageNumber");
+					var pageCurrent=0;
+					for(var i=0;i<$page.length;i++){
+						if($page.eq(i).hasClass("active")){
+							 pageCurrent =$page.eq(i).text();
+						}
+					}
+					 if($(this).hasClass("prev")){
+						pageCurrent--;
+						
+					}else if($(this).hasClass("next")){
+						pageCurrent++;
+					} 
+					if(pageCurrent>0&&pageCurrent<=$page.length){
+						initOrderList(pageCurrent);
+					}
+				})
+				
+				//输入数字跳转
+				$(".right-content").on("click","#submit",function(){
+					var pageCurrent = $(".buttonTeam .skip input").val();
+					 if(pageCurrent>$(".buttonTeam .pageNumber").length){
+						alert("没有那么多页");
+					}else if(!(/(^[1-9]\d*$)/.test(pageCurrent))){
+						alert("请输入大于0的正整数")
+					}else{
+						initOrderList(pageCurrent);
+					} 
+				})
+				
+				initOrderList(1);
+					
+				})//document.ready end
+				
+			//插入订单列表	
+			function initOrderList(pageCurrent){
+				$.ajax({
+					type:"get",
+					url:"myOrder/orderList/"+pageCurrent,
+					success:function(html){
+						$("#orderList").html(html);
+					}
+				})
+			}
+				
 		//java
 		//添加头部
 		addHead();

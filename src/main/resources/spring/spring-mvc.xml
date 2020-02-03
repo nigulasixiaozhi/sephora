@@ -27,6 +27,7 @@
 			<mvc:mapping path="/personalCenter" />
 			<mvc:mapping path="/personalData" />
 			<mvc:mapping path="/myOrder/**" />
+			<mvc:mapping path="/orderList/**" />
 			<!-- 配置忽略的请求 -->
 			<mvc:exclude-mapping path="/assets/**" />
 			<mvc:exclude-mapping path="/**.jsp" />

@@ -9,12 +9,12 @@ public class OrderList extends BaseClass {
 	private static final long serialVersionUID = 1L;
 	private Long orderId;//订单ID
 	private Long productId;//商品ID
+	private Double productPrice;//商品价格 订单的价格不能随商品价格的变化而变化
 	private Integer buyCount;//购买数量
 	private Double sumPrice;//商品总价
 	//额外的属性
 	private String productName;//商品名称
 	private String brandName;//商品品牌
-	private Double productPrice;//商品价格
 	private String imgPath;//图片路径
 	
 	public String getProductName() {

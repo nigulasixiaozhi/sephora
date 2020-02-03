@@ -13,8 +13,8 @@
 		useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
 		INSERT INTO
 		TB_ORDER_LIST
-		(`ORDER_ID`,`PRODUCT_ID`,`BUY_COUNT`,`SUM_PRICE`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`)
-		VALUES(#{orderId},#{productId},#{buyCount},#{sumPrice},#{activeFlag},#{createBy},#{createDate}
+		(`ORDER_ID`,`PRODUCT_ID`,PRODUCT_PRICE,`BUY_COUNT`,`SUM_PRICE`,`ACTIVE_FLAG`,`CREATE_BY`,`CREATE_DATE`)
+		VALUES(#{orderId},#{productId},#{productPrice},#{buyCount},#{sumPrice},#{activeFlag},#{createBy},#{createDate}
 		)
 	</insert>
 

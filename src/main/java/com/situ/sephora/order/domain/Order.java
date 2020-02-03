@@ -16,6 +16,8 @@ public class Order extends BaseClass{
 	private String userName;//用户名称
 	private String addressName;//收货地址名称
 	
+	
+	
 	public String getUserName() {
 		return userName;
 	}

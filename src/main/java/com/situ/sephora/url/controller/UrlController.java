@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.situ.sephora.address.service.AddressService;
+import com.situ.sephora.base.domain.PageData;
 import com.situ.sephora.category.service.CategoryService;
 import com.situ.sephora.order.service.OrderService;
 import com.situ.sephora.orderlist.domain.OrderList;
@@ -22,6 +24,7 @@ import com.situ.sephora.user.domain.User;
 import com.situ.sephora.user.service.UserService;
 import com.situ.sephora.utils.ConfigUtils;
 import com.situ.sephora.utils.ContextUtils;
+import com.situ.sephora.utils.PageUtils;
 
 @Controller
 public class UrlController implements Serializable {
@@ -70,6 +73,8 @@ public class UrlController implements Serializable {
 	private final String PAGE_ADDRESS = "shop/address";
 	// 我的订单
 	private final String PAGE_MY_ORDER = "shop/myOrder";
+	//订单列表
+	private final String PAGE_ORDER_LIST ="shop/orderList";
 
 	// 后台登录页
 	private final String PAGE_ADMIN_LOGIN = "admin/login";
@@ -189,7 +194,7 @@ public class UrlController implements Serializable {
 		Object object =  request.getSession().getAttribute(ConfigUtils.SESSION_USER_LOGIN);
 		if (object!=null&&!object.equals("")) {
 			User user = (User) object;
-			modelAndView.addObject("order",this.orderService.findByUserId(user.getRowId()));
+			modelAndView.addObject("order",this.orderService.findByUserId(user.getRowId(),null));
 			modelAndView.setViewName(PAGE_PERSONAL_CENTER);
 		}else {
 			modelAndView.setViewName(PAGE_LOGIN);
@@ -228,11 +233,26 @@ public class UrlController implements Serializable {
 	}
 
 	//跳转我的订单
-	@RequestMapping("/myOrder/{userId}")
-	public ModelAndView myOrder(ModelAndView modelAndView,@PathVariable Long userId) {
-		modelAndView.addObject("order",this.orderService.findByUserId(userId));
-		modelAndView.addObject("orderList",this.orderListServie.find(null));
+	@RequestMapping("/myOrder")
+	public ModelAndView myOrder(ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_MY_ORDER);
+		return modelAndView;
+	}
+	
+	//跳转我的订单列表
+	@ResponseBody
+	@RequestMapping("/myOrder/orderList/{pageCurrent}")
+	public ModelAndView orderList(@PathVariable Integer pageCurrent, ModelAndView modelAndView) {
+		User user = ContextUtils.getLoginUser();
+		if (user!=null) {
+			Long userId = user.getRowId();
+			PageData pageData = PageUtils.buildPageData(this.orderService.findByUserId(userId,null).size(), pageCurrent);
+			modelAndView.addObject("pageDataList",pageData.getPageList());
+			modelAndView.addObject("pageCurrent",pageData.getPageCurrent());
+			modelAndView.addObject("order",this.orderService.findByUserId(userId,pageCurrent));
+			modelAndView.addObject("orderList",this.orderListServie.find(null));
+			modelAndView.setViewName(PAGE_ORDER_LIST);
+		}
 		return modelAndView;
 	}
 

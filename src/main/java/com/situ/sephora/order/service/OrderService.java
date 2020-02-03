@@ -11,7 +11,7 @@ public interface OrderService {
 	
 	List<Order> findByOrder(Order order);
 	
-	List<Order> findByUserId(Long userId);
+	List<Order> findByUserId(Long userId,Integer pageCurrent);
 	
 	Integer update(Order order);
 	

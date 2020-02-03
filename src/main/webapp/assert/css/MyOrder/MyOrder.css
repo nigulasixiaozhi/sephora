@@ -292,14 +292,27 @@
     color: #a8a8a8;
 	line-height: 42px;
 }
+.right-content .buttonTeam .paging.prev{
+	margin-right:15px;
+}
+.right-content .buttonTeam .paging.next{
+	margin-left:15px;
+}
 .right-content .buttonTeam .pageNumber{
-	background-color: #000;
-    color: #fff;
-	margin: 0 20px;
+	border:1px solid #ddd;
+   color:#000;
+	margin: 0 5px;
 	width: 40px;
 	height: 40px;
 	text-align: center;
 	line-height: 40px;
+}
+.right-content .buttonTeam .pageNumber:hover{
+	color:#dc002f;
+}
+.right-content .buttonTeam .pageNumber.active{
+	background-color: #000;
+	 color: #fff;
 }
 .right-content .buttonTeam .skip{
 	margin-left: 40px;

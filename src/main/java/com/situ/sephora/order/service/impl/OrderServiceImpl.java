@@ -57,12 +57,22 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public List<Order> findByUserId(Long userId) {
-		return this.orderDao.findByUserId(userId);
+	public List<Order> findByUserId(Long userId,Integer pageCurrent) {
+		if(pageCurrent!=null) {
+			if(pageCurrent==1) {
+				pageCurrent = pageCurrent-1;
+			}else if (pageCurrent>1) {
+				pageCurrent = (pageCurrent-1)*PageUtils.PAGE_ROWS;
+			}
+		}
+		
+		return this.orderDao.findByUserId(userId,pageCurrent,PageUtils.PAGE_ROWS);
 	}
 
 	@Override
 	public Integer update(Order order) {
+		order.setUpdateBy(ConfigUtils.SESSION_USER_LOGIN);
+		order.setUpdateDate(new Date());
 		order = PageUtils.buildSearchParam(order);
 		this.orderDao.update(order);
 		return 1;

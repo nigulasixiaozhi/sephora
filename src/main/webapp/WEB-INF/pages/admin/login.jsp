@@ -49,6 +49,11 @@
 				}
 			})
 		})
+		document.onkeydown = function(e){
+			if(e.keyCode==13){
+				$("#login").click();
+			}
+		}
 	</script>
 </body>
 </html>

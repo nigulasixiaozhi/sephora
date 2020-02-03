@@ -328,7 +328,7 @@
 									success:function(res){
 										if(res){
 											alert("下单成功！");
-											window.location.href="myOrder/"+$("#userId").val();
+											window.location.href="myOrder/";
 										}
 									}
 								})

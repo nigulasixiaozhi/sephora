@@ -49,6 +49,10 @@
 	<select id="findByUserId" resultType="order">
 		<include refid="SELECT_BASE"></include> 
 		AND USER_ID=#{userId}
+		<if test="pageCurrent!=null">
+			LIMIT #{pageCurrent},#{pageRows}
+		</if>
+		
 	</select>
 	
 	<update id="update" parameterType="order">
